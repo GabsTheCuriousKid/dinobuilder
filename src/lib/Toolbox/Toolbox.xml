@@ -3,6 +3,9 @@
         <block type="motion_goto_position" />
         <block type="motion_getx" />
         <block type="motion_gety" />
+        <sep gap="48"></sep>
+        <block type="motion_stage" />
+        <block type="motion_isstage" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />
