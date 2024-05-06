@@ -57,6 +57,17 @@ function register() {
         const code = `setTimeout(async () => { ${BLOCKS} }, (${TIME} * 1000));`;
         return `${code}\n`;
     })
+    // \n await new Promise(resolve => setTimeout(resolve, 0))
+    registerBlock(`${categoryPrefix}always`, {
+        message0: 'run always',
+        args0: [],
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
+        const code = `while (true) { ${BLOCKS}\n await new Promise(resolve => setTimeout(resolve, 0)) };`;
+        return `${code}\n`;
+    })
 }
 
 export default register;

@@ -151,6 +151,31 @@ function register() {
         return [`(${X || false} || ${Y || false})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // x xor y
+    registerBlock(`${categoryPrefix}xor`, {
+        message0: '%1 xor %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_value",
+                "name": "Y",
+                "check": "Boolean"
+            }
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`Boolean(${X || false} ^ ${Y || false})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // not x
     registerBlock(`${categoryPrefix}not`, {
         message0: 'not %1',
@@ -505,6 +530,31 @@ function register() {
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
 
         return [`Math.floor(Math.random()*(${Y} - ${X} + 1) + ${X})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // random
+    registerBlock(`${categoryPrefix}random`, {
+        message0: 'random from %1 to %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X",
+                "check": "Number"
+            },
+            {
+                "type": "input_value",
+                "name": "Y",
+                "check": "Number"
+            }
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`((Math.random()+${X})*${Y-X})`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 

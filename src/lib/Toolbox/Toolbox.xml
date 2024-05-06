@@ -14,6 +14,8 @@
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />
         <block type="events_timeout" />
+        <sep gap="48"></sep>
+        <block type="events_always" />
     </category>
     <category name="Control" colour="#FFAB19">
         <block type="control_wait" />
@@ -61,6 +63,7 @@
         <sep gap="48"></sep>
         <block type="operators_and" />
         <block type="operators_or" />
+        <block type="operators_xor" />
         <block type="operators_not" />
         <sep gap="48"></sep>
         <block type="operators_add" />
@@ -74,6 +77,7 @@
         <block type="operators_adv" />
         <sep gap="48"></sep>
         <block type="operators_randomint" />
+        <block type="operators_random" />
         <sep gap="48"></sep>
         <block type="operators_join" />
         <block type="operators_letter" />
