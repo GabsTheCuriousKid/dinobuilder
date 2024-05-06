@@ -556,6 +556,24 @@ function register() {
 
         return [`((Math.random()+${X})*${Y-X})`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    // length of
+    registerBlock(`${categoryPrefix}length_of`, {
+        message0: 'length of %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X",
+                "check": "String"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        return [`String(${X}).length`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;
