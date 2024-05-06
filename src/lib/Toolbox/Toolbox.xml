@@ -1,4 +1,10 @@
 <xml>
+    <category name="Motion" colour="#4C97FF">
+    
+    </category>
+    <category name="Sound" colour="#CF63CF">
+        <block type="sound_startsound" />
+    </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />
         <block type="events_timeout" />
@@ -18,14 +24,9 @@
         <block type="control_default" />
         <block type="control_break" />
     </category>
-    <category name="Sound" colour="#CF63CF">
-        <block type="sound_startsound" />
-    </category>
     <category name="Sensing" colour="#5CB1D6">
-        <!--
         <block type="sensing_keypress" />
         <sep gap="48"></sep>
-        -->
         <block type="sensing_alert" />
         <block type="sensing_prompt" />
         <block type="sensing_confirm" />
