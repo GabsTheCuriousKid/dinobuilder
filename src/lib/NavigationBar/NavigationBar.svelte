@@ -48,7 +48,7 @@
         flex-direction: row;
         align-items: center;
 
-        background: #ff4b4b;
+        background: #80f41a;
     }
     .logo-margin {
         margin: 0 6px;
