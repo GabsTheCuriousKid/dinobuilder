@@ -59,7 +59,7 @@ function register() {
     })
     // run always
     registerBlock(`${categoryPrefix}always`, {
-        message0: 'run always %1',
+        message0: 'run always      %1',
         args0: [
             {
                 "type": "input_statement",
@@ -70,7 +70,7 @@ function register() {
         colour: categoryColor,
     }, (block) => {
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
-        const code = `while (true) { ${BLOCKS}\n await new Promise(resolve => setTimeout(resolve, 0)) };`;
+        const code = `while (true) { ${BLOCKS} await new Promise(resolve => setTimeout(resolve, 0)) };`;
         return `${code}\n`;
     })
 }
