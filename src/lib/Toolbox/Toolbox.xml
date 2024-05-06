@@ -1,6 +1,8 @@
 <xml>
     <category name="Motion" colour="#4C97FF">
         <block type="motion_goto_position" />
+        <block type="motion_getx" />
+        <block type="motion_gety" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />

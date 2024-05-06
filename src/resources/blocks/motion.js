@@ -29,6 +29,27 @@ function register() {
         const code = `const target = util.target;\nreturn target.setXY(${X}, ${Y});`;
         return `${code}\n`;
     })
+
+    registerBlock(`${categoryPrefix}getx`, {
+        message0: 'get x position of target',
+        args0: [],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `const target = util.target;\nMath.round(target.x);`;
+        return `${code}\n`;
+    })
+    registerBlock(`${categoryPrefix}gety`, {
+        message0: 'get y position of target',
+        args0: [],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `const target = util.target;\nMath.round(target.y);`;
+        return `${code}\n`;
+    })
 }
 
 export default register;
