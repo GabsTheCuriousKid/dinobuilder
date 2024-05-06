@@ -62,6 +62,9 @@ function register() {
         message0: 'when a tick ends do %1',
         args0: [
             {
+                "type": "input_dummy"
+            },
+            {
                 "type": "input_statement",
                 "name": "BLOCKS"
             }

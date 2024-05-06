@@ -38,6 +38,7 @@ function register() {
                     [ "block", "COMMAND" ],
                     [ "reporter", "REPORTER" ],
                     [ "boolean", "BOOLEAN" ],
+                    [ "hat", "HAT" ],
                 ]
             },
             {
