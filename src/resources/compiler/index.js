@@ -140,8 +140,8 @@ class Compiler {
 
         const headerCode = [
             `/*`,
-            `   This extension was made with TurboBuilder!`,
-            `   https://turbobuilder-steel.vercel.app/`,
+            `   This extension was made with DinoBuilder!`,
+            `   https://dinobuilder.vercel.app/`,
             `*/`,
             `(async function (Scratch) {`,
             `const variables = {};`,
