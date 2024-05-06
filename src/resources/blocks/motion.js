@@ -37,8 +37,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const code = `const target = util.target;\nMath.round(target.x);`;
-        return `${code}\n`;
+        return [`const target = util.target;\nMath.round(target.x)`, javascriptGenerator.ORDER_ATOMIC];
     })
     registerBlock(`${categoryPrefix}gety`, {
         message0: 'get y position',
@@ -47,10 +46,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const code = `const target = util.target;\nMath.round(target.y);`;
-        return `${code}\n`;
+        return [`const target = util.target;\nMath.round(target.y)`, javascriptGenerator.ORDER_ATOMIC];
     })
-    
+
     registerBlock(`${categoryPrefix}stage`, {
         message0: 'stage',
         args0: [],

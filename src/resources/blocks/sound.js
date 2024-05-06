@@ -32,8 +32,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const code = `const target = util.target;\nMath.round(target.volume);`;
-        return `${code}\n`;
+        return [`const target = util.target;\nMath.round(target.volume)`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
