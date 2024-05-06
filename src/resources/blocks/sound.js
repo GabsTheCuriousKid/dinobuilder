@@ -25,6 +25,16 @@ function register() {
         const code = `doSound(\`${SOUND}\`, Scratch.vm.runtime.targets.find(target => target.isStage), Scratch.vm.runtime);`;
         return `${code}\n`;
     })
+    registerBlock(`${categoryPrefix}getvolume`, {
+        message0: 'get volume',
+        args0: [],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `const target = util.target;\nMath.round(target.volume);`;
+        return `${code}\n`;
+    })
 }
 
 export default register;

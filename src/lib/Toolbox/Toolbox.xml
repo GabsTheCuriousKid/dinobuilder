@@ -6,6 +6,7 @@
     </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />
+        <block type="sound_getvolume" />
     </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />

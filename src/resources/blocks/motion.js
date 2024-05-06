@@ -31,9 +31,9 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}getx`, {
-        message0: 'get x position of target',
+        message0: 'get x position',
         args0: [],
-        output: "String",
+        output: "Number",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
@@ -41,9 +41,9 @@ function register() {
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}gety`, {
-        message0: 'get y position of target',
+        message0: 'get y position',
         args0: [],
-        output: "String",
+        output: "Number",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
