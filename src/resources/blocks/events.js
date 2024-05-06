@@ -57,10 +57,15 @@ function register() {
         const code = `setTimeout(async () => { ${BLOCKS} }, (${TIME} * 1000));`;
         return `${code}\n`;
     })
-    // \n await new Promise(resolve => setTimeout(resolve, 0))
+    // run always
     registerBlock(`${categoryPrefix}always`, {
-        message0: 'run always',
-        args0: [],
+        message0: 'run always %1',
+        args0: [
+            {
+                "type": "input_statement",
+                "name": "BLOCKS"
+            }
+        ],
         inputsInline: true,
         colour: categoryColor,
     }, (block) => {
