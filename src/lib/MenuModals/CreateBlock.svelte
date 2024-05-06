@@ -313,8 +313,8 @@
         cursor: pointer;
     }
     .button-accept {
-        border: 1px solid #ff4b4b;
-        background: #ff4b4b;
+        border: 1px solid #80f41a;
+        background: #80f41a;
         color: white;
         font-weight: bold;
         padding: 0.75rem 1rem;
@@ -338,7 +338,7 @@
         top: 0px;
         width: 100%;
         height: 100%;
-        background: #ff4b4bb0;
+        background: #80f41ab0;
         z-index: 999999;
         display: flex;
         flex-direction: column;

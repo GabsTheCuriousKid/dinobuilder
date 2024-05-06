@@ -355,9 +355,6 @@
         extensionColors: false,
     };
 
-    function discordInvite() {
-        window.open("https://discord.gg/eVQdK8csJc")
-    }
 </script>
 
 <CreateBlockModal
@@ -386,8 +383,6 @@
     />
 {/if}
 <NavigationBar>
-    <NavigationButton on:click={discordInvite}>Discord</NavigationButton>
-    <NavigationDivider />
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
     <NavigationDivider />
@@ -652,7 +647,7 @@
     }
 
     .project-name[data-invalid="true"] {
-        background-color: #ffabab;
+        background-color: #a7f464;
         text-decoration: red underline;
     }
     :global(body.dark) .project-name[data-invalid="true"] {
