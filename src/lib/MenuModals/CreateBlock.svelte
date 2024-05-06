@@ -366,7 +366,7 @@
     .modal-title {
         width: 100%;
         height: 7%;
-        background: #ff4b4b;
+        background: #80f41a;
         color: white;
         display: flex;
         flex-direction: column;
@@ -398,13 +398,13 @@
         border-radius: 1024px;
         text-align: center;
         border: 1px solid rgba(0, 0, 0, 0.2);
-        outline: 0px solid #ff4b4b44;
+        outline: 0px solid #80f41a44;
         transition: 0.25s linear;
     }
     .block-id:focus,
     .block-id:active {
-        border: 1px solid #ff4b4b;
-        outline: 4px solid #ff4b4b44;
+        border: 1px solid #80f41a;
+        outline: 4px solid #80f41a44;
         transition: 0.25s linear;
     }
     :global(body.dark) .block-id {
@@ -413,11 +413,11 @@
         color: white;
     }
     .block-id[data-invalid="true"] {
-        background-color: #ffabab;
+        background-color: #a7f464;
         text-decoration: red underline;
     }
     :global(body.dark) .block-id[data-invalid="true"] {
-        background-color: #9b0000 !important;
+        background-color: #5aac12 !important;
         text-decoration: red underline;
     }
 
@@ -444,7 +444,7 @@
     }
     .block-addition:focus,
     .block-addition:hover {
-        border-color: #ff4b4b !important;
+        border-color: #80f41a !important;
     }
     .block-addition:active {
         border-color: black !important;
