@@ -59,7 +59,7 @@ function register() {
     })
     // run always
     registerBlock(`${categoryPrefix}always`, {
-        message0: 'when a tick ends do %1',
+        message0: 'when a tick ends do %1 %2',
         args0: [
             {
                 "type": "input_dummy"
