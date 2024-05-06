@@ -1,6 +1,6 @@
 <xml>
     <category name="Motion" colour="#4C97FF">
-    
+        <block type="goto_position" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />
