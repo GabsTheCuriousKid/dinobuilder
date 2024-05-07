@@ -123,6 +123,17 @@ function register() {
     }, (block) => {
         return [`((new Date(new Date(Date.now()).getYear(), 1, 29)).getDate() === 29)`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    // leap year or not
+    registerBlock(`${categoryPrefix}isFocused`, {
+        message0: 'is user focused?',
+        args0: [],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`document.hasFocus();`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 Blockly.Extensions.register('single_character_validation', function() {

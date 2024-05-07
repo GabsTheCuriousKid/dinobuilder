@@ -7,6 +7,9 @@
         <block type="motion_stage" />
         <block type="motion_isstage" />
     </category>
+    <category name="Looks" colour="#9966FF">
+        <!--<block type="looks_" />-->
+    </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />
         <block type="sound_getvolume" />
@@ -50,6 +53,7 @@
         <block type="literals_null" />
         <block type="literals_true" />
         <block type="literals_false" />
+        <block type="literals_randomBoolean" />
         <block type="literals_number" />
         <block type="literals_string" />
         <block type="literals_color" />

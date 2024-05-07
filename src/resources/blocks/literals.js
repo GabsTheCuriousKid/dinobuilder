@@ -27,6 +27,17 @@ function register() {
         return [`false`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // false
+    registerBlock(`${categoryPrefix}randomBoolean`, {
+        message0: 'random',
+        args0: [],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, () => {
+        return [`Boolean(Math.round(Math.random()))`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // number
     registerBlock(`${categoryPrefix}number`, {
         message0: '(%1)',

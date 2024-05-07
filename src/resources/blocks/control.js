@@ -266,6 +266,7 @@ function register() {
             },
         ],
         previousStatement: null,
+        nextStatement: null,
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
