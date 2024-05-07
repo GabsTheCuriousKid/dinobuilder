@@ -81,6 +81,67 @@ function register() {
         return `${code}\n`;
     })
 
+    registerBlock(`${categoryPrefix}createcap`, {
+        message0: 'create cap block %1 id: %2 %3 text: %4 %5 inputs: %6 %7 function: %8 %9',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "TEXT",
+                "text": "text",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "INPUTS",
+                "check": "BlockInput"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "FUNC"
+            }
+        ],
+        nextStatement: null,
+        inputsInline: false,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const TEXT = block.getFieldValue('TEXT')
+        const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
+        const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
+        
+        const code = `blocks.push({
+            opcode: \`${ID}\`,
+            blockType: Scratch.BlockType.COMMAND,
+            text: \`${TEXT}\`,
+            arguments: { ${INPUTS} },
+            isTerminal: true,
+            disableMonitor: true
+        });
+        Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
+        return `${code}\n`;
+    })
+
     // create dem inputss!!!
     registerBlock(`${categoryPrefix}input`, {
         message0: 'create input %1 id: %2 %3 type: %4 %5 default: %6',

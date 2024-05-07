@@ -120,6 +120,7 @@
     <sep></sep>
     <category name="Blocks" colour="#FF6680">
         <block type="blocks_create" />
+        <block type="blocks_createcap" />
         <block type="blocks_input" />
         <sep gap="48"></sep>
         <block type="blocks_get" />
