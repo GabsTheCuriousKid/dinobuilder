@@ -114,9 +114,6 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "input_dummy"
-            },
-            {
                 "type": "input_statement",
                 "name": "FUNC"
             }
