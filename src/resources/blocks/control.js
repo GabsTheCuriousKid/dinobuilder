@@ -247,6 +247,34 @@ function register() {
         return `${code}\n`;
     })
 
+    registerBlock(`${categoryPrefix}try_catch`, {
+        message0: 'try to do %1 %2 if a block errors %3 %4',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "BLOCKS"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "BLOCKS2"
+            },
+        ],
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
+        const BLOCKS2 = javascriptGenerator.statementToCode(block, 'BLOCKS2');
+        const code = `try { ${BLOCKS} } catch (${error}) { ${BLOCKS2} }`;
+        return `${code}\n`;
+    })
+
     // break
     registerBlock(`${categoryPrefix}break`, {
         message0: 'break',
@@ -256,6 +284,22 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const code = `break;`;
+        return `${code}\n`;
+    })
+    registerBlock(`${categoryPrefix}throwError`, {
+        message0: 'throw error %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "VALUE"
+            },
+        ],
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `throw '${VALUE}';`;
         return `${code}\n`;
     })
 }
