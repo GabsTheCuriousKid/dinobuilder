@@ -299,7 +299,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `throw '${VALUE}';`;
+        const code = `throw ${VALUE};`;
         return `${code}\n`;
     })
 }
