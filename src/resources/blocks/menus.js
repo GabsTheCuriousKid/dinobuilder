@@ -32,7 +32,7 @@ function register() {
 
     // make item
     registerBlock(`${categoryPrefix}joinarrays`, {
-        message0: 'join %1 %2 %3 %4 %5 %6',
+        message0: 'join %1 %2',
         args0: [
             {
                 "type": "input_value",
@@ -43,27 +43,7 @@ function register() {
                 "type": "input_value",
                 "name": "B",
                 "check": "JSONArray"
-            },
-            {
-                "type": "input_value",
-                "name": "C",
-                "check": "JSONArray"
-            },
-            {
-                "type": "input_value",
-                "name": "D",
-                "check": "JSONArray"
-            },
-            {
-                "type": "input_value",
-                "name": "E",
-                "check": "JSONArray"
-            },
-            {
-                "type": "input_value",
-                "name": "F",
-                "check": "JSONArray"
-            },
+            }
         ],
         output: "JSONArray",
         inputsInline: true,
@@ -71,11 +51,7 @@ function register() {
     }, (block) => {
         const A = javascriptGenerator.valueToCode(block, 'A', javascriptGenerator.ORDER_ATOMIC);
         const B = javascriptGenerator.valueToCode(block, 'B', javascriptGenerator.ORDER_ATOMIC);
-        const C = javascriptGenerator.valueToCode(block, 'C', javascriptGenerator.ORDER_ATOMIC);
-        const D = javascriptGenerator.valueToCode(block, 'D', javascriptGenerator.ORDER_ATOMIC);
-        const E = javascriptGenerator.valueToCode(block, 'E', javascriptGenerator.ORDER_ATOMIC);
-        const F = javascriptGenerator.valueToCode(block, 'F', javascriptGenerator.ORDER_ATOMIC);
-        return [`${A}, ${B}, ${C}, ${D}, ${E}, ${F}`, javascriptGenerator.ORDER_ATOMIC];
+        return [`${A}, ${B}`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // create ze menu
