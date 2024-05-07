@@ -286,12 +286,13 @@ function register() {
         const code = `break;`;
         return `${code}\n`;
     })
-    registerBlock(`${categoryPrefix}throwError`, {
+    registerBlock(`${categoryPrefix}throwerror`, {
         message0: 'throw error %1',
         args0: [
             {
                 "type": "input_value",
-                "name": "VALUE"
+                "name": "VALUE",
+                "check": "String"
             },
         ],
         previousStatement: null,
@@ -299,7 +300,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `throw ${VALUE};`;
+        const code = `throw new Error(${VALUE});`;
         return `${code}\n`;
     })
 }
