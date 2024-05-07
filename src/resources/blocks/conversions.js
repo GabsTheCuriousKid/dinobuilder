@@ -125,7 +125,7 @@ function register() {
     }, (block) => {
         const VAL = javascriptGenerator.valueToCode(block, 'VAL', javascriptGenerator.ORDER_ATOMIC);
         const MENU = block.getFieldValue('MENU');
-        return [`String(${VAL}).to${MENU})Case`, javascriptGenerator.ORDER_ATOMIC];
+        return [`String(${VAL}).to${MENU}Case()`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
