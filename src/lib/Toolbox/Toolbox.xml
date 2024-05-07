@@ -144,6 +144,7 @@
     </category>
     <category name="Menus" colour="#CB48E8">
         <block type="menus_itemtextvalue" />
+        <block type="menus_itemtextnvalue" />
         <block type="menus_joinarrays" />
         <block type="menus_create" />
     </category>

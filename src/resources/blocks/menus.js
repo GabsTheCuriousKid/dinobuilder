@@ -31,6 +31,25 @@ function register() {
     })
 
     // make item
+    registerBlock(`${categoryPrefix}itemtextnvalue`, {
+        message0: 'item: text & value %1',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "VALUE",
+                "spellcheck": false
+            },
+        ],
+        output: "JSONArray",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const TEXT = block.getFieldValue('TEXT');
+        const VALUE = block.getFieldValue('VALUE');
+        return [`"${VALUE}"`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // make item
     registerBlock(`${categoryPrefix}joinarrays`, {
         message0: 'join %1 %2',
         args0: [
