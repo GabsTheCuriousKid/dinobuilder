@@ -48,6 +48,8 @@
         <block type="sensing_time" />
         <block type="sensing_year" />
         <block type="sensing_leapyear" />
+        <sep gap="48"></sep>
+        <block type="sensing_isfocused" />
     </category>
     <category name="Literals" colour="#59C08E">
         <block type="literals_null" />
