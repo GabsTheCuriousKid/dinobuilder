@@ -247,6 +247,34 @@ function register() {
         return `${code}\n`;
     })
 
+    // while statement
+    registerBlock(`${categoryPrefix}while`, {
+        message0: 'while %1 %2 %3',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "CONDITION",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "BLOCKS",
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
+        const code = `while (${CONDITION}) { ${BLOCKS} }`;
+        return `${code}\n`;
+    })
+
     registerBlock(`${categoryPrefix}try_catch`, {
         message0: 'try to do %1 %2 if a block errors %3 %4',
         args0: [
@@ -303,6 +331,17 @@ function register() {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const code = `throw new Error(${VALUE});`;
         return `${code}\n`;
+    })
+    registerBlock(`${categoryPrefix}error`, {
+        message0: 'error',
+        args0: [],
+        output: "String",
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`err`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
