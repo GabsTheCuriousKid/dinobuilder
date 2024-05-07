@@ -55,6 +55,7 @@
     import registerControl from "../resources/blocks/control.js";
     import registerSensing from "../resources/blocks/sensing.js";
     import registerMotion from "../resources/blocks/motion.js";
+    import registerLooks from "../resources/blocks/looks.js";
     import registerSound from "../resources/blocks/sound.js";
     import registerLiterals from "../resources/blocks/literals.js";
     import registerOperators from "../resources/blocks/operators.js";
@@ -62,6 +63,7 @@
     import registerVariables from "../resources/blocks/variables.js";
     import registerJSON from "../resources/blocks/json.js";
     import registerBlocks from "../resources/blocks/blocks.js";
+    import registerMenus from "../resources/blocks/menus.js";
     import registerFunctions from "../resources/blocks/functions.js";
     import registerDebug from "../resources/blocks/debug.js";
     
@@ -69,6 +71,7 @@
     registerControl();
     registerEvents();
     registerMotion();
+    registerLooks();
     registerSound();
     registerSensing();
     registerLiterals();
@@ -77,6 +80,7 @@
     registerVariables();
     registerJSON();
     registerBlocks();
+    registerMenus();
     registerFunctions();
     registerDebug();
 

@@ -8,7 +8,8 @@
         <block type="motion_isstage" />
     </category>
     <category name="Looks" colour="#9966FF">
-        <!--<block type="looks_" />-->
+        <block type="looks_say" />
+        <block type="looks_think" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <block type="sound_startsound" />
@@ -135,8 +136,11 @@
         <sep gap="48"></sep>
         <block type="blocks_get" />
         <block type="blocks_return" />
-        <sep gap="48"></sep>
-        <block type="blocks_itemtextvalue" />
+    </category>
+    <category name="Menus" colour="#CB48E8">
+        <block type="menus_itemtextvalue" />
+        <block type="menus_joinarrays" />
+        <block type="menus_create" />
     </category>
     <category name="Functions" colour="#5531D6">
         <block type="functions_create">

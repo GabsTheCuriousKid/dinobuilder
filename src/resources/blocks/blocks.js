@@ -217,30 +217,6 @@ function register() {
         return [`args["${NAME}"]`, javascriptGenerator.ORDER_ATOMIC];
     })
 
-    // get input
-    registerBlock(`${categoryPrefix}itemtextvalue`, {
-        message0: 'item: text %1 value %2',
-        args0: [
-            {
-                "type": "field_input",
-                "name": "TEXT",
-                "spellcheck": false
-            },
-            {
-                "type": "field_input",
-                "name": "VALUE",
-                "spellcheck": false
-            },
-        ],
-        output: "JSONObject",
-        inputsInline: true,
-        colour: categoryColor
-    }, (block) => {
-        const TEXT = block.getFieldValue('TEXT');
-        const VALUE = block.getFieldValue('VALUE');
-        return [`{ text: "${TEXT}", value: "${VALUE}" }`, javascriptGenerator.ORDER_ATOMIC];
-    })
-
     // return
     registerBlock(`${categoryPrefix}return`, {
         message0: 'return %1',
