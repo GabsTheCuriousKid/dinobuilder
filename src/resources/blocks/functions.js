@@ -115,11 +115,10 @@ function register() {
     registerBlock(`${categoryPrefix}getsprites`, {
         message0: 'get Sprites function',
         args0: [],
-        nextStatement: null,
         inputsInline: true,
         colour: categoryColor,
     }, (block) => {
-        const code = `getSprites() {
+        const code = `function getSprites() {
             const spriteNames = [];
             const targets = Scratch.vm.runtime.targets;
             const myself = Scratch.vm.runtime.getEditingTarget().getName();
