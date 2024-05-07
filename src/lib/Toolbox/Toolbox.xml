@@ -67,6 +67,8 @@
     <category name="Operators" colour="#59C059">
         <block type="operators_equals" />
         <block type="operators_strictequals" />
+        <block type="operators_notequals" />
+        <block type="operators_notstrictequals" />
         <block type="operators_more" />
         <block type="operators_less" />
         <sep gap="48"></sep>
@@ -95,6 +97,7 @@
     <category name="Conversions" colour="#8BC059">
         <block type="conversions_tonumber" />
         <block type="conversions_tostring" />
+        <block type="conversions_toboolean" />
         <sep gap="48"></sep>
         <block type="conversions_time" />
     </category>

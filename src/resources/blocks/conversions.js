@@ -41,6 +41,24 @@ function register() {
         return [`String(${VAL})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // tostring
+    registerBlock(`${categoryPrefix}toboolean`, {
+        message0: "%1 to boolean",
+        args0: [
+            {
+                "type": "input_value",
+                "name": "VAL"
+            },
+        ],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VAL = javascriptGenerator.valueToCode(block, 'VAL', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`Boolean(${VAL})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // convert time lengths
     registerBlock(`${categoryPrefix}time`, {
         message0: "%1 %2 to %3",

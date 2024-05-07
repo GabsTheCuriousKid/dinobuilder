@@ -51,6 +51,51 @@ function register() {
         return [`(${X || 0} === ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // x = y
+    registerBlock(`${categoryPrefix}notequals`, {
+        message0: '%1 ≠ %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X"
+            },
+            {
+                "type": "input_value",
+                "name": "Y"
+            }
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`!(${X || 0} == ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    registerBlock(`${categoryPrefix}notstrictequals`, {
+        message0: '%1 ≠≠≠ %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X"
+            },
+            {
+                "type": "input_value",
+                "name": "Y"
+            }
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`!(${X || 0} === ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // x > y
     registerBlock(`${categoryPrefix}more`, {
         message0: '%1 > %2',
