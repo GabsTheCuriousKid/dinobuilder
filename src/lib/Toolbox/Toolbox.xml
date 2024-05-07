@@ -32,6 +32,7 @@
         <block type="control_default" />
         <block type="control_break" />
         <sep gap="48"></sep>
+        <block type="control_try_catch" />
         <block type="control_throwerror" />
     </category>
     <category name="Sensing" colour="#5CB1D6">

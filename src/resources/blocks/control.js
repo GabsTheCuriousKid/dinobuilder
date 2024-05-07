@@ -271,7 +271,7 @@ function register() {
     }, (block) => {
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
         const BLOCKS2 = javascriptGenerator.statementToCode(block, 'BLOCKS2');
-        const code = `try { ${BLOCKS} } catch (${error}) { ${BLOCKS2} }`;
+        const code = `try { ${BLOCKS} }\ncatch (err) { ${BLOCKS2} }`;
         return `${code}\n`;
     })
 
