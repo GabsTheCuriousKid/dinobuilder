@@ -35,32 +35,32 @@ function register() {
         message0: 'join %1 %2 %3 %4 %5 %6',
         args0: [
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "A",
                 "check": "JSONArray"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "B",
                 "check": "JSONArray"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "C",
                 "check": "JSONArray"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "D",
                 "check": "JSONArray"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "E",
                 "check": "JSONArray"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "F",
                 "check": "JSONArray"
             },

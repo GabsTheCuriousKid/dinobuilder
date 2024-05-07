@@ -11,10 +11,9 @@ function register() {
         message0: 'say %1',
         args0: [
             {
-                "type": "field_input",
-                "name": "TEXT",
-                "text": "Hello, World",
-                "spellcheck": false
+                "type": "input_value",
+                "check": "String",
+                "name": "TEXT"
             },
         ],
         nextStatement: null,
@@ -22,7 +21,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const TEXT = block.getFieldValue('TEXT');
+        const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
         return [`Scratch.vm.runtime.emit('SAY', util.target, 'say', ${TEXT});`, javascriptGenerator.ORDER_ATOMIC];
     })
 
@@ -31,10 +30,9 @@ function register() {
         message0: 'think %1',
         args0: [
             {
-                "type": "field_input",
-                "name": "TEXT",
-                "text": "Hello, World",
-                "spellcheck": false
+                "type": "input_value",
+                "check": "String",
+                "name": "TEXT"
             },
         ],
         nextStatement: null,
@@ -42,7 +40,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const TEXT = block.getFieldValue('TEXT');
+        const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
         return [`Scratch.vm.runtime.emit('SAY', util.target, 'say', ${TEXT});`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
