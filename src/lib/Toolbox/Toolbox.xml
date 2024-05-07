@@ -102,6 +102,7 @@
         <block type="conversions_tonumber" />
         <block type="conversions_tostring" />
         <block type="conversions_toboolean" />
+        <block type="conversions_case" />
         <sep gap="48"></sep>
         <block type="conversions_time" />
     </category>

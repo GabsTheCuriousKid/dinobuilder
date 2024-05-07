@@ -101,6 +101,32 @@ function register() {
 
         return [`(${VAL} * ${MENU1} / ${MENU2})`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    registerBlock(`${categoryPrefix}case`, {
+        message0: "%1 to %2",
+        args0: [
+            {
+                "type": "input_value",
+                "name": "VAL",
+                "check": "String"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "MENU",
+                "options": [
+                    [ "lowercase", "Lower" ],
+                    [ "uppercase", "Upper" ]
+                ]
+            }
+        ],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VAL = javascriptGenerator.valueToCode(block, 'VAL', javascriptGenerator.ORDER_ATOMIC);
+        const MENU1 = block.getFieldValue('MENU');
+        return [`String(${VAL}).to${MENU})Case`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;
