@@ -69,12 +69,12 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const A = block.getFieldValue('A');
-        const B = block.getFieldValue('B');
-        const C = block.getFieldValue('C');
-        const D = block.getFieldValue('D');
-        const E = block.getFieldValue('E');
-        const F = block.getFieldValue('F');
+        const A = javascriptGenerator.valueToCode(block, 'A', javascriptGenerator.ORDER_ATOMIC);
+        const B = javascriptGenerator.valueToCode(block, 'B', javascriptGenerator.ORDER_ATOMIC);
+        const C = javascriptGenerator.valueToCode(block, 'C', javascriptGenerator.ORDER_ATOMIC);
+        const D = javascriptGenerator.valueToCode(block, 'D', javascriptGenerator.ORDER_ATOMIC);
+        const E = javascriptGenerator.valueToCode(block, 'E', javascriptGenerator.ORDER_ATOMIC);
+        const F = javascriptGenerator.valueToCode(block, 'F', javascriptGenerator.ORDER_ATOMIC);
         return [`${A}, ${B}, ${C}, ${D}, ${E}, ${F}`, javascriptGenerator.ORDER_ATOMIC];
     })
 
