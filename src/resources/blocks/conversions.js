@@ -124,7 +124,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const VAL = javascriptGenerator.valueToCode(block, 'VAL', javascriptGenerator.ORDER_ATOMIC);
-        const MENU1 = block.getFieldValue('MENU');
+        const MENU = block.getFieldValue('MENU');
         return [`String(${VAL}).to${MENU})Case`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
