@@ -69,9 +69,13 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const TEXT = block.getFieldValue('TEXT');
-        const VALUE = block.getFieldValue('VALUE');
-        return [`{ text: "${TEXT}", value: "${VALUE}" }`, javascriptGenerator.ORDER_ATOMIC];
+        const A = block.getFieldValue('A');
+        const B = block.getFieldValue('B');
+        const C = block.getFieldValue('C');
+        const D = block.getFieldValue('D');
+        const E = block.getFieldValue('E');
+        const F = block.getFieldValue('F');
+        return [`${A}, ${B}, ${C}, ${D}, ${E}, ${F}`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // create ze menu

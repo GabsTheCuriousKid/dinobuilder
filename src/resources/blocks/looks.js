@@ -22,7 +22,8 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
-        return [`Scratch.vm.runtime.emit('SAY', util.target, 'say', ${TEXT});`, javascriptGenerator.ORDER_ATOMIC];
+        const code = `Scratch.vm.runtime.emit('SAY', util.target, 'say', ${TEXT});`;
+        return `${code}\n`;
     })
 
     // say
@@ -41,7 +42,8 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
-        return [`Scratch.vm.runtime.emit('SAY', util.target, 'say', ${TEXT});`, javascriptGenerator.ORDER_ATOMIC];
+        const code = `Scratch.vm.runtime.emit('SAY', util.target, 'think', ${TEXT});`;
+        return `${code}\n`;
     })
 }
 
