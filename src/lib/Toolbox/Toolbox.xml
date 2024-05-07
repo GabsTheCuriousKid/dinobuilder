@@ -157,6 +157,7 @@
                 <block type="functions_return" />
             </statement>
         </block>
+        <block type="functions_getsprites"></block>
         <sep gap="48"></sep>
         <block type="functions_return" />
         <sep gap="48"></sep>

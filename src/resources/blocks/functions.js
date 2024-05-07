@@ -111,5 +111,42 @@ function register() {
         const ID = block.getFieldValue('ID')
         return [`${ID}()\n`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    registerBlock(`${categoryPrefix}getsprites`, {
+        message0: 'get Sprites function',
+        args0: [],
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const code = `getSprites() {
+            const spriteNames = [];
+            const targets = Scratch.vm.runtime.targets;
+            const myself = Scratch.vm.runtime.getEditingTarget().getName();
+            for (let index = 1; index < targets.length; index++) {
+              const target = targets[index];
+              if (target.isOriginal) {
+                const targetName = target.getName();
+                if (targetName === myself) {
+                  spriteNames.unshift({
+                    text: "this sprite",
+                    value: targetName,
+                  });
+                } else {
+                  spriteNames.push({
+                    text: targetName,
+                    value: targetName,
+                  });
+                }
+              }
+            }
+            if (spriteNames.length > 0) {
+              return spriteNames;
+            } else {
+              return [{ text: "", value: 0 }];
+            }
+          }`;
+        return `${code}\n`;
+    })
 }
 export default register;

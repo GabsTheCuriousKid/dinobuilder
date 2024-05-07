@@ -271,7 +271,7 @@ function register() {
     }, (block) => {
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
-        const code = `while (${CONDITION}) { ${BLOCKS} }`;
+        const code = `while (${CONDITION}) { ${BLOCKS} };`;
         return `${code}\n`;
     })
 
