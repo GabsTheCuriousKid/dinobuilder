@@ -125,7 +125,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const DATE = block.getFieldValue('DATE');
-        return [`(new Date(Date.now()).get${DATE}())`, javascriptGenerator.ORDER_ATOMIC];
+        return [`const date = new Date();\ndate.get${DATE}()`, javascriptGenerator.ORDER_ATOMIC];
     })
     
     // leap year or not
