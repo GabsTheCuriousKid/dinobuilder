@@ -103,14 +103,29 @@ function register() {
     })
     
     // year
-    registerBlock(`${categoryPrefix}year`, {
-        message0: 'current year',
-        args0: [],
+    registerBlock(`${categoryPrefix}currenttime`, {
+        message0: 'current %1',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "DATE",
+                "options": [
+                    ["year", "FullYear"],
+                    ["month", "Month"],
+                    ["date", "Date"],
+                    ["day of week", "Day"],
+                    ["hour", "Hours"],
+                    ["minute", "Minutes"],
+                    ["second", "Seconds"],
+                ]
+            }
+        ],
         output: "Number",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        return [`(new Date(Date.now()).getFullYear())`, javascriptGenerator.ORDER_ATOMIC];
+        const DATE = block.getFieldValue('DATE');
+        return [`(new Date(Date.now()).get${DATE}())`, javascriptGenerator.ORDER_ATOMIC];
     })
     
     // leap year or not

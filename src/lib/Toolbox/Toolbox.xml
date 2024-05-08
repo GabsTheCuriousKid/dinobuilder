@@ -50,7 +50,7 @@
         <block type="sensing_confirm" />
         <sep gap="48"></sep>
         <block type="sensing_time" />
-        <block type="sensing_year" />
+        <block type="sensing_currenttime" />
         <block type="sensing_leapyear" />
         <sep gap="48"></sep>
         <block type="sensing_isfocused" />
