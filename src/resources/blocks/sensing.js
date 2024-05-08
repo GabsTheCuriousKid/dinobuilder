@@ -134,6 +134,29 @@ function register() {
     }, (block) => {
         return [`document.hasFocus()`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    // year
+    registerBlock(`${categoryPrefix}gettimer`, {
+        message0: 'get project timer',
+        args0: [],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`util.ioQuery('clock', 'projectTimer');`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    registerBlock(`${categoryPrefix}resettimer`, {
+        message0: 'reset project timer',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `util.ioQuery('clock', 'resetProjectTimer');`;
+        return `${code}\n`;
+    })
 }
 
 Blockly.Extensions.register('single_character_validation', function() {

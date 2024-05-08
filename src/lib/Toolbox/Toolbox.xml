@@ -54,6 +54,9 @@
         <block type="sensing_leapyear" />
         <sep gap="48"></sep>
         <block type="sensing_isfocused" />
+        <sep gap="48"></sep>
+        <block type="sensing_gettimer" />
+        <block type="sensing_resettimer" />
     </category>
     <category name="Literals" colour="#59C08E">
         <block type="literals_null" />
@@ -159,8 +162,8 @@
                 <block type="functions_return" />
             </statement>
         </block>
-        <block type="functions_getsprites"></block>
-        <sep gap="48"></sep>
+        <!--<block type="functions_getsprites"></block>
+        <sep gap="48"></sep>-->
         <block type="functions_return" />
         <sep gap="48"></sep>
         <block type="functions_call" />
