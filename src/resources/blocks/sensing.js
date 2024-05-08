@@ -110,13 +110,13 @@ function register() {
                 "type": "field_dropdown",
                 "name": "DATE",
                 "options": [
-                    ["year", "FullYear"],
-                    ["month", "Month"],
-                    ["date", "Date"],
-                    ["day of week", "Day"],
-                    ["hour", "Hours"],
-                    ["minute", "Minutes"],
-                    ["second", "Seconds"],
+                    ["year", "FullYear()"],
+                    ["month", "Month() + 1"],
+                    ["date", "Date()"],
+                    ["day of week", "Day()"],
+                    ["hour", "Hours()"],
+                    ["minute", "Minutes()"],
+                    ["second", "Seconds()"],
                 ]
             }
         ],
@@ -125,7 +125,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const DATE = block.getFieldValue('DATE');
-        return [`const date = new Date();\ndate.get${DATE}()`, javascriptGenerator.ORDER_ATOMIC];
+        return [`const date = new Date();\ndate.get${DATE}`, javascriptGenerator.ORDER_ATOMIC];
     })
     
     // leap year or not
