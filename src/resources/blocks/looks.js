@@ -65,8 +65,8 @@ function register() {
             },
             {
                 "type": "input_value",
-                "check": "VALUE",
-                "name": "TEXT"
+                "check": "Number",
+                "name": "VALUE"
             },
         ],
         nextStatement: null,
@@ -104,6 +104,38 @@ function register() {
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
         return [`const effects = util.target.effects;\nconst name = Scratch.Cast.toString('${EFFECTS}');\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n}`, javascriptGenerator.ORDER_ATOMIC]
+    })
+
+    // say
+    registerBlock(`${categoryPrefix}setpenguinmodeffect`, {
+        message0: 'set %1 to %2',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "EFFECTS",
+                "options": [
+                    [ "saturation", "SATURATION" ],
+                    [ "red", "RED" ],
+                    [ "green", "GREEN" ],
+                    [ "blue", "BLUE" ],
+                    [ "opaque", "OPAQUE" ],
+                ]
+            },
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        nextStatement: null,
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const EFFECTS = block.getFieldValue('EFFECTS')
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `const effect = Scratch.Cast.toString('${EFFECTS}').toLowerCase();\nlet value = Scratch.Cast.toNumber(${VALUE});\nutil.target.setEffect(effect, value);`;
+        return `${code}\n`;
     })
 
     registerBlock(`${categoryPrefix}gettintcolor`, {
