@@ -189,6 +189,7 @@
     <sep></sep>
     <category name="Penguinmod" colour="#00C3FF">
         <block type="looks_setpenguinmodeffect" />
+        <block type="looks_getpenguinmodeffect" />
         <block type="looks_gettintcolor" />
     </category>
 </xml>

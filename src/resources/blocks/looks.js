@@ -138,6 +138,30 @@ function register() {
         return `${code}\n`;
     })
 
+    // say
+    registerBlock(`${categoryPrefix}getpenguinmodeffect`, {
+        message0: 'get %1',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "EFFECTS",
+                "options": [
+                    [ "saturation", "SATURATION" ],
+                    [ "red", "RED" ],
+                    [ "green", "GREEN" ],
+                    [ "blue", "BLUE" ],
+                    [ "opaque", "OPAQUE" ],
+                ]
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const EFFECTS = block.getFieldValue('EFFECTS')
+        return [`const effects = util.target.effects;\nconst name = Scratch.Cast.toString('${EFFECTS}');\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n}`, javascriptGenerator.ORDER_ATOMIC]
+    })
+
     registerBlock(`${categoryPrefix}gettintcolor`, {
         message0: 'get tint color',
         args0: [],
