@@ -35,10 +35,11 @@ function register() {
                 "type": "field_dropdown",
                 "name": "TYPE",
                 "options": [
-                    [ "block", "COMMAND" ],
-                    [ "reporter", "REPORTER" ],
-                    [ "boolean", "BOOLEAN" ],
-                    [ "hat", "HAT" ],
+                    [ "block", "COMMAND," ],
+                    [ "reporter", "REPORTER," ],
+                    [ "boolean", "BOOLEAN," ],
+                    [ "hat", "EVENT," ],
+                    [ "cap", "COMMAND,\nisTerminal: true," ],
                 ]
             },
             {
@@ -72,7 +73,7 @@ function register() {
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
-            blockType: Scratch.BlockType.${TYPE},
+            blockType: Scratch.BlockType.${TYPE}
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
             disableMonitor: true
@@ -269,6 +270,27 @@ function register() {
     }, (block) => {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const code = `return ${VALUE || ''}`;
+        return `${code}\n`;
+    })
+
+    // return
+    registerBlock(`${categoryPrefix}callhat`, {
+        message0: 'call hat %1',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "NAME",
+                "text": "HATID",
+                "spellcheck": false
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const NAME = block.getFieldValue('NAME')
+        const code = `Scratch.vm.runtime.startHats(\`\${Extension.prototype.getInfo().id}_${NAME}\`)`;
         return `${code}\n`;
     })
 }
