@@ -98,8 +98,7 @@ function register() {
                 ]
             },
         ],
-        nextStatement: null,
-        previousStatement: null,
+        output: "Number",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
