@@ -76,7 +76,7 @@ function register() {
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `const effect = Scratch.Cast.toString(${EFFECTS}).toLowerCase();\nlet value = Scratch.Cast.toNumber(${VALUE});\nutil.target.setEffect(effect, value);`;
+        const code = `const effect = Scratch.Cast.toString('${EFFECTS}').toLowerCase();\nlet value = Scratch.Cast.toNumber(${VALUE});\nutil.target.setEffect(effect, value);`;
         return `${code}\n`;
     })
 
@@ -103,8 +103,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
-        const code = `const effects = util.target.effects;\nconst name = Scratch.Cast.toString(${EFFECTS});\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n};`;
-        return `${code}\n`;
+        return [`const effects = util.target.effects;\nconst name = Scratch.Cast.toString('${EFFECTS}');\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n}`, javascriptGenerator.ORDER_ATOMIC]
     })
 
     registerBlock(`${categoryPrefix}gettintcolor`, {
@@ -114,7 +113,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        return [`const effects = util.target.effects;\nif (typeof effects.tintColor !== 'number') return '#ffffff';\nreturn Scratch.Color.decimalToHex(effects.tintColor - 1);`, javascriptGenerator.ORDER_ATOMIC];
+        return [`const effects = util.target.effects;\nif (typeof effects.tintColor !== 'number') return '#ffffff';\nreturn Scratch.Color.decimalToHex(effects.tintColor - 1)`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
