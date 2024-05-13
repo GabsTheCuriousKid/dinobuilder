@@ -26,7 +26,7 @@ function register() {
         return `${code}\n`;
     })
 
-    // say
+    // think
     registerBlock(`${categoryPrefix}think`, {
         message0: 'think %1',
         args0: [
@@ -46,7 +46,7 @@ function register() {
         return `${code}\n`;
     })
 
-    // say
+    // set effect
     registerBlock(`${categoryPrefix}seteffect`, {
         message0: 'set %1 to %2',
         args0: [
@@ -80,7 +80,54 @@ function register() {
         return `${code}\n`;
     })
 
-    // say
+    // change effect by
+    registerBlock(`${categoryPrefix}changeeffectby`, {
+        message0: 'change %1 by %2',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "EFFECTS",
+                "options": [
+                    [ "color", "COLOR" ],
+                    [ "fisheye", "FISHEYE" ],
+                    [ "whirl", "WHIRL" ],
+                    [ "pixelate", "PIXELATE" ],
+                    [ "mosaic", "MOSAIC" ],
+                    [ "brightness", "BRIGHTNESS" ],
+                    [ "ghost", "GHOST" ],
+                ]
+            },
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        nextStatement: null,
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const EFFECTS = block.getFieldValue('EFFECTS')
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `const effect = Scratch.Cast.toString(${EFFECTS}).toLowerCase();\nconst change = Scratch.Cast.toNumber(${VALUE});\nif (!util.target.effects.hasOwnProperty(effect)) return;\nlet newValue = change + util.target.effects[effect];\nutil.target.setEffect(effect, newValue);`;
+        return `${code}\n`;
+    })
+
+    // clear effects
+    registerBlock(`${categoryPrefix}cleareffects`, {
+        message0: 'clear effects',
+        args0: [],
+        nextStatement: null,
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `util.target.clearEffects();`;
+        return `${code}\n`;
+    })
+
+    // get effect
     registerBlock(`${categoryPrefix}geteffect`, {
         message0: 'get %1',
         args0: [
@@ -106,7 +153,7 @@ function register() {
         return [`const effects = util.target.effects;\nconst name = Scratch.Cast.toString('${EFFECTS}');\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n}`, javascriptGenerator.ORDER_ATOMIC]
     })
 
-    // say
+    // set effect 2
     registerBlock(`${categoryPrefix}setpenguinmodeffect`, {
         message0: 'set %1 to %2',
         args0: [
@@ -138,7 +185,7 @@ function register() {
         return `${code}\n`;
     })
 
-    // say
+    // get effect 2
     registerBlock(`${categoryPrefix}getpenguinmodeffect`, {
         message0: 'get %1',
         args0: [
