@@ -25,6 +25,39 @@ function register() {
         const code = `doSound(\`${SOUND}\`, Scratch.vm.runtime.targets.find(target => target.isStage), Scratch.vm.runtime);`;
         return `${code}\n`;
     })
+
+    registerBlock(`${categoryPrefix}playsound`, {
+        message0: 'play sound %1 until done',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "SOUND",
+                "text": "https://t.ly/2gHlM",
+                "spellcheck": false
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const SOUND = block.getFieldValue('SOUND')
+        const code = `return doSound(\`${SOUND}\`, Scratch.vm.runtime.targets.find(target => target.isStage), Scratch.vm.runtime);`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}stopallsounds`, {
+        message0: 'stop all sounds',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const code = `async function _stopAllSoundsForTarget() {\n if (target.sprite.soundBank) {\ntarget.sprite.soundBank.stopAllSounds(target);\nif (this.waitingSounds[target.id]) {\nthis.waitingSounds[target.id].clear();\n}\n}\n}\n if (Scratch.vm.runtime.targets === null) return;\nconst allTargets = Scratch.vm.runtime.targets;\nfor (let i = 0; i < allTargets.length; i++) {\n_stopAllSoundsForTarget(allTargets[i]);\n}`;
+        return `${code}\n`;
+    })
+
     registerBlock(`${categoryPrefix}getvolume`, {
         message0: 'get volume',
         args0: [],

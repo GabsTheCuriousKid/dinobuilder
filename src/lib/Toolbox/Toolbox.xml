@@ -17,7 +17,10 @@
         <!--<block type="looks_geteffect" />-->
     </category>
     <category name="Sound" colour="#CF63CF">
+        <block type="sound_playsound" />
         <block type="sound_startsound" />
+        <sep gap="48"></sep>
+        <block type="sound_stopallsounds" />
         <block type="sound_getvolume" />
     </category>
     <category name="Events" colour="#FFBF00">
@@ -188,8 +191,8 @@
         <sep gap="48"></sep>
         <block type="debug_catch" />
     </category>
-    <sep></sep>
-    <!--<category name="Penguinmod" colour="#00C3FF">
+    <!--<sep></sep>
+    <category name="Penguinmod" colour="#00C3FF">
         <block type="looks_setpenguinmodeffect" />
         <block type="looks_getpenguinmodeffect" />
         <block type="looks_gettintcolor" />
