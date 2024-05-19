@@ -196,10 +196,11 @@
         <sep gap="48"></sep>
         <block type="debug_catch" />
     </category>
-    <!--<sep></sep>
+    <sep></sep>
     <category name="Penguinmod" colour="#00C3FF">
-        <block type="looks_setpenguinmodeffect" />
+        <!--<block type="looks_setpenguinmodeffect" />
         <block type="looks_getpenguinmodeffect" />
-        <block type="looks_gettintcolor" />
-    </category>-->
+        <block type="looks_gettintcolor" />-->
+        <block type="blocks_penguinmodcreate" />
+    </category>
 </xml>

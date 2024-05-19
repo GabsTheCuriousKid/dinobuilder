@@ -293,5 +293,104 @@ function register() {
         const code = `Scratch.vm.runtime.startHats(\`\${Extension.prototype.getInfo().id}_${NAME}\`)`;
         return `${code}\n`;
     })
+    // create dem blocks!!!
+    registerBlock(`${categoryPrefix}penguinmodcreate`, {
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16 %17',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "TEXT",
+                "text": "text",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "TYPE",
+                "options": [
+                    [ "block", "COMMAND," ],
+                    [ "reporter", "REPORTER," ],
+                    [ "boolean", "BOOLEAN," ],
+                    [ "hat", "EVENT," ],
+                    [ "cap", "COMMAND,\nisTerminal: true," ],
+                ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "check": "Color",
+                "name": "COLOR1"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "check": "Color",
+                "name": "COLOR2"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "check": "Color",
+                "name": "COLOR3"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "INPUTS",
+                "check": "BlockInput"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "FUNC"
+            }
+        ],
+        nextStatement: null,
+        inputsInline: false,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const TEXT = block.getFieldValue('TEXT')
+        const TYPE = block.getFieldValue('TYPE')
+        const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
+        const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
+        
+        const code = `blocks.push({
+            opcode: \`${ID}\`,
+            blockType: Scratch.BlockType.${TYPE}
+            text: \`${TEXT}\`,
+            arguments: { ${INPUTS} },
+            disableMonitor: true
+        });
+        Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
+        return `${code}\n`;
+    })
 }
 export default register;
