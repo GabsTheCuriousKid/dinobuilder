@@ -117,6 +117,7 @@ function register() {
                     ["hour", "Hours()"],
                     ["minute", "Minutes()"],
                     ["second", "Seconds()"],
+                    // ["js timestamp", "Now()"],
                 ]
             }
         ],
@@ -125,7 +126,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const DATE = block.getFieldValue('DATE');
-        return [`const date = new Date();\ndate.get${DATE}`, javascriptGenerator.ORDER_ATOMIC];
+        return [`(new Date().get${DATE})`, javascriptGenerator.ORDER_ATOMIC];
     })
     
     // leap year or not
