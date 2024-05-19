@@ -295,7 +295,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16 %17',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 color2: %9 color3: %10 inputs: %11 %12 function: %13 %14',
         args0: [
             {
                 "type": "input_dummy"
@@ -338,15 +338,9 @@ function register() {
                 "name": "COLOR1"
             },
             {
-                "type": "input_dummy"
-            },
-            {
                 "type": "input_value",
                 "check": "Color",
                 "name": "COLOR2"
-            },
-            {
-                "type": "input_dummy"
             },
             {
                 "type": "input_value",
@@ -387,9 +381,7 @@ function register() {
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
-            blockType: Scratch.BlockType.${TYPE}
-            text: \`${TEXT}\`,
-            arguments: { ${INPUTS} },
+            blockType: Scratch.BlockType.${TYPE},
             color1: ${COLOR1},
             color2: ${COLOR2},
             color3: ${COLOR3},
@@ -409,7 +401,7 @@ function register() {
         inputsInline: true,
         colour: '#00C3FF',
     }, (block) => {
-        const code = `(Scratch.extensions.isPenguinMod : false)`;
+        const code = `(Scratch.extensions.isPenguinMod)`;
         return `${code}\n`;
     })
 }
