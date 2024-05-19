@@ -202,5 +202,6 @@
         <block type="looks_getpenguinmodeffect" />
         <block type="looks_gettintcolor" />-->
         <block type="blocks_penguinmodcreate" />
+        <block type="blocks_ispenguinmod" />
     </category>
 </xml>

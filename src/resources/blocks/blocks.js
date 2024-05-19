@@ -333,7 +333,7 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "check": "Color",
                 "name": "COLOR1"
             },
@@ -341,7 +341,7 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "check": "Color",
                 "name": "COLOR2"
             },
@@ -349,7 +349,7 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "check": "Color",
                 "name": "COLOR3"
             },
@@ -374,11 +374,14 @@ function register() {
         ],
         nextStatement: null,
         inputsInline: false,
-        colour: categoryColor,
+        colour: '#00C3FF',
     }, (block) => {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
+        const COLOR1 = block.getFieldValue('COLOR1')
+        const COLOR2 = block.getFieldValue('COLOR2')
+        const COLOR3 = block.getFieldValue('COLOR3')
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
         
@@ -387,9 +390,26 @@ function register() {
             blockType: Scratch.BlockType.${TYPE}
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
+            color1: ${COLOR1},
+            color2: ${COLOR2},
+            color3: ${COLOR3},
+            text: \`${TEXT}\`,
+            arguments: { ${INPUTS} },
             disableMonitor: true
         });
         Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
+        return `${code}\n`;
+    })
+
+    // return
+    registerBlock(`${categoryPrefix}ispenguinmod`, {
+        message0: 'is penguinmod?',
+        args0: [],
+        previousStatement: null,
+        inputsInline: true,
+        colour: '#00C3FF',
+    }, (block) => {
+        const code = `(Scratch.extensions.isPenguinMod : false)`;
         return `${code}\n`;
     })
 }
