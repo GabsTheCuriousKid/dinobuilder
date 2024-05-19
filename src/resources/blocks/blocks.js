@@ -76,12 +76,14 @@ function register() {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
+            hideFromPalette: ${CONDITION},
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
             disableMonitor: true
@@ -395,6 +397,7 @@ function register() {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
         const COLOR1 = block.getFieldValue('COLOR1')
         const COLOR2 = block.getFieldValue('COLOR2')
         const COLOR3 = block.getFieldValue('COLOR3')
@@ -404,6 +407,7 @@ function register() {
         const code = `blocks.push({
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
+            hideFromPalette: ${CONDITION},
             color1: \`${COLOR1}\`,
             color2: \`${COLOR2}\`,
             color3: \`${COLOR3}\`,
