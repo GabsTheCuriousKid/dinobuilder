@@ -295,7 +295,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16 %17',
         args0: [
             {
                 "type": "input_dummy"
