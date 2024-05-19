@@ -8,7 +8,7 @@ const categoryColor = '#FF6680';
 function register() {
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}create`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 inputs: %8 %9 function: %10 %11',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 inputs: %10 %11 function: %12 %13',
         args0: [
             {
                 "type": "input_dummy"
@@ -41,6 +41,14 @@ function register() {
                     [ "hat", "EVENT," ],
                     [ "cap", "COMMAND,\nisTerminal: true," ],
                 ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "CONDITION",
+                "check": "Boolean"
             },
             {
                 "type": "input_dummy"
@@ -295,7 +303,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16 %17',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 color1: %10 %11 color2: %12 %13 color3: %14 %15 inputs: %16 %17 function: %18 %19',
         args0: [
             {
                 "type": "input_dummy"
@@ -328,6 +336,14 @@ function register() {
                     [ "hat", "EVENT," ],
                     [ "cap", "COMMAND,\nisTerminal: true," ],
                 ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "CONDITION",
+                "check": "Boolean"
             },
             {
                 "type": "input_dummy"
@@ -387,10 +403,10 @@ function register() {
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
-            blockType: Scratch.BlockType.${TYPE},
-            color1: ${COLOR1},
-            color2: ${COLOR2},
-            color3: ${COLOR3},
+            blockType: Scratch.BlockType.${TYPE}
+            color1: \`${COLOR1}\`,
+            color2: \`${COLOR2}\`,
+            color3: \`${COLOR3}\`,
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
             disableMonitor: true
