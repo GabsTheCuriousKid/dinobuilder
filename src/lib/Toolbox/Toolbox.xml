@@ -1,13 +1,17 @@
 <xml>
-    <category name="Motion" colour="#4C97FF">
+    <category name="Sprites" colour="#4C97FF">
         <block type="motion_goto_position" />
         <block type="motion_getx" />
         <block type="motion_gety" />
         <sep gap="48"></sep>
+        <block type="motion_getsprite" />
+        <block type="motion_getxof" />
+        <block type="motion_getyof" />
+        <sep gap="48"></sep>
         <block type="motion_stage" />
         <block type="motion_isstage" />
     </category>
-    <category name="Looks" colour="#9966FF">
+    <category name="Effects" colour="#9966FF">
         <block type="looks_say" />
         <block type="looks_think" />
         <sep gap="48"></sep>
@@ -17,11 +21,12 @@
         <!--<block type="looks_geteffect" />-->
     </category>
     <category name="Sound" colour="#CF63CF">
-        <block type="sound_playsound" />
+        <!--<block type="sound_playsound" />-->
         <block type="sound_startsound" />
-        <sep gap="48"></sep>
-        <block type="sound_stopallsounds" />
+        <!--<sep gap="48"></sep>-->
+        <!--<block type="sound_stopallsounds" />-->
         <block type="sound_getvolume" />
+        <block type="sound_getvolumeof" />
     </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />

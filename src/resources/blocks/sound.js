@@ -67,6 +67,23 @@ function register() {
     }, (block) => {
         return [`Math.round(util.target.volume)`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    registerBlock(`${categoryPrefix}getvolumeof`, {
+        message0: 'get volume of %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.volume : 0)`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;
