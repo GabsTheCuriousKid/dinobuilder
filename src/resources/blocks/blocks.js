@@ -295,7 +295,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 color2: %9 color3: %10 inputs: %11 %12 function: %13 %14',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 color1: %8 %9 color2: %10 %11 color3: %12 %13 inputs: %14 %15 function: %16',
         args0: [
             {
                 "type": "input_dummy"
@@ -333,19 +333,25 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "input_value",
-                "check": "Color",
-                "name": "COLOR1"
+                "type": "field_colour_hsv_sliders",
+                "name": "COLOR1",
+                "colour": "#ff0000"
             },
             {
-                "type": "input_value",
-                "check": "Color",
-                "name": "COLOR2"
+                "type": "input_dummy"
             },
             {
-                "type": "input_value",
-                "check": "Color",
-                "name": "COLOR3"
+                "type": "field_colour_hsv_sliders",
+                "name": "COLOR2",
+                "colour": "#ff0000"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_colour_hsv_sliders",
+                "name": "COLOR3",
+                "colour": "#ff0000"
             },
             {
                 "type": "input_dummy"
@@ -397,7 +403,7 @@ function register() {
     registerBlock(`${categoryPrefix}ispenguinmod`, {
         message0: 'is penguinmod?',
         args0: [],
-        previousStatement: null,
+        output: "Boolean",
         inputsInline: true,
         colour: '#00C3FF',
     }, (block) => {
