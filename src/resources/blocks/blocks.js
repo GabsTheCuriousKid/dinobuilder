@@ -427,8 +427,7 @@ function register() {
         inputsInline: true,
         colour: '#00C3FF',
     }, (block) => {
-        const code = `(Scratch.extensions.isPenguinMod)`;
-        return `${code}\n`;
+        return [`(Scratch.extensions.isPenguinMod)`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 export default register;
