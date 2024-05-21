@@ -9,6 +9,7 @@
 
     // Modals
     import ExtensionColorsModal from "$lib/MenuModals/ExtensionColors.svelte";
+    import AddExtensionsModal from "$lib/MenuModals/AddExtension.svelte";
     import CreateBlockModal from "$lib/MenuModals/CreateBlock.svelte";
 
     // Modal Scripts
@@ -386,6 +387,9 @@
         }}
     />
 {/if}
+<AddExtensionsModal
+
+/>
 <NavigationBar>
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
