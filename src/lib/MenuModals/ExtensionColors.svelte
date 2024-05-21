@@ -111,7 +111,7 @@
                                 {#if tbShow}
                                     <img
                                         class="tbBubbleIcon"
-                                        src="favicon.png"
+                                        src="turbobuilder_icon.svg"
                                         alt="TurboBuilder"
                                     />
                                 {/if}

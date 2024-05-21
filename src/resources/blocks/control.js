@@ -276,7 +276,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}try_catch`, {
-        message0: 'try to do %1 %2 if a block errors %3 %4',
+        message0: 'try %1 %2 catch %3 %4',
         args0: [
             {
                 "type": "input_dummy"
