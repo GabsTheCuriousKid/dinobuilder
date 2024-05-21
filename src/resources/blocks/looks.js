@@ -150,7 +150,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
-        return [`const effects = util.target.effects;\nconst name = Scratch.Cast.toString('${EFFECTS}');\nif (Object.prototype.hasOwnProperty.call(effects, name)) {\nreturn effects[name];\n}`, javascriptGenerator.ORDER_ATOMIC]
+        return [`util.target.effects[Scratch.Cast.toString('${EFFECTS}')];`, javascriptGenerator.ORDER_ATOMIC]
     })
 
     // set effect 2

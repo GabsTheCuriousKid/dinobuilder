@@ -15,10 +15,10 @@
         <block type="looks_say" />
         <block type="looks_think" />
         <sep gap="48"></sep>
-        <block type="looks_seteffect" />
         <block type="looks_changeeffectby" />
+        <block type="looks_seteffect" />
         <block type="looks_cleareffects" />
-        <!--<block type="looks_geteffect" />-->
+        <block type="looks_geteffect" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <!--<block type="sound_playsound" />-->
