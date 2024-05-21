@@ -50,7 +50,7 @@ function register() {
                 "name": "VAL"
             },
         ],
-        output: "String",
+        output: "Boolean",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {

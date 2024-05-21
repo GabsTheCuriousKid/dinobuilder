@@ -150,7 +150,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
-        return [`util.target.effects[Scratch.Cast.toString('${EFFECTS}')];`, javascriptGenerator.ORDER_ATOMIC]
+        return [`util.target.effects[Scratch.Cast.toString('${EFFECTS}')]`, javascriptGenerator.ORDER_ATOMIC]
     })
 
     // set effect 2
@@ -217,6 +217,82 @@ function register() {
         colour: categoryColor
     }, (block) => {
         return [`(const effects = util.target.effects;\nif (typeof effects.tintColor !== 'number') '#ffffff';\n Scratch.Color.decimalToHex(effects.tintColor - 1))`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // set layer
+    registerBlock(`${categoryPrefix}setlayer`, {
+        message0: 'go to layer %1',
+        args0: [
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        nextStatement: null,
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `const target = util.target;\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ${VALUE} - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);`;
+        return `${code}\n`;
+    })
+
+    // set layer
+    registerBlock(`${categoryPrefix}golayer`, {
+        message0: 'go %1 %2 layers',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "MENU",
+                "options": [
+                    [ "forward", "" ],
+                    [ "backward", "-" ],
+                ]
+            },
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        nextStatement: null,
+        previousStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const MENU = block.getFieldValue('MENU')
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `const target = util.target;\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ((${VALUE} * ${MENU}1) + layerOrder) - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}getlayer`, {
+        message0: 'get layer',
+        args0: [],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`util.target.getLayerOrder()`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    registerBlock(`${categoryPrefix}getlayerof`, {
+        message0: 'get layer of [SPRITE]',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.getLayerOrder() : 0)`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 

@@ -19,6 +19,12 @@
         <block type="looks_seteffect" />
         <block type="looks_cleareffects" />
         <block type="looks_geteffect" />
+        <sep gap="48"></sep>
+        <block type="looks_setlayer" />
+        <block type="looks_golayer" />
+        <block type="looks_getlayer" />
+        <sep gap="48"></sep>
+        <block type="looks_getlayerof" />
     </category>
     <category name="Sound" colour="#CF63CF">
         <!--<block type="sound_playsound" />-->
