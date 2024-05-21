@@ -279,7 +279,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}getlayerof`, {
-        message0: 'get layer of [SPRITE]',
+        message0: 'get layer of %1',
         args0: [
             {
                 "type": "input_value",
