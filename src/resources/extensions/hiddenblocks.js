@@ -3,7 +3,7 @@
     Description: View blocks that have been hidden from the main toolbox.
 */
 
-const xml = `
+const hiddenblocksxml = `
 <category name="Hidden Blocks" colour="#FF0000">
     <block type="blocks_createcap" />
     <sep gap="48"></sep>
@@ -15,4 +15,4 @@ const xml = `
 </category>
 `
 
-export default xml;
+export default hiddenblocksxml;

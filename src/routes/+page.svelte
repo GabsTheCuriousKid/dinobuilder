@@ -387,9 +387,6 @@
         }}
     />
 {/if}
-<AddExtensionsModal
-
-/>
 <NavigationBar>
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
