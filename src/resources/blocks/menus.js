@@ -116,6 +116,52 @@ function register() {
         }`
         return `${code}\n`;
     })
+
+    registerBlock(`${categoryPrefix}created`, {
+        message0: 'create dynamic menu %1 id: %2 %3 function: %4 allow inputs: %5',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "VALUES",
+                "check": "Function"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "REPORTERS",
+                "options": [
+                    ["true", "true"],
+                    ["false", "false"]
+                ]
+            }
+        ],
+        inputsInline: false,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const VALUES = javascriptGenerator.valueToCode(block, 'VALUES', javascriptGenerator.ORDER_ATOMIC)
+        const REPORTERS = block.getFieldValue('REPORTERS')
+        const def = compileVars.new()
+        
+        const code = `menus["${ID}"] = {
+            acceptReporters: ${REPORTERS},
+            items: "${def}"
+        }
+        
+        Extension.prototype["${def}"] = ${VALUES}`
+        return `${code}\n`;
+    })
 }
 
 export default register

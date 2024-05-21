@@ -170,6 +170,7 @@
         <block type="menus_itemtextnvalue" />
         <block type="menus_joinarrays" />
         <block type="menus_create" />
+        <block type="menus_created" />
     </category>
     <category name="Functions" colour="#5531D6">
         <block type="functions_create">
@@ -182,12 +183,22 @@
                 <block type="functions_return" />
             </statement>
         </block>
+        <sep gap="48"></sep>
+        <block type="functions_define">
+            <statement name="BLOCKS">
+                <block type="functions_return" />
+            </statement>
+        </block>
         <!--<block type="functions_getsprites"></block>
         <sep gap="48"></sep>-->
         <block type="functions_return" />
+        <block type="functions_arg" />
         <sep gap="48"></sep>
         <block type="functions_call" />
         <block type="functions_callreporter" />
+        <sep gap="48"></sep>
+        <block type="functions_execute_a" />
+        <block type="functions_execute_b" />
     </category>
     <category name="Technical" colour="#666666">
         <block type="debug_log" />
