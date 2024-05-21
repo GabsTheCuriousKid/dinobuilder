@@ -178,12 +178,6 @@
                 <block type="functions_return" />
             </statement>
         </block>
-        <block type="functions_inline">
-            <statement name="FUNC">
-                <block type="functions_return" />
-            </statement>
-        </block>
-        <sep gap="48"></sep>
         <block type="functions_define">
             <statement name="BLOCKS">
                 <block type="functions_return" />
