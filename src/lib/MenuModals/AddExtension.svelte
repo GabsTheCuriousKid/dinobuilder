@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { hiddenblocksxml } from '../../resources/extensions/hiddenblocks.js';
-    import Toolbox from '$lib/Toolbox/Toolbox.xml?raw';
+    import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
     const dispatch = createEventDispatcher();
 
@@ -10,7 +10,7 @@
     }
 </script>
 
-<div class="bg" style={visible ? "" : "display: none"}>
+<div class="bg">
     <div class="modal">
         <div class="modal-title">
             <p>Extensions (Currently Not Functioning)</p>
