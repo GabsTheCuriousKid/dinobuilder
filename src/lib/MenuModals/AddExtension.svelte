@@ -29,6 +29,10 @@
                     src="images/extensionIcons/HiddenBlocksIcon.png"
                     height={50}
                  />
+                 <label>
+                    Add Extension
+                    <input type="checkbox" bind:checked={HiddenBlocksExt} />
+                 </label>
             </button>
         </div>
         <div class="modal-buttons">
