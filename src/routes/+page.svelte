@@ -358,6 +358,7 @@
     // Modals
     const ModalState = {
         extensionColors: false,
+        addExtensions: false,
     };
 
 </script>
@@ -367,6 +368,13 @@
     color2={extensionMetadata.color2}
     color3={extensionMetadata.color3}
 />
+{#if ModalState.addExtensions}
+    <AddExtensionsModal
+        on:cancel={() => {
+            ModalState.addExtensions = false;
+        }}
+    />
+{/if}
 {#if ModalState.extensionColors}
     <ExtensionColorsModal
         color1={extensionMetadata.color1}
@@ -419,6 +427,14 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
+                <StyledButton
+                    on:click={() => {
+                        ModalState.addExtensions = true;
+                    }}
+                >
+                    Add an Extension
+                </StyledButton>
+                <div style="margin-left:8px" />
                 <StyledButton
                     on:click={() => {
                         ModalState.extensionColors = true;
