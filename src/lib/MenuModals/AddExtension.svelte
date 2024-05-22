@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { hiddenblocksxml } from '../../resources/extensions/hiddenblocks.js';
-    import { maintoolbox } from '$lib/toolbox/toolbox.xml';
+    import { maintoolbox } from '$lib/Toolbox/Toolbox.xml';
 
     const dispatch = createEventDispatcher();
 
