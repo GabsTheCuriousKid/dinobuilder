@@ -180,15 +180,6 @@
         lastGeneratedCode = code;
     }
 
-    function AddExtensions(1, 2) {
-        import HiddenBlocksExtVM from "../../resources/extensions/hiddenblocks.js"
-        if (1 == true) {
-             
-        } else if (2 == true) {
-
-        }
-    }
-
     import pkg from '@blockly/workspace-minimap';
     const { PositionedMinimap } = pkg;
     onMount(() => {
@@ -381,7 +372,6 @@
     <AddExtensionsModal
         on:completed={() => {
             ModalState.addExtensions = false;
-            AddExtensions(hiddenblocksExt, false)
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;
