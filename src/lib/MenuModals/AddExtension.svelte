@@ -17,7 +17,7 @@
         <div class="modal-content">
             <button class="block-extension">
                  Hidden Blocks
-                 <div style="height:5pxn" />
+                 <div style="height:5px" />
                  <img 
                     alt="HiddenBlocksPNG"
                     src="images/extensionIcons/HiddenBlocksIcon.png"
