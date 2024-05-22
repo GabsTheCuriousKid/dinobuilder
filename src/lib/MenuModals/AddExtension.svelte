@@ -20,6 +20,7 @@
                 style="display:flex;flex-direction:column;align-items:center;justify-content:center;height=100%"
             >
             <p>Choose an Extension you'll like to add</p>
+            </div>
             <button class="block-extension">
                  Hidden Blocks
                  <div style="height:5px" />
@@ -29,7 +30,6 @@
                     height={50}
                  />
             </button>
-            </div>
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
