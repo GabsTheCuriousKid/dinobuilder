@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { hiddenblocksxml } from '../../resources/extensions/hiddenblocks.js';
+    import { maintoolbox } from '../toolbox/toolbox.xml';
 
     const dispatch = createEventDispatcher();
 
@@ -12,7 +13,7 @@
   {
   name: "Hidden Blocks",
    description: "View blocks that have been hidden from the main toolbox.",
-   bannerUrl: "path/to/banner.png",
+   bannerUrl: "images/extensionIcons/HiddenBlocksIcon.png",
    xml: hiddenblocksxml, // Assuming this is the complete XML string
   },
  ];
@@ -20,7 +21,7 @@
  let selectedOption;
 
  async function importXml(optionXml) {
-  const existingXmlString = await fetch('toolbox.xml').then(response => response.text());
+  const existingXmlString = await fetch(maintoolbox).then(response => response.text());
 
   const parser = new DOMParser();
   const existingDoc = parser.parseFromString(existingXmlString, 'text/xml');
