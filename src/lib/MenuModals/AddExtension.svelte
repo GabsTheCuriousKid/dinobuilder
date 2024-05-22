@@ -1,7 +1,5 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import { hiddenblocksxml } from '../../resources/extensions/hiddenblocks.js';
-    import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
     const dispatch = createEventDispatcher();
 
@@ -13,7 +11,7 @@
         dispatch("completed")
     }
 
-    let hiddenblocksExt = false;
+    export let hiddenblocksExt = false;
 
     function toggleHidden() {
         hiddenblocksExt = !hiddenblocksExt
