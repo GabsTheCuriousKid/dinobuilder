@@ -13,9 +13,13 @@
 <div class="bg">
     <div class="modal">
         <div class="modal-title">
-            <p>Extensions (Currently Not Functioning)</p>
+            <p>Extensions (Currently Not Working)</p>
         </div>
         <div class="modal-content">
+            <div 
+                style="display:flex;flex-direction:column;align-items:center;justify-content:center;height=100%"
+            >
+            <p>Choose an Extension you'll like to add</p>
             <button class="block-extension">
                  Hidden Blocks
                  <div style="height:5px" />
@@ -25,6 +29,7 @@
                     height={50}
                  />
             </button>
+            </div>
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
