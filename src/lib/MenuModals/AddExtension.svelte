@@ -1,22 +1,12 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { hiddenblocksxml } from '../../resources/extensions/hiddenblocks.js';
-    import { maintoolbox } from '$lib/Toolbox/Toolbox.xml';
 
     const dispatch = createEventDispatcher();
 
     function cancel() {
         dispatch("cancel");
     }
-
-    const options = [
-  {
-  name: "Hidden Blocks",
-   description: "View blocks that have been hidden from the main toolbox.",
-   bannerUrl: "images/extensionIcons/HiddenBlocksIcon.png",
-   xml: hiddenblocksxml, // Assuming this is the complete XML string
-  },
- ];
 </script>
 
 <div class="bg">
