@@ -17,32 +17,6 @@
    xml: hiddenblocksxml, // Assuming this is the complete XML string
   },
  ];
-
- let selectedOption;
-
- async function importXml(optionXml) {
-  const existingXmlString = await fetch(maintoolbox).then(response => response.text());
-
-  const parser = new DOMParser();
-  const existingDoc = parser.parseFromString(existingXmlString, 'text/xml');
-
-  const parentElement = existingDoc.querySelector('xml');
-
-  const importedDoc = parser.parseFromString(optionXml, 'text/xml');
-
-  const importedCategoryElement = importedDoc.documentElement.cloneNode(true);
-
-  parentElement.appendChild(importedCategoryElement);
-
-  const serializer = new XMLSerializer();
-  const modifiedXmlString = serializer.serializeToString(existingDoc);
-
- console.log(modifiedXmlString); // For debugging or further use
- }
-
- function handleOptionSelect(option) {
- selectedOption = option;
- }
 </script>
 
 <div class="bg">
@@ -51,19 +25,7 @@
             <p>Extensions</p>
         </div>
         <div class="modal-content">
-            <div
-style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%"
->
-<ul>
-<li on:click={() => handleOptionSelect(options[0])}>
-<img src={options[0].bannerUrl} alt={options[0].name + " Banner"} />
-<span>{options[0].name}</span>
-<p>{options[0].description}</p>
-</li>
-<li on:click={() => handleOptionSelect(options[1])}>
-</li>
-</ul>
-</div>
+            
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
@@ -160,19 +122,4 @@ style="display:flex;flex-direction:column;align-items:center;justify-content:cen
         align-items: center;
         justify-content: right;
     }
-    ul {
-list-style: none;
-padding: 0;
-margin: 0;
-}
-
-li {
-padding: 0.5rem 1rem; /* Add some padding for each list item */
-cursor: pointer; /* Indicate interactivity on hover */
-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-transition: background-color 0.2s ease-in-out;
-&:hover {
-background-color: rgba(0, 0, 0, 0.05);
-}
-}
 </style>
