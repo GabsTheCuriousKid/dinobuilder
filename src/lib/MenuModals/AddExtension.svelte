@@ -12,7 +12,7 @@
 <div class="bg">
     <div class="modal">
         <div class="modal-title">
-            <p>Extensions</p>
+            <p>Extensions \(Currently Not Functioning\)</p>
         </div>
         <div class="modal-content">
             <button class="block-extension">

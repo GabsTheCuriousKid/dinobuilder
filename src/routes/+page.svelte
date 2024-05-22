@@ -367,6 +367,9 @@
     color2={extensionMetadata.color2}
     color3={extensionMetadata.color3}
 />
+<AddExtensionsModal
+
+/>
 {#if ModalState.extensionColors}
     <ExtensionColorsModal
         color1={extensionMetadata.color1}
