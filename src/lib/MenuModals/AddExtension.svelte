@@ -31,7 +31,7 @@
             >
             <p>Choose an Extension you'll like to add</p>
             </div>
-            <button class="block-extension" on:click={toggleHidden()}>
+            <button class="block-extension" on:click={toggleHidden}>
                  {hiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
                  <div style="height:5px" />
                  <img 
