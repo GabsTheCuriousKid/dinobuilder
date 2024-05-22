@@ -8,6 +8,16 @@
     function cancel() {
         dispatch("cancel");
     }
+
+    function event() {
+        dispatch("completed")
+    }
+
+    let hiddenblocksExt = false;
+
+    function toggleHidden() {
+        hiddenblocksExt = !hiddenblocksExt
+    }
 </script>
 
 <div class="bg">
@@ -21,8 +31,8 @@
             >
             <p>Choose an Extension you'll like to add</p>
             </div>
-            <button class="block-extension">
-                 Hidden Blocks
+            <button class="block-extension" on:click={toggleHidden()}>
+                 {hiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
                  <div style="height:5px" />
                  <img 
                     alt="HiddenBlocksPNG"
@@ -34,6 +44,8 @@
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
             <div style="margin-left:6px" />
+            <button class="button-accept" on:click={event}>OK</button>
+            <div style="margin-left:24px" />
         </div>
     </div>
 </div>

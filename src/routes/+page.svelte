@@ -370,6 +370,9 @@
 />
 {#if ModalState.addExtensions}
     <AddExtensionsModal
+        on:completed={() => {
+            ModalState.addExtensions = false;
+        }}
         on:cancel={() => {
             ModalState.addExtensions = false;
         }}
