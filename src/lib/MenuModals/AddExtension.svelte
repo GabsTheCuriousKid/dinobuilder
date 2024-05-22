@@ -15,7 +15,15 @@
             <p>Extensions</p>
         </div>
         <div class="modal-content">
-            
+            <button class="block-extension">
+                 Hidden Blocks
+                 <div style="height:5pxn" />
+                 <img 
+                    alt="HiddenBlocksPNG"
+                    src="images/extensionIcons/HiddenBlocksIcon.png"
+                    height={50}
+                 />
+            </button>
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
@@ -111,5 +119,28 @@
         flex-direction: row;
         align-items: center;
         justify-content: right;
+    }
+    .block-extension {
+        background: transparent;
+        font-weight: bold;
+        margin: 5px;
+        padding: 8px 32px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        cursor: pointer;
+    }
+    :global(body.dark) .block-extension {
+        color: white;
+        border-color: #ccc;
+    }
+    .block-extension:focus,
+    .block-extension:hover {
+        border-color: #80f41a !important;
+    }
+    .block-extension:active {
+        border-color: black !important;
+    }
+    :global(body.dark) .block-extension:active {
+        border-color: rgb(114, 114, 114) !important;
     }
 </style>
