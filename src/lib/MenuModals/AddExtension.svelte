@@ -11,7 +11,7 @@
         dispatch("completed")
     }
 
-    export let hiddenblocksExt = false;
+    let hiddenblocksExt = false;
 
     function toggleHidden() {
         hiddenblocksExt = !hiddenblocksExt
