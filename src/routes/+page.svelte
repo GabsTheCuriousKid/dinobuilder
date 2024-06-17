@@ -376,7 +376,7 @@
             ModalState.addExtensions = false;
             async function onMount() {
                 let sourceXML
-                if (addextensiondata.detail.hiddenblocksExt = true) {
+                if (addextensiondata.detail.hiddenblocksExt == true) {
                     sourceXML = '../resources/extensions/hiddenblocks.js';
                 }
                 const targetXML = '$lib/toolbox/toolbox.xml';
