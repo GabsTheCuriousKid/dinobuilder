@@ -375,10 +375,14 @@
         on:completed={(addextensiondata) => {
             ModalState.addExtensions = false;
             async function onMount() {
-                const sourceXML = '../resources/extensions/hiddenblocks.js';
+                let sourceXML
+                if (addextensiondata.detail.hiddenblocksExt = true) {
+                    sourceXML = '../resources/extensions/hiddenblocks.js';
+                }
+                const targetXML = '$lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
                 try {
-                  await injectXML(sourceXML, Toolbox, elementToInject);
+                  await injectXML(sourceXML, targetXML, elementToInject);
                 } catch (error) {
                   console.error('Error injecting XML:', error);
                 }
