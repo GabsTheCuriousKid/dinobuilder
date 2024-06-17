@@ -377,7 +377,7 @@
             async function onMount() {
                 let sourceXML
                 if (addextensiondata.detail.hiddenblocksExt == true) {
-                    sourceXML = '../resources/extensions/hiddenblocks.js';
+                    sourceXML = await fetch('../resources/extensions/hiddenblocks.xml').text();
                 }
                 const targetXML = '$lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
