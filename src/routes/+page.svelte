@@ -25,6 +25,8 @@
     import fileDialog from "../resources/fileDialog";
     import EventManager from "../resources/events";
 
+    import injectXML from '../utils/injectXML.js';
+
     import Blockly from "blockly/core";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
     import "@blockly/field-colour-hsv-sliders";
@@ -360,8 +362,6 @@
         extensionColors: false,
         addExtensions: false,
     };
-
-    import injectXML from '../utils/injectXML.js'
 
 </script>
 
