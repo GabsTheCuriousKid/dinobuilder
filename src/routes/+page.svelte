@@ -379,10 +379,9 @@
                 if (addextensiondata.detail.hiddenblocksExt = true) {
                     sourceXML = '../resources/extensions/hiddenblocks.js';
                 }
-                const targetXML = '../lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
                 try {
-                  await injectXML(sourceXML, targetXML, elementToInject);
+                  await injectXML(sourceXML, Toolbox, elementToInject);
                 } catch (error) {
                   console.error('Error injecting XML:', error);
                 }
