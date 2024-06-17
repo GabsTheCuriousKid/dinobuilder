@@ -370,8 +370,23 @@
 />
 {#if ModalState.addExtensions}
     <AddExtensionsModal
-        on:completed={() => {
+        on:completed={(addextensiondata) => {
             ModalState.addExtensions = false;
+            import injectXML from '../utils/injectXML';
+
+            async function onMount() {
+                // Replace with actual paths based on your project structure
+                if (addextensiondata.detail.hiddenblocksExt = true) {
+                    const sourceXML = '../resources/extensions/hiddenblocks.js';
+                }
+                const targetXML = '../lib/toolbox/toolbox.xml';
+                const elementToInject = 'xml'; // Adjust based on your source XML
+            try {
+                await injectXML(sourceXML, targetXML, elementToInject);
+            } catch (error) {
+                console.error('Error injecting XML:', error);
+            }
+        }
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;

@@ -8,7 +8,9 @@
     }
 
     function event() {
-        dispatch("completed")
+        dispatch("completed", {
+            hiddenblocksExt
+        });
     }
 
     export let hiddenblocksExt = false;
