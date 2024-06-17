@@ -361,6 +361,8 @@
         addExtensions: false,
     };
 
+    import injectXML from '../utils/injectXML.js'
+
 </script>
 
 <CreateBlockModal
@@ -372,11 +374,19 @@
     <AddExtensionsModal
         on:completed={(addextensiondata) => {
             ModalState.addExtensions = false;
-            import injectXML from '../utils/injectXML.js';
-            const sourceXML = '../resources/extensions/hiddenblocks.js';
-            const targetXML = '../lib/toolbox/toolbox.xml';
-            const elementToInject = 'xml'; // Adjust based on your source XML
-            await injectXML(sourceXML, targetXML, elementToInject);
+            async function onMount() {
+                let sourceXML
+                if (addextensiondata.detail.hiddenblocksExt = true) {
+                    sourceXML = '../resources/extensions/hiddenblocks.js';
+                }
+                const targetXML = '../lib/toolbox/toolbox.xml';
+                const elementToInject = 'xml';
+                try {
+                  await injectXML(sourceXML, targetXML, elementToInject);
+                } catch (error) {
+                  console.error('Error injecting XML:', error);
+                }
+            }
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;
