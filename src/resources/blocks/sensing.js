@@ -113,7 +113,7 @@ function register() {
                     ["year", "FullYear()"],
                     ["month", "Month() + 1"],
                     ["date", "Date()"],
-                    ["day of week", "Day()"],
+                    // ["day of week", "Day()"],
                     ["hour", "Hours()"],
                     ["minute", "Minutes()"],
                     ["second", "Seconds()"],
@@ -151,7 +151,7 @@ function register() {
         return [`document.hasFocus()`, javascriptGenerator.ORDER_ATOMIC];
     })
 
-    // year
+    // get timer
     registerBlock(`${categoryPrefix}gettimer`, {
         message0: 'get project timer',
         args0: [],
@@ -159,7 +159,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        return [`util.ioQuery('clock', 'projectTimer');`, javascriptGenerator.ORDER_ATOMIC];
+        return [`Scratch.vm.runtime.ioDevices.clock.projectTimer()`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}resettimer`, {
@@ -170,8 +170,42 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const code = `util.ioQuery('clock', 'resetProjectTimer');`;
+        const code = `Scratch.vm.runtime.ioDevices.clock.resetProjectTimer();`;
         return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}pausetimer`, {
+        message0: 'pause project timer',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `Scratch.vm.runtime.ioDevices.clock.pause();`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}resumetimer`, {
+        message0: 'resume project timer',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const code = `Scratch.vm.runtime.ioDevices.clock.resume();`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}getusername`, {
+        message0: 'get username',
+        args0: [],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`Scratch.vm.runtime.ioDevices.userData.getUsername()`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 

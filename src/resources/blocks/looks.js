@@ -248,7 +248,7 @@ function register() {
                 "name": "MENU",
                 "options": [
                     [ "forward", "" ],
-                    [ "backward", "-" ],
+                    [ "backward", "* -1" ],
                 ]
             },
             {
@@ -264,7 +264,7 @@ function register() {
     }, (block) => {
         const MENU = block.getFieldValue('MENU')
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `const target = util.target;\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ((${VALUE} * ${MENU}1) + layerOrder) - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);`;
+        const code = `const target = util.target;\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ((${VALUE} ${MENU}) + layerOrder) - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);`;
         return `${code}\n`;
     })
 
