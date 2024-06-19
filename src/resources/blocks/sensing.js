@@ -151,6 +151,38 @@ function register() {
         return [`document.hasFocus()`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // get mouse x/y
+    registerBlock(`${categoryPrefix}getmouseposition`, {
+        message0: 'get mouse %1',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "POSITION",
+                "options": [
+                    ["x", "X"],
+                    ["y", "Y"],
+                ]
+            }
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const POSITION = block.getFieldValue('POSITION');
+        return [`Scratch.vm.runtime.ioDevices.mouse.getScratch${POSITION}()`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // is mouse down
+    registerBlock(`${categoryPrefix}ismousedown`, {
+        message0: 'is mouse down?',
+        args0: [],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`Scratch.vm.runtime.ioDevices.mouse.getIsDown()`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // get timer
     registerBlock(`${categoryPrefix}gettimer`, {
         message0: 'get project timer',
