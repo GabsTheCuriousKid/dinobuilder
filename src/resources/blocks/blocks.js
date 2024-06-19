@@ -283,7 +283,7 @@ function register() {
         return `${code}\n`;
     })
 
-    // return
+    // call hat
     registerBlock(`${categoryPrefix}callhat`, {
         message0: 'call hat %1',
         args0: [
@@ -301,6 +301,17 @@ function register() {
     }, (block) => {
         const NAME = block.getFieldValue('NAME')
         const code = `Scratch.vm.runtime.startHats(\`\${Extension.prototype.getInfo().id}_${NAME}\`)`;
+        return `${code}\n`;
+    })
+
+    // gap
+    registerBlock(`${categoryPrefix}gap`, {
+        message0: 'gap',
+        args0: [],
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const code = `"---",`;
         return `${code}\n`;
     })
     // create dem blocks!!!
