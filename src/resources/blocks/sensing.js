@@ -172,6 +172,27 @@ function register() {
         return [`Scratch.vm.runtime.ioDevices.mouse.getScratch${POSITION}()`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // get cilent mouse x/y
+    registerBlock(`${categoryPrefix}getcilentmouseposition`, {
+        message0: 'get cilent mouse %1',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "POSITION",
+                "options": [
+                    ["x", "X"],
+                    ["y", "Y"],
+                ]
+            }
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const POSITION = block.getFieldValue('POSITION');
+        return [`Scratch.vm.runtime.ioDevices.mouse.getClient${POSITION}()`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // is mouse down
     registerBlock(`${categoryPrefix}ismousedown`, {
         message0: 'is mouse down?',
