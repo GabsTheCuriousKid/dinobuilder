@@ -764,6 +764,12 @@
         object-fit: contain;
     }
 
+    .menuIcon {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+    }
+
     .row-menus {
         display: flex;
         flex-direction: row;
