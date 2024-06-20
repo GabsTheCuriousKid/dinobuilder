@@ -595,7 +595,7 @@
                     Add more images here to use them.
                 </p>
                 <p>
-                    <input type="file" on:change={extraIconAdded} />
+                    <input type="file" accept=".png,.jpg,.jpeg" on:change={extraIconAdded} />
                 </p>
                 {#if !extensionImageStates.menuicon.loading && !extensionImageStates.menuicon.failed && extensionImageStates.menuicon.image}
                     <img
