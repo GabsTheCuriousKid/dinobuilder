@@ -251,6 +251,28 @@ function register() {
         return `${code}\n`;
     })
 
+    registerBlock(`${categoryPrefix}optiontimer`, {
+        message0: '%1 project timer',
+        args0: [
+            {
+                "type": "field_dropdown",
+                "name": "OPTION",
+                "options": [
+                    ["pause", "pause"],
+                    ["resume", "resume"],
+                ]
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const OPTION = block.getFieldValue('OPTION');
+        const code = `Scratch.vm.runtime.ioDevices.clock.${OPTION}();`;
+        return `${code}\n`;
+    })
+
     registerBlock(`${categoryPrefix}getusername`, {
         message0: 'get username',
         args0: [],

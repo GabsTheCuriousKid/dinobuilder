@@ -10,4 +10,7 @@
             <block type="functions_return" />
         </statement>
     </block>
+    <sep gap="48"></sep>
+    <block type="sensing_pausetimer" />
+    <block type="sensing_resumetimer" />
 </category>
