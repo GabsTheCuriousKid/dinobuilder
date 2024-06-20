@@ -563,7 +563,7 @@
                 </p>
                 <p>
                     Extension Icon:
-                    <input type="file" on:change={extensionIconAdded} />
+                    <input type="file" accept=".png,.jpg,.jpeg" on:change={extensionIconAdded} />
                 </p>
                 {#if !extensionImageStates.icon.loading && !extensionImageStates.icon.failed && extensionImageStates.icon.image}
                     <img
