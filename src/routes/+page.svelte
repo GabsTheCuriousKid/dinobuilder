@@ -352,6 +352,47 @@
         fileReader.readAsDataURL(file);
     }
 
+    function extraIconAdded(event) {
+        console.log(event);
+        const filePicker = event.target;
+        // check if we have a file
+        if (!filePicker.files || !filePicker.files[0]) {
+            // remove the image
+            extensionImageStates.menuicon.failed = false;
+            extensionImageStates.menuicon.square = false;
+            extensionImageStates.menuicon.loading = false;
+            extensionImageStates.menuicon.image = "";
+            updateGeneratedCode();
+            return;
+        }
+        const file = filePicker.files[0];
+
+        extensionImageStates.menuicon.loading = true;
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+            // file finished loading
+            const url = fileReader.result;
+            extensionImageStates.menuicon.image = url;
+            updateGeneratedCode();
+            // start checking the other stuff
+            const image = new Image();
+            image.onload = () => {
+                extensionImageStates.menuicon.failed = false;
+                extensionImageStates.menuicon.square = image.width === image.height;
+                // mark as loading finished
+                extensionImageStates.menuicon.loading = false;
+            };
+            image.onerror = () => {
+                extensionImageStates.menuicon.failed = true;
+                extensionImageStates.menuicon.square = false;
+                // mark as loading finished
+                extensionImageStates.menuicon.loading = false;
+            };
+            image.src = url;
+        };
+        fileReader.readAsDataURL(file);
+    }
+
     // validation
     function isExtensionIDInvalid(id) {
         return Boolean(String(id).match(/[^a-z0-9]/gim));
@@ -553,7 +594,9 @@
                     <br />
                     Add more images here to use them.
                 </p>
-                <StyledButton>Add Image</StyledButton>
+                <p>
+                    <input type="file" on:change={extraIconAdded} />
+                </p>
             </div>
             <div class="row-subsubmenus">
                 <div class="codeActionsWrapper">
