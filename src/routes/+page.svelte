@@ -597,6 +597,27 @@
                 <p>
                     <input type="file" on:change={extraIconAdded} />
                 </p>
+                {#if !extensionImageStates.menuicon.loading && !extensionImageStates.menuicon.failed && extensionImageStates.menuicon.image}
+                    <img
+                        alt="Menu Icon"
+                        title="Menu Icon"
+                        class="menuIcon"
+                        src={extensionImageStates.menuicon.image}
+                    />
+                {/if}
+                {#if extensionImageStates.menuicon.image}
+                    {#if extensionImageStates.menuicon.failed}
+                        <p class="warning">
+                            The menu icon is not an image, this may appear
+                            broken.
+                        </p>
+                    {/if}
+                    {#if !extensionImageStates.menuicon.square}
+                        <p class="warning">
+                            The image is not square, this may appear broken.
+                        </p>
+                    {/if}
+                {/if}
             </div>
             <div class="row-subsubmenus">
                 <div class="codeActionsWrapper">
