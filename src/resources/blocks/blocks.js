@@ -8,7 +8,7 @@ const categoryColor = '#FF6680';
 function register() {
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}create`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 inputs: %10 %11 function: %12 %13',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable Monitor?: %10 %11 inputs: %12 %13 function: %14 %15',
         args0: [
             {
                 "type": "input_dummy"
@@ -54,6 +54,17 @@ function register() {
                 "type": "input_dummy"
             },
             {
+                "type": "field_dropdown",
+                "name": "DMCONDITION",
+                "options": [
+                    [ "false", "false" ],
+                    [ "true", "true" ],
+                ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
                 "type": "input_dummy"
             },
             {
@@ -78,6 +89,7 @@ function register() {
         const TYPE = block.getFieldValue('TYPE')
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
+        const DMCONDITION = (TYPE === 'EVENT,' ? block.getFieldValue('DMCONDITION') : true);
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
         
         const code = `blocks.push({
@@ -86,7 +98,7 @@ function register() {
             hideFromPalette: ${CONDITION},
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
-            disableMonitor: true
+            disableMonitor: ${DMCONDITION}
         });
         Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
         return `${code}\n`;
@@ -316,7 +328,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 color1: %10 %11 color2: %12 %13 color3: %14 %15 inputs: %16 %17 function: %18 %19',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable monitor: %10 %11 color1: %12 %13 color2: %14 %15 color3: %16 %17 inputs: %18 %19 function: %20 %21',
         args0: [
             {
                 "type": "input_dummy"
@@ -357,6 +369,17 @@ function register() {
                 "type": "input_value",
                 "name": "CONDITION",
                 "check": "Boolean"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "DMCONDITION",
+                "options": [
+                    [ "false", "false" ],
+                    [ "true", "true" ],
+                ]
             },
             {
                 "type": "input_dummy"
@@ -408,12 +431,13 @@ function register() {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
-        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const COLOR1 = block.getFieldValue('COLOR1')
         const COLOR2 = block.getFieldValue('COLOR2')
         const COLOR3 = block.getFieldValue('COLOR3')
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
+        const DMCONDITION = (TYPE === 'EVENT,' ? block.getFieldValue('DMCONDITION') : true);
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
@@ -424,7 +448,7 @@ function register() {
             color3: \`${COLOR3}\`,
             text: \`${TEXT}\`,
             arguments: { ${INPUTS} },
-            disableMonitor: true
+            disableMonitor: ${DMCONDITION}
         });
         Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
         return `${code}\n`;
