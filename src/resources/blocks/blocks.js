@@ -8,7 +8,7 @@ const categoryColor = '#FF6680';
 function register() {
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}create`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable Monitor?: %10 %11 inputs: %12 %13 function: %14 %15',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable monitor?: %10 %11 inputs: %12 %13 function: %14 %15',
         args0: [
             {
                 "type": "input_dummy"
@@ -89,7 +89,7 @@ function register() {
         const TYPE = block.getFieldValue('TYPE')
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
-        const DMCONDITION = (TYPE === 'EVENT,' ? block.getFieldValue('DMCONDITION') : true);
+        const DMCONDITION = (TYPE === 'REPORTER,' || TYPE === 'BOOLEAN,' ? block.getFieldValue('DMCONDITION') : true);
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
         
         const code = `blocks.push({
@@ -437,7 +437,7 @@ function register() {
         const COLOR3 = block.getFieldValue('COLOR3')
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
-        const DMCONDITION = (TYPE === 'EVENT,' ? block.getFieldValue('DMCONDITION') : true);
+        const DMCONDITION = (TYPE === 'REPORTER,' || TYPE === 'BOOLEAN,' ? block.getFieldValue('DMCONDITION') : true);
         
         const code = `blocks.push({
             opcode: \`${ID}\`,
