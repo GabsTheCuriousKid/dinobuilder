@@ -48,7 +48,7 @@ function register() {
 
     // repeat x amount of times
     registerBlock(`${categoryPrefix}repeat`, {
-        message0: 'repeat %1 %2 %3',
+        message0: 'repeat %1 %2 %3 %4',
         args0: [
             {
                 "type": "input_value",
@@ -61,6 +61,13 @@ function register() {
             {
                 "type": "input_statement",
                 "name": "BLOCKS"
+            },
+            {
+                "type": "field_image",
+                "src": "../../../../static/images/blockIcons/repeat.svg",
+                "width": 24,
+                "height": 24,
+                "alt": "*"
             }
         ],
         previousStatement: null,
