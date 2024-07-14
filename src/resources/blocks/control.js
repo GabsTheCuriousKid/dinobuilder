@@ -67,8 +67,7 @@ function register() {
                 "src": "/images/blockIcons/repeat.svg",
                 "width": 24,
                 "height": 24,
-                "alt": "*",
-                "flip_rtl": true
+                "alt": "*"
             }
         ],
         previousStatement: null,
@@ -80,6 +79,34 @@ function register() {
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
         const variable = compileVars.new()
         const code = `for (var ${variable} = 0; ${variable} < ${TIMES}; ${variable}++) { ${BLOCKS} }`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}forever`, {
+        message0: 'forever %1 %2 %3',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "BLOCKS"
+            },
+            {
+                "type": "field_image",
+                "src": "/images/blockIcons/repeat.svg",
+                "width": 24,
+                "height": 24,
+                "alt": "*"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
+        const code = `while (true) {${BLOCKS}}`;
         return `${code}\n`;
     })
 

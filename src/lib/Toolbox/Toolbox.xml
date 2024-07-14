@@ -45,6 +45,7 @@
         <block type="control_waituntil" />
         <sep gap="48"></sep>
         <block type="control_repeat" />
+        <block type="control_forever" />
         <sep gap="48"></sep>
         <block type="control_ifthen" />
         <block type="control_ifthenelse" />
