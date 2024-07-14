@@ -67,7 +67,8 @@ function register() {
                 "src": "/images/blockIcons/repeat.svg",
                 "width": 24,
                 "height": 24,
-                "alt": "*"
+                "alt": "*",
+                "flip_rtl": true
             }
         ],
         previousStatement: null,
