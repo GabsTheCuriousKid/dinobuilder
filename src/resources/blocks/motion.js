@@ -52,10 +52,9 @@ function register() {
     registerBlock(`${categoryPrefix}setdirection`, {
         message0: 'point in direction %1',
         args0: [
-            {    
-                "type": "field_angle",
+            {
+                "type": "input_value",
                 "name": "DIR",
-                "angle": 90,
                 "check": "Number"
             },
         ],

@@ -95,6 +95,7 @@
         <block type="literals_false" />
         <block type="literals_randomBoolean" />
         <block type="literals_number" />
+        <block type="literals_direction" />
         <block type="literals_string" />
         <block type="literals_color" />
         <block type="literals_array" />

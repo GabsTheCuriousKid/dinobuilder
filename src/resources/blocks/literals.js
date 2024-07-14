@@ -57,6 +57,25 @@ function register() {
         return [NUMBER, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // direction
+    registerBlock(`${categoryPrefix}direction`, {
+        message0: '(%1)',
+        args0: [
+            {
+                "type": "field_angle",
+                "name": "DIRECTION",
+                "angle": 0,
+            }
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const DIRECTION = block.getFieldValue('DIRECTION')
+
+        return [DIRECTION, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // null
     registerBlock(`${categoryPrefix}null`, {
         message0: 'null',
