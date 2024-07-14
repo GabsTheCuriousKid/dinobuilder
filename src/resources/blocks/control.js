@@ -64,7 +64,7 @@ function register() {
             },
             {
                 "type": "field_image",
-                "src": "$static/images/blockIcons/repeat.svg",
+                "src": "/images/blockIcons/repeat.svg",
                 "width": 24,
                 "height": 24,
                 "alt": "*"
