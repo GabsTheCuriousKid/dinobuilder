@@ -3,6 +3,8 @@
         <block type="motion_goto_position" />
         <block type="motion_getx" />
         <block type="motion_gety" />
+        <block type="motion_setdirection" />
+        <block type="motion_getdir" />
         <sep gap="48"></sep>
         <block type="motion_getsprite" />
         <block type="motion_getxof" />

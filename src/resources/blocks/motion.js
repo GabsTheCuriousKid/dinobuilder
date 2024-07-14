@@ -49,6 +49,36 @@ function register() {
         return [`Math.round(util.target.y)`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    registerBlock(`${categoryPrefix}setdirection`, {
+        message0: 'point in direction %1',
+        args0: [
+            {    
+                "type": "field_angle",
+                "name": "DIR",
+                "angle": 90,
+                "check": "Number"
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const DIR = javascriptGenerator.valueToCode(block, 'DIR', javascriptGenerator.ORDER_ATOMIC);
+        const code = `util.target.setDirection(${DIR});`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}getdir`, {
+        message0: 'get direction',
+        args0: [],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`Math.round(util.target.direction)`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     registerBlock(`${categoryPrefix}stage`, {
         message0: 'stage',
         args0: [],
