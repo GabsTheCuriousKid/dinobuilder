@@ -49,6 +49,7 @@ function register() {
     // repeat x amount of times
     registerBlock(`${categoryPrefix}repeat`, {
         message0: 'repeat %1 %2 %3 %4',
+        implicitAlign0: "RIGHT",
         args0: [
             {
                 "type": "input_value",
@@ -84,6 +85,7 @@ function register() {
 
     registerBlock(`${categoryPrefix}forever`, {
         message0: 'forever %1 %2 %3',
+        implicitAlign0: "RIGHT",
         args0: [
             {
                 "type": "input_dummy"
