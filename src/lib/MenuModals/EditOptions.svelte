@@ -13,10 +13,6 @@
     function cancel() {
         dispatch("cancel");
     }
-    function toggleSound() {
-        sound = !sound
-        print(sound)
-    }
 </script>
 
 <div class="bg">
@@ -33,7 +29,7 @@
                 >
                     <label>
                         Sound (Experimental Feature)
-                        <input type="checkbox" bind:checked={toggleSound} />
+                        <input type="checkbox" bind:checked={sound} />
                     </label>
                 </div>
             </div>

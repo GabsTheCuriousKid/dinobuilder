@@ -163,8 +163,11 @@
         color1: "#0088ff",
         color2: "#0063ba",
         color3: "",
-        tbShow: true
+        tbShow: true,
     };
+    const optionsMetadata = {
+        sound: true,
+    }
 
     function updateGeneratedCode() {
         extensionMetadata.name = "Extension";
@@ -178,7 +181,7 @@
         const code = compiler.compile(
             workspace,
             extensionMetadata,
-            extensionImageStates
+            extensionImageStates,
         );
         lastGeneratedCode = code;
     }
@@ -214,9 +217,10 @@
         let projectData = Blockly.serialization.workspaces.save(workspace)
 
         // modify data by me wow
+        let metadataValue = extensionMetadata && optionsMetadata
         projectData = {
             blockly: projectData,
-            metadata: extensionMetadata,
+            metadata: metadataValue,
             images: extensionImageStates
         }
 
@@ -259,7 +263,8 @@
                 projectID = projectJson.metadata.id
                 for (var i in projectJson.metadata) {
                     var v = projectJson.metadata[i]
-                    extensionMetadata[i] = v
+                    extensionMetadata[i] = v,
+                    optionsMetadata[i] = v,
                 }
                 for (var i in projectJson.images) {
                     var v = projectJson.images[i]
@@ -414,8 +419,10 @@
 />
 {#if ModalState.editoptions}
     <EditOptionsModal
+        sound={optionsMetadata.sound}
         on:completed={(editoptionsdata) => {
             ModalState.editoptions = false;
+            optionsMetadata.sound = editoptionsdata.detail.sound;
             updateGeneratedCode();
         }}
         on:cancel={() => {
