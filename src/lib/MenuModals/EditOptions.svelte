@@ -6,19 +6,16 @@
     const dispatch = createEventDispatcher();
 
     function event() {
-        console.log(color3Included);
-        if (!color3Included) {
-            color3 = "";
-        }
-        if (color3Included && !color3) {
-            color3 = "#000000";
-        }
         dispatch("completed", {
             sound
         });
     }
     function cancel() {
         dispatch("cancel");
+    }
+    function toggleSound() {
+        sound = !sound
+        print(sound)
     }
 </script>
 
@@ -36,7 +33,7 @@
                 >
                     <label>
                         Sound (Experimental Feature)
-                        <input type="checkbox" bind:checked={sound} />
+                        <input type="checkbox" bind:checked={toggleSound} />
                     </label>
                 </div>
             </div>
