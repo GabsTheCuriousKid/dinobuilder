@@ -17,6 +17,7 @@
 
     function toggleHidden() {
         hiddenblocksExt = !hiddenblocksExt
+        localStorage.setItem('DB_HBData', hiddenblocksExt)
     }
 </script>
 
