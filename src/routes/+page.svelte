@@ -10,7 +10,6 @@
     // Modals
     import ExtensionColorsModal from "$lib/MenuModals/ExtensionColors.svelte";
     import AddExtensionsModal from "$lib/MenuModals/AddExtension.svelte";
-    import EditOptionsModal from "$lib/MenuModals/EditOptions.svelte";
     import CreateBlockModal from "$lib/MenuModals/CreateBlock.svelte";
 
     // Modal Scripts
@@ -163,11 +162,8 @@
         color1: "#0088ff",
         color2: "#0063ba",
         color3: "",
-        tbShow: true,
+        tbShow: true
     };
-    const optionsMetadata = {
-        sound: true,
-    }
 
     function updateGeneratedCode() {
         extensionMetadata.name = "Extension";
@@ -181,7 +177,7 @@
         const code = compiler.compile(
             workspace,
             extensionMetadata,
-            extensionImageStates,
+            extensionImageStates
         );
         lastGeneratedCode = code;
     }
@@ -217,10 +213,9 @@
         let projectData = Blockly.serialization.workspaces.save(workspace)
 
         // modify data by me wow
-        let metadataValue = extensionMetadata && optionsMetadata
         projectData = {
             blockly: projectData,
-            metadata: metadataValue,
+            metadata: extensionMetadata,
             images: extensionImageStates
         }
 
@@ -263,8 +258,7 @@
                 projectID = projectJson.metadata.id
                 for (var i in projectJson.metadata) {
                     var v = projectJson.metadata[i]
-                    extensionMetadata[i] = v,
-                    optionsMetadata[i] = v,
+                    extensionMetadata[i] = v
                 }
                 for (var i in projectJson.images) {
                     var v = projectJson.images[i]
@@ -417,20 +411,6 @@
     color2={extensionMetadata.color2}
     color3={extensionMetadata.color3}
 />
-{#if ModalState.editoptions}
-    <EditOptionsModal
-        sound={optionsMetadata.sound}
-        on:completed={(editoptionsdata) => {
-            ModalState.editoptions = false;
-            optionsMetadata.sound = editoptionsdata.detail.sound;
-            updateGeneratedCode();
-        }}
-        on:cancel={() => {
-            ModalState.editoptions = false;
-            updateGeneratedCode();
-        }}
-    />
-{/if}
 {#if ModalState.addExtensions}
     <AddExtensionsModal
         on:completed={(addextensiondata) => {
@@ -506,21 +486,12 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
-                <!--
                 <StyledButton
                     on:click={() => {
                         ModalState.addExtensions = true;
                     }}
                 >
                     Add an Extension
-                </StyledButton>
-                this isn't working right now so. -->
-                <StyledButton
-                    on:click={() => {
-                        ModalState.editoptions = true;
-                    }}
-                >
-                    Options
                 </StyledButton>
                 <div style="margin-left:8px" />
                 <StyledButton

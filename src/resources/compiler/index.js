@@ -4,9 +4,9 @@ const start = `
 if (!Scratch.extensions.unsandboxed) {
   alert("This extension needs to be unsandboxed to run!")
   return
-}`
+}
 
-`function doSound(ab, cd, runtime) {
+function doSound(ab, cd, runtime) {
 const audioEngine = runtime.audioEngine;
 
 const fetchAsArrayBufferWithTimeout = (url) =>
@@ -132,11 +132,10 @@ class Compiler {
      * Generates JavaScript code from the provided workspace & info.
      * @param {Blockly.Workspace} workspace 
      * @param {object} extensionMetadata 
-     * @param {object} optionsMetadata
      * @param {object} imageStates 
      * @returns {string} Generated code.
      */
-    compile(workspace, extensionMetadata, optionsMetadata, imageStates) {
+    compile(workspace, extensionMetadata, imageStates) {
         const code = javascriptGenerator.workspaceToCode(workspace);
 
         const headerCode = [
@@ -195,11 +194,6 @@ class Compiler {
             if (extensionMetadata.tbShow) {
                 classRegistry.extensionInfo.tbShow = extensionMetadata.tbShow;
             }
-        }
-        if (optionsMetadata) {
-          if (optionsMetadata.sound) {
-            classRegistry.extensionInfo.sound = optionsMetadata.sound;
-          }
         }
 
         return [].concat(headerCode, classRegistry.top, [
