@@ -10,6 +10,7 @@
     // Modals
     import ExtensionColorsModal from "$lib/MenuModals/ExtensionColors.svelte";
     import AddExtensionsModal from "$lib/MenuModals/AddExtension.svelte";
+    import EditOptionsModal from "$lib/MenuModals/EditOptions.svelte";
     import CreateBlockModal from "$lib/MenuModals/CreateBlock.svelte";
 
     // Modal Scripts
@@ -411,6 +412,18 @@
     color2={extensionMetadata.color2}
     color3={extensionMetadata.color3}
 />
+{#if ModalState.editoptions}
+    <EditOptionsModal
+        on:completed={(editoptionsdata) => {
+            ModalState.editoptions = false;
+            updateGeneratedCode();
+        }}
+        on:cancel={() => {
+            ModalState.editoptions = false;
+            updateGeneratedCode();
+        }}
+    />
+{/if}
 {#if ModalState.addExtensions}
     <AddExtensionsModal
         on:completed={(addextensiondata) => {
@@ -486,12 +499,21 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
+                <!--
                 <StyledButton
                     on:click={() => {
                         ModalState.addExtensions = true;
                     }}
                 >
                     Add an Extension
+                </StyledButton>
+                this isn't working right now so. -->
+                <StyledButton
+                    on:click={() => {
+                        ModalState.editoptions = true;
+                    }}
+                >
+                    Options
                 </StyledButton>
                 <div style="margin-left:8px" />
                 <StyledButton
