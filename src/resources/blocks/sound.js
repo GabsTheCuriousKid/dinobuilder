@@ -98,7 +98,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const VALUE = block.getFieldValue('VALUE');
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const code = `Scratch.vm.runtime.audioEngine.inputNode.gain.value = ${VALUE} / 100;`;
         return `${code}\n`;
     })
@@ -116,8 +116,8 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const VALUE = block.getFieldValue('VALUE');
-        const code = `let volume = Scratch.vm.runtime.audioEngine.inputNode.gain.value;\nScratch.vm.runtime.audioEngine.inputNode.gain.value = ${VALUE} /100 + volume;`;
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const code = `let volume = Scratch.vm.runtime.audioEngine.inputNode.gain.value;\nScratch.vm.runtime.audioEngine.inputNode.gain.value = ${VALUE} / 100 + volume;`;
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}getprojectvolume`, {
