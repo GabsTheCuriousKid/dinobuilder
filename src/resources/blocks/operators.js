@@ -265,6 +265,31 @@ function register() {
         return [`(${String(X) || ''} + ${String(Y) || ''})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // split
+    registerBlock(`${categoryPrefix}split`, {
+        message0: 'split %1 with %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X",
+                "checks": "String"
+            },
+            {
+                "type": "input_value",
+                "name": "Y",
+                "checks": "String"
+            }
+        ],
+        output: "JSONArray",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`(${X} || "").split(${Y} || "")`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // x + y
     registerBlock(`${categoryPrefix}add`, {
         message0: '%1 + %2',
@@ -438,56 +463,6 @@ function register() {
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
 
         return [`(Math.log(${Y || 1}) / Math.log(${X || 10}))`, javascriptGenerator.ORDER_ATOMIC];
-    })
-
-    // x / y
-    registerBlock(`${categoryPrefix}divide`, {
-        message0: '%1 ÷ %2',
-        args0: [
-            {
-                "type": "input_value",
-                "name": "X",
-                "check": "Number"
-            },
-            {
-                "type": "input_value",
-                "name": "Y",
-                "check": "Number"
-            }
-        ],
-        output: "Number",
-        inputsInline: true,
-        colour: categoryColor
-    }, (block) => {
-        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
-        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-
-        return [`(${X || 0} / ${Y || 1})`, javascriptGenerator.ORDER_ATOMIC];
-    })
-
-    // x ^ y
-    registerBlock(`${categoryPrefix}power`, {
-        message0: '%1 ^ %2',
-        args0: [
-            {
-                "type": "input_value",
-                "name": "X",
-                "check": "Number"
-            },
-            {
-                "type": "input_value",
-                "name": "Y",
-                "check": "Number"
-            }
-        ],
-        output: "Number",
-        inputsInline: true,
-        colour: categoryColor
-    }, (block) => {
-        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
-        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-
-        return [`(${X || 0} ** ${Y || 1})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // rootx y

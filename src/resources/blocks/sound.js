@@ -127,7 +127,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        return [`Scratch.vm.runtime.audioEngine.inputNode.gain.value`, javascriptGenerator.ORDER_ATOMIC];
+        return [`Scratch.vm.runtime.audioEngine.inputNode.gain.value * 100`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 

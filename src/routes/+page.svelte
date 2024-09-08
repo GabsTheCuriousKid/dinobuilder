@@ -41,6 +41,10 @@
         startHats: true,
     });
 
+    Blockly.VerticalFlyout.prototype.getFlyoutScale = function () {
+        return config.zoom.startScale;
+    };
+
     import En from "blockly/msg/en";
     import "blockly/blocks";
 

@@ -277,6 +277,17 @@ function register() {
         return [`args["${NAME}"]`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // get input
+    registerBlock(`${categoryPrefix}currentSprite`, {
+        message0: 'current sprite',
+        args0: [],
+        output: "Sprite",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`util.target`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // return
     registerBlock(`${categoryPrefix}return`, {
         message0: 'return %1',
