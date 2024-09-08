@@ -35,6 +35,10 @@
         <!--<block type="sound_stopallsounds" />-->
         <block type="sound_getvolume" />
         <block type="sound_getvolumeof" />
+        <sep gap="48"></sep>
+        <block type="sound_setprojectvolume" />
+        <block type="sound_changeprojectvolume" />
+        <block type="sound_getprojectvolume" />
     </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />
@@ -120,6 +124,7 @@
         <block type="operators_minus" />
         <block type="operators_multiply" />
         <block type="operators_divide" />
+        <block type="operators_mod" />
         <block type="operators_power" />
         <sep gap="48"></sep>
         <block type="operators_log" />

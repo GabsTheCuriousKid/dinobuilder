@@ -84,6 +84,51 @@ function register() {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.volume : 0)`, javascriptGenerator.ORDER_ATOMIC];
     })
+    registerBlock(`${categoryPrefix}setprojectvolume`, {
+        message0: 'set project volume to %1 ',
+        args0: [
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VALUE = block.getFieldValue('VALUE');
+        const code = `Scratch.vm.runtime.audioEngine.inputNode.gain.value = ${VALUE} / 100;`;
+        return `${code}\n`;
+    })
+    registerBlock(`${categoryPrefix}changeprojectvolume`, {
+        message0: 'change project volume by %1 ',
+        args0: [
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VALUE = block.getFieldValue('VALUE');
+        const code = `let volume = Scratch.vm.runtime.audioEngine.inputNode.gain.value;\nScratch.vm.runtime.audioEngine.inputNode.gain.value = ${VALUE} /100 + volume;`;
+        return `${code}\n`;
+    })
+    registerBlock(`${categoryPrefix}getprojectvolume`, {
+        message0: 'get project volume',
+        args0: [],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`Scratch.vm.runtime.audioEngine.inputNode.gain.value`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;
