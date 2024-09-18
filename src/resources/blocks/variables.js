@@ -132,12 +132,12 @@ function register() {
                 "checks": "String"
             }
         ],
-        output: "boolean",
+        output: "Boolean",
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
         const NAME = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
-        return [`localStorage.getItem(${NAME || '""'} !== null)`, javascriptGenerator.ORDER_ATOMIC];
+        return [`localStorage.getItem(${NAME || '""'}) !== null`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
