@@ -153,6 +153,9 @@
         <sep gap="48"></sep>
         <block type="variable_setls" />
         <block type="variable_getls" />
+        <block type="variable_lsexists" />
+        <block type="variable_removels" />
+        <block type="variable_clearls" />
     </category>
     <category name="JSON" colour="#FF661A">
         <block type="json_validate" />
