@@ -417,7 +417,7 @@
 />
 {#if ModalState.addExtensions}
     <AddExtensionsModal
-        on:completed={(addextensiondata) => {
+        on:completed={async (addextensiondata) => {
             ModalState.addExtensions = false;
             async function onMount() {
                 let sourceXML
@@ -432,6 +432,8 @@
                   console.error('Error injecting XML:', error);
                 }
             }
+
+            onMount()
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;
