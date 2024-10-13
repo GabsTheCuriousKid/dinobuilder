@@ -427,6 +427,7 @@
                 const elementToInject = 'xml';
                 try {
                   await injectXML(sourceXML, targetXML, elementToInject);
+                  console.log(sourceXML + ' has been fetched into: ' + targetXML + ' and injected into element: ' + elementToInject)
                 } catch (error) {
                   console.error('Error injecting XML:', error);
                 }
