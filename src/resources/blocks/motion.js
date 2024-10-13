@@ -155,6 +155,23 @@ function register() {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.y : 0)`, javascriptGenerator.ORDER_ATOMIC]
     })
+
+    registerBlock(`${categoryPrefix}getdirof`, {
+        message0: 'direction of %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.direction : 0)`, javascriptGenerator.ORDER_ATOMIC]
+    })
 }
 
 export default register;

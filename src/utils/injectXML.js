@@ -9,8 +9,8 @@ async function injectXML(sourceXML, targetXML, elementToInject) {
     const element = parsedSource.querySelector(elementToInject);
     const serializedElement = new XMLSerializer().serializeToString(element);
 
-    const targetWithoutClosingTag = targetData.split('</toolbox>');
-    const finalXML = `${targetWithoutClosingTag[0]}${serializedElement}</toolbox>`;
+    const targetWithoutClosingTag = targetData.split('</xml>');
+    const finalXML = `${targetWithoutClosingTag[0]}${serializedElement}</xml>`;
 
     await fs.writeFile(targetXML, finalXML);
     console.log('XML injection successful!');

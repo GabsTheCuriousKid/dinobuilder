@@ -490,7 +490,6 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
-                <!--
                 <StyledButton
                     on:click={() => {
                         ModalState.addExtensions = true;
@@ -498,7 +497,6 @@
                 >
                     Add an Extension
                 </StyledButton>
-                this is broken. -->
                 <div style="margin-left:8px" />
                 <StyledButton
                     on:click={() => {
