@@ -30,6 +30,7 @@
     import injectXML from '../utils/injectXML.js';
 
     import Blockly from "blockly/core";
+    import * as Xml from "blockly/xml";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
     import "@blockly/field-colour-hsv-sliders";
 
@@ -192,7 +193,7 @@
 
     async function loadToolbox() {
         toolboxXML = Toolbox;
-        workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML));
+        workspace.updateToolbox(Xml.textToDom(toolboxXML));
     }
 
     import pkg from '@blockly/workspace-minimap';
