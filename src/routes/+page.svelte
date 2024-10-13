@@ -16,7 +16,7 @@
     import CreateBlockModalScript from "$lib/MenuModals/createblock.js";
 
     // Toolbox
-    import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
+    // import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
     import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
 
@@ -104,8 +104,10 @@
     Blockly.blockRendering.unregister('custom_renderer') //weird bug
     Blockly.blockRendering.register('custom_renderer', customRenderer)
 
+    let toolboxXML = '';
+
     const config = {
-        toolbox: Toolbox,
+        toolbox: toolboxXML,
         collapse: true,
         comments: true,
         scrollbars: true,
@@ -188,10 +190,23 @@
         lastGeneratedCode = code;
     }
 
+    async function loadToolbox() {
+        const response = await fetch('/resources/toolbox/toolbox.xml'); // Adjust this path if needed
+        if (response.ok) {
+            toolboxXML = await response.text(); // Set the new toolbox XML
+            // Reinitialize the Blockly workspace here if needed
+            workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML)); // Update the toolbox with new XML
+        } else {
+            console.error('Failed to load toolbox XML:', response.statusText);
+        }
+    }
+
     import pkg from '@blockly/workspace-minimap';
     const { PositionedMinimap } = pkg;
     onMount(() => {
         console.log("ignore the warnings above we dont care about those");
+
+        loadToolbox()
 
         window.onbeforeunload = () => "";
         compiler = new Compiler(workspace);
@@ -427,6 +442,7 @@
                 const elementToInject = 'xml';
                 try {
                   await injectXML(sourceXML, targetXML, elementToInject);
+                  await loadToolbox();
                   console.log(sourceXML + ' has been fetched into: ' + targetXML + ' and injected into element: ' + elementToInject)
                 } catch (error) {
                   console.error('Error injecting XML:', error);
