@@ -1,10 +1,5 @@
-import fs from 'fs/promises';
-
-async function injectXML(sourceXML, targetXML, elementToInject) {
+async function injectXML(sourceData, targetData, elementToInject) {
   try {
-    const sourceData = await fs.readFile(sourceXML, 'utf-8');
-    const targetData = await fs.readFile(targetXML, 'utf-8');
-
     const parsedSource = new DOMParser().parseFromString(sourceData, 'text/xml');
     const element = parsedSource.querySelector(elementToInject);
     const serializedElement = new XMLSerializer().serializeToString(element);
@@ -12,8 +7,7 @@ async function injectXML(sourceXML, targetXML, elementToInject) {
     const targetWithoutClosingTag = targetData.split('</xml>');
     const finalXML = `${targetWithoutClosingTag[0]}${serializedElement}</xml>`;
 
-    await fs.writeFile(targetXML, finalXML);
-    console.log('XML injection successful!');
+    return finalXML; // Return the modified XML instead of writing it
   } catch (error) {
     console.error('Error injecting XML:', error);
   }
