@@ -16,7 +16,7 @@
     import CreateBlockModalScript from "$lib/MenuModals/createblock.js";
 
     // Toolbox
-    // import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
+    import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
     import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
 
@@ -191,10 +191,9 @@
     }
 
     async function loadToolbox() {
-        const response = await fetch('$lib/toolbox/toolbox.xml?raw');
+        const response = await fetch(Toolbox);
         if (response.ok) {
             toolboxXML = await response.text();
-            // Reinitialize the Blockly workspace here if needed
             workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML));
         } else {
             console.error('Failed to load toolbox XML:', response.statusText);
