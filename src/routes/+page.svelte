@@ -30,7 +30,6 @@
     import injectXML from '../utils/injectXML.js';
 
     import Blockly from "blockly/core";
-    import * as Xml from "blockly/xml";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
     import "@blockly/field-colour-hsv-sliders";
 
@@ -105,10 +104,8 @@
     Blockly.blockRendering.unregister('custom_renderer') //weird bug
     Blockly.blockRendering.register('custom_renderer', customRenderer)
 
-    let toolboxXML = '';
-
     const config = {
-        toolbox: toolboxXML,
+        toolbox: Toolbox,
         collapse: true,
         comments: true,
         scrollbars: true,
@@ -191,17 +188,10 @@
         lastGeneratedCode = code;
     }
 
-    async function loadToolbox() {
-        toolboxXML = Toolbox;
-        workspace.updateToolbox(Xml.textToDom(toolboxXML));
-    }
-
     import pkg from '@blockly/workspace-minimap';
     const { PositionedMinimap } = pkg;
     onMount(() => {
         console.log("ignore the warnings above we dont care about those");
-
-        loadToolbox()
 
         window.onbeforeunload = () => "";
         compiler = new Compiler(workspace);
@@ -437,7 +427,6 @@
                 const elementToInject = 'xml';
                 try {
                   await injectXML(sourceXML, targetXML, elementToInject);
-                  await loadToolbox();
                   console.log(sourceXML + ' has been fetched into: ' + targetXML + ' and injected into element: ' + elementToInject)
                 } catch (error) {
                   console.error('Error injecting XML:', error);
