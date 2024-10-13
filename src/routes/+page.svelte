@@ -421,8 +421,13 @@
             ModalState.addExtensions = false;
             async function onMount() {
                 let sourceXML
-                if (addextensiondata.detail.hiddenblocksExt == true) {
-                    sourceXML = await fetch('../resources/extensions/hiddenblocks.xml').text();
+                if (addextensiondata.detail.hiddenblocksExt === true) {
+                    const response = await fetch('/resources/extensions/hiddenblocks.xml');
+                    if (response.ok) {
+                        sourceXML = await response.text();
+                    } else {
+                        throw new Error(`Failed to load resource: ${response.statusText}`);
+                    }
                 }
                 const targetXML = '$lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
