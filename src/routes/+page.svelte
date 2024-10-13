@@ -191,13 +191,8 @@
     }
 
     async function loadToolbox() {
-        const response = await fetch(Toolbox);
-        if (response.ok) {
-            toolboxXML = await response.text();
-            workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML));
-        } else {
-            console.error('Failed to load toolbox XML:', response.statusText);
-        }
+        toolboxXML = Toolbox;
+        workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML));
     }
 
     import pkg from '@blockly/workspace-minimap';
