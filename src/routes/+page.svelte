@@ -191,11 +191,11 @@
     }
 
     async function loadToolbox() {
-        const response = await fetch('/resources/toolbox/toolbox.xml'); // Adjust this path if needed
+        const response = await fetch('$lib/toolbox/toolbox.xml?raw');
         if (response.ok) {
-            toolboxXML = await response.text(); // Set the new toolbox XML
+            toolboxXML = await response.text();
             // Reinitialize the Blockly workspace here if needed
-            workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML)); // Update the toolbox with new XML
+            workspace.updateToolbox(Blockly.Xml.textToDom(toolboxXML));
         } else {
             console.error('Failed to load toolbox XML:', response.statusText);
         }
