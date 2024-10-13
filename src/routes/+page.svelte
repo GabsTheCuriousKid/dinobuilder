@@ -18,6 +18,8 @@
     // Toolbox
     import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
+    import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
+
     import JSZip from "jszip";
     import beautify from "js-beautify";
     import Prism from "prismjs";
@@ -420,15 +422,7 @@
         on:completed={async (addextensiondata) => {
             ModalState.addExtensions = false;
             async function onMount() {
-                let sourceXML
-                if (addextensiondata.detail.hiddenblocksExt === true) {
-                    const response = await fetch('/resources/extensions/hiddenblocks.xml');
-                    if (response.ok) {
-                        sourceXML = await response.text();
-                    } else {
-                        throw new Error(`Failed to load resource: ${response.statusText}`);
-                    }
-                }
+                let sourceXML = hiddenblocksExtension
                 const targetXML = '$lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
                 try {
