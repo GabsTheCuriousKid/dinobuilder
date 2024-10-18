@@ -126,6 +126,28 @@ function register() {
         return ["'" + COLOR + "'", javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // new line
+    registerBlock(`${categoryPrefix}newline`, {
+        message0: 'new line',
+        args0: [],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, () => {
+        return ["'" + "\n" + "'", javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // new line
+    registerBlock(`${categoryPrefix}tabchar`, {
+        message0: 'tab character',
+        args0: [],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, () => {
+        return ["'" + "\t" + "'", javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // array
     registerBlock(`${categoryPrefix}array`, {
         message0: "blank array",

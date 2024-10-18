@@ -11,6 +11,7 @@
     import ExtensionColorsModal from "$lib/MenuModals/ExtensionColors.svelte";
     import AddExtensionsModal from "$lib/MenuModals/AddExtension.svelte";
     import CreateBlockModal from "$lib/MenuModals/CreateBlock.svelte";
+    import AddonsMenuModal from "$lib/MenuModals/addonsMenu.svelte";
 
     // Modal Scripts
     import CreateBlockModalScript from "$lib/MenuModals/createblock.js";
@@ -408,6 +409,7 @@
     const ModalState = {
         extensionColors: false,
         addExtensions: false,
+        addonsMenu: false,
     };
 
 </script>
@@ -460,7 +462,30 @@
         }}
     />
 {/if}
+{#if ModalState.addonsMenu}
+    alert("The Addons Menu is work in progress")
+    <AddonsMenuModal>
+        on:completed={async (dstext) => {
+            ModalState.addonsMenu = false;
+            async function onMount() {
+                const root = document.documentElement;
+                if (dstext===(true)) {
+                    root.style.setProperty('--dinobuilder-text', 'transparent');
+                } else {
+                    root.style.setProperty('--dinobuilder-text', '');
+                }
+            }
+
+            onMount()
+        }}
+        on:cancel={() => {
+            ModalState.addonsMenu = false;
+        }}
+    </AddonsMenuModal>
+{/if}
 <NavigationBar>
+    <NavigationButton on:click={()=>{ModalState.addonsMenu = true;}}>Addons</NavigationButton>
+    <NavigationDivider />
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
     <NavigationDivider />

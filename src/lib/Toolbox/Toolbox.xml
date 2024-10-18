@@ -103,6 +103,10 @@
         <block type="literals_direction" />
         <block type="literals_string" />
         <block type="literals_color" />
+        <sep gap="8"></sep>
+        <block type="literals_newline" />
+        <block type="literals_tabchar" />
+        <sep gap="8"></sep>
         <block type="literals_array" />
         <sep gap="8"></sep>
         <block type="literals_arraylength" />
@@ -136,6 +140,7 @@
         <block type="operators_random" />
         <sep gap="48"></sep>
         <block type="operators_join" />
+        <block type="operators_includes" />
         <block type="operators_split" />
         <block type="operators_letter" />
         <block type="operators_length_of" />
@@ -145,6 +150,7 @@
         <block type="conversions_tostring" />
         <block type="conversions_toboolean" />
         <block type="conversions_case" />
+        <block type="conversions_base" />
         <sep gap="48"></sep>
         <block type="conversions_time" />
     </category>

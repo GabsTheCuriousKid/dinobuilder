@@ -127,6 +127,28 @@ function register() {
         const MENU = block.getFieldValue('MENU');
         return [`String(${VAL}).to${MENU}Case()`, javascriptGenerator.ORDER_ATOMIC];
     })
+    registerBlock(`${categoryPrefix}base`, {
+        message0: "convert %1 to base %2",
+        args0: [
+            {
+                "type": "input_value",
+                "name": "VAL",
+                "check": "Number"
+            },
+            {
+                "type": "input_value",
+                "name": "BASE",
+                "check": "Number"
+            }
+        ],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const VAL = javascriptGenerator.valueToCode(block, 'VAL', javascriptGenerator.ORDER_ATOMIC);
+        const BASE = javascriptGenerator.valueToCode(block, 'BASE', javascriptGenerator.ORDER_ATOMIC);
+        return [`(${VAL}.toString(${BASE}))`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;

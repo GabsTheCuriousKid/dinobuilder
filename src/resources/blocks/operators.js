@@ -619,6 +619,30 @@ function register() {
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         return [`String(${X}).length`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    // includes
+    registerBlock(`${categoryPrefix}includes`, {
+        message0: '%1 includes %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X",
+                "check": "String"
+            },
+            {
+                "type": "input_value",
+                "name": "Y",
+                "check": "String"
+            }
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+        return [`(String(${X}).includes(String(${Y})))`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;

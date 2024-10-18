@@ -17,7 +17,7 @@
         padding: 0.5rem 1.65rem;
 
         font-size: 0.75rem;
-        color: black;
+        color: var(--dinobuilder-text, black);
         background: transparent;
         cursor: pointer;
         border: 1px solid rgba(0, 0, 0, 0.15);
@@ -30,7 +30,7 @@
     }
 
     :global(body.dark) button {
-        color: #ccc;
+        color: var(--dinobuilder-text, #ccc);
         border-color: #c6c6c6;
     }
     :global(body.dark) button:focus,

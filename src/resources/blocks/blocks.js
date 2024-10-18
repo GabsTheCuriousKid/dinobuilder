@@ -8,7 +8,7 @@ const categoryColor = '#FF6680';
 function register() {
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}create`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable monitor?: %10 %11 inputs: %12 %13 function: %14 %15',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 %11 disable monitor?: %12 %13 inputs: %14 %15 function: %16 %17',
         args0: [
             {
                 "type": "input_dummy"
@@ -40,6 +40,18 @@ function register() {
                     [ "boolean", "BOOLEAN," ],
                     [ "hat", "EVENT," ],
                     [ "cap", "COMMAND,\nisTerminal: true," ],
+                ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "FILTER",
+                "options": [
+                    [ "no filter", "" ],
+                    [ "stage only", "filter: [Scratch.TargetType.STAGE]," ],
+                    [ "sprite only", "filter: [Scratch.TargetType.SPRITE]," ],
                 ]
             },
             {
@@ -87,6 +99,7 @@ function register() {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
+        const FILTER = block.getFieldValue('FILTER')
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const DMCONDITION = (TYPE === 'REPORTER,' || TYPE === 'BOOLEAN,' ? block.getFieldValue('DMCONDITION') : true);
@@ -97,6 +110,7 @@ function register() {
             blockType: Scratch.BlockType.${TYPE}
             hideFromPalette: ${CONDITION},
             text: \`${TEXT}\`,
+            ${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
         });
@@ -339,7 +353,7 @@ function register() {
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 disable monitor: %10 %11 color1: %12 %13 color2: %14 %15 color3: %16 %17 inputs: %18 %19 function: %20 %21',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 %11 disable monitor: %12 %13 color1: %14 %15 color2: %16 %17 color3: %18 %19 inputs: %20 %21 function: %22 %23',
         args0: [
             {
                 "type": "input_dummy"
@@ -371,6 +385,18 @@ function register() {
                     [ "boolean", "BOOLEAN," ],
                     [ "hat", "EVENT," ],
                     [ "cap", "COMMAND,\nisTerminal: true," ],
+                ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "FILTER",
+                "options": [
+                    [ "no filter", "" ],
+                    [ "stage only", "filter: [Scratch.TargetType.STAGE]" ],
+                    [ "sprite only", "filter: [Scratch.TargetType.SPRITE]" ],
                 ]
             },
             {
@@ -442,6 +468,7 @@ function register() {
         const ID = block.getFieldValue('ID')
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
+        const FILTER = block.getFieldValue('FILTER')
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const COLOR1 = block.getFieldValue('COLOR1')
         const COLOR2 = block.getFieldValue('COLOR2')
@@ -458,6 +485,7 @@ function register() {
             color2: \`${COLOR2}\`,
             color3: \`${COLOR3}\`,
             text: \`${TEXT}\`,
+            ${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
         });

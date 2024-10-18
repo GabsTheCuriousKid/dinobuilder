@@ -1,45 +1,34 @@
 <script>
     import { createEventDispatcher } from "svelte";
-
+    export let dstext = true;
     const dispatch = createEventDispatcher();
-
+    function event() {
+        dispatch("completed", {
+            dstext
+        });
+    }
     function cancel() {
         dispatch("cancel");
     }
-
-    function event() {
-        dispatch("completed", {
-            hiddenblocksExt
-        });
-    }
-
-    export let hiddenblocksExt = false;
-
-    function toggleHidden() {
-        hiddenblocksExt = !hiddenblocksExt
-    }
 </script>
-
 <div class="bg">
     <div class="modal">
         <div class="modal-title">
-            <p>Extensions (Currently Not Working)</p>
+            <p>Addons</p>
         </div>
         <div class="modal-content">
-            <div 
-                style="display:flex;flex-direction:column;align-items:center;justify-content:center;height=100%"
+            <div
+                style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%"
             >
-            <p>Choose an Extension you'll like to add</p>
+                <div
+                    style="display:flex;flex-direction:row;align-items:center;"
+                >
+                    <label>
+                        Don't show text in Categories
+                        <input type="checkbox" bind:checked={dstext} />
+                    </label>
+                </div>
             </div>
-            <button class="block-extension" on:click={toggleHidden}>
-                <img 
-                    alt="HiddenBlocksPNG"
-                    src="images/extensionIcons/HiddenBlocksIcon.png"
-                    height={50}
-                 />
-                 {hiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
-                 <div style="height:5px" />
-            </button>
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>
@@ -49,7 +38,6 @@
         </div>
     </div>
 </div>
-
 <style>
     .button-cancel {
         border: 1px solid rgba(0, 0, 0, 0.15);
@@ -71,7 +59,6 @@
         font-size: 0.85rem;
         cursor: pointer;
     }
-
     label {
         font-weight: bold;
         font-size: 0.625rem;
@@ -80,7 +67,37 @@
         flex-direction: row;
         align-items: center;
     }
-
+    input[type="color"] {
+        margin-left: 3px;
+    }
+    img {
+        cursor: not-allowed;
+    }
+    /* color picker */
+    input[type="color"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="color"]::-webkit-color-swatch {
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    input[type="color"]::-moz-color-swatch {
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    :global(body.dark) input[type="color"]::-webkit-color-swatch {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    :global(body.dark) input[type="color"]::-moz-color-swatch {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
     .bg {
         position: fixed;
         left: 0px;
@@ -111,7 +128,6 @@
     :global(body.dark) .modal {
         background-color: #111;
     }
-
     .modal-title {
         width: 100%;
         height: 10%;
@@ -138,27 +154,47 @@
         align-items: center;
         justify-content: right;
     }
-    .block-extension {
-        background: transparent;
-        font-weight: bold;
-        margin: 5px;
-        padding: 8px 32px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 12px;
+    .extensionMenuPreview {
+        width: 60px;
+        position: relative;
         cursor: pointer;
+        color: #575e75;
+        user-select: none;
     }
-    :global(body.dark) .block-extension {
-        color: white;
-        border-color: #ccc;
+    .extensionMenuPreview:hover {
+        color: #4c97ff !important;
     }
-    .block-extension:focus,
-    .block-extension:hover {
-        border-color: #80f41a !important;
+    .extensionMenuPreview:focus,
+    .extensionMenuPreview:active {
+        background-color: #e9eef2;
     }
-    .block-extension:active {
-        border-color: black !important;
+    .tbBubbleIcon {
+        width: 16px;
+        height: 16px;
+        background: #0006;
+        backdrop-filter: blur(2px);
+        border-radius: 8px;
+        position: absolute;
+        top: -3px;
+        right: -3px;
     }
-    :global(body.dark) .block-extension:active {
-        border-color: rgb(114, 114, 114) !important;
+    :global(body.dark) .extensionMenuPreview {
+        color: #ccc;
+    }
+    :global(body.dark) .extensionMenuPreview:focus,
+    :global(body.dark) .extensionMenuPreview:active {
+        background-color: #1e1e1e;
+    }
+    .extensionBubbleIcon {
+        width: 20px;
+        height: 20px;
+        background-size: 100%;
+        border-radius: 100%;
+        margin: 0 auto 0.125rem;
+        border: 1px rgba(0, 0, 0, 0.2) solid;
+        position: relative;
+    }
+    .extensionBubbleName {
+        font-size: 0.65rem;
     }
 </style>
