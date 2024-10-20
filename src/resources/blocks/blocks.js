@@ -50,7 +50,7 @@ function register() {
                 "name": "FILTER",
                 "options": [
                     [ "no filter", "" ],
-                    [ "stage only", "\nilter: [Scratch.TargetType.STAGE]," ],
+                    [ "stage only", "\nfilter: [Scratch.TargetType.STAGE]," ],
                     [ "sprite only", "\nfilter: [Scratch.TargetType.SPRITE]," ],
                 ]
             },

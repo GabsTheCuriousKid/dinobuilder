@@ -16,6 +16,10 @@
     }
     
     export let dstext = false;
+
+    function toggleDsText() {
+        dstext = !dstext
+    }
 </script>
 <div class="bg">
     <div class="modal">
@@ -28,11 +32,11 @@
             >
                 <div
                     style="display:flex;flex-direction:row;align-items:center;"
-                >
-                    <label>
-                        Don't show text in Categories
-                        <input type="checkbox" bind:checked={dstext} />
-                    </label>
+                >   
+                    {dstext ? 'On' : 'Off'}
+                    <button class="addon-button" on:click={toggleDsText}>
+                    {'Hide Text in Category Buttons'}
+            </button>
                 </div>
             </div>
         </div>
@@ -202,5 +206,28 @@
     }
     .extensionBubbleName {
         font-size: 0.65rem;
+    }
+    .addon-button {
+        background: transparent;
+        font-weight: bold;
+        margin: 5px;
+        padding: 8px 32px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        cursor: pointer;
+    }
+    :global(body.dark) .addon-button {
+        color: white;
+        border-color: #ccc;
+    }
+    .addon-button:focus,
+    .addon-button:hover {
+        border-color: #80f41a !important;
+    }
+    .addon-button:active {
+        border-color: black !important;
+    }
+    :global(body.dark) .addon-button:active {
+        border-color: rgb(114, 114, 114) !important;
     }
 </style>
