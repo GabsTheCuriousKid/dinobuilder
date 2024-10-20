@@ -1,15 +1,19 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    export let dstext = true;
+    
     const dispatch = createEventDispatcher();
+
+    function cancel() {
+        dispatch("cancel");
+    }
+    
     function event() {
         dispatch("completed", {
             dstext
         });
     }
-    function cancel() {
-        dispatch("cancel");
-    }
+    
+    export let dstext = false;
 </script>
 <div class="bg">
     <div class="modal">
@@ -26,6 +30,7 @@
                     <label>
                         Don't show text in Categories
                         <input type="checkbox" bind:checked={dstext} />
+                        {console.log(dstext)}
                     </label>
                 </div>
             </div>

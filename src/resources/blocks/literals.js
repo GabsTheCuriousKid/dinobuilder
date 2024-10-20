@@ -134,7 +134,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, () => {
-        return ["'" + "\n" + "'", javascriptGenerator.ORDER_ATOMIC];
+        return ["\n", javascriptGenerator.ORDER_ATOMIC];
     })
 
     // new line
@@ -145,7 +145,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, () => {
-        return ["'" + "\t" + "'", javascriptGenerator.ORDER_ATOMIC];
+        return ["\t", javascriptGenerator.ORDER_ATOMIC];
     })
 
     // array

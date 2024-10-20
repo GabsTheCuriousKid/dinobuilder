@@ -424,7 +424,7 @@
     <AddExtensionsModal
         on:completed={async (addextensiondata) => {
             ModalState.addExtensions = false;
-            async function onMount() {
+            async function onHiddenBlocksMount() {
                 let sourceXML = hiddenblocksExtension
                 const targetXML = '$lib/toolbox/toolbox.xml';
                 const elementToInject = 'xml';
@@ -435,8 +435,9 @@
                   console.error('Error injecting XML:', error);
                 }
             }
-
-            onMount()
+            if (addextensiondata.detail.hiddenblocksExt === true) {
+                onHiddenBlocksMount()
+            }
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;
@@ -470,6 +471,7 @@
         {/if}
     <AddonsMenuModal>
         on:completed={(events) => {
+            console.log("completed")
             ModalState.addonsMenu = false;
             const root = document.documentElement;
             if (events.detail.dstext === true) {
@@ -479,6 +481,7 @@
             }
         }}
         on:cancel={() => {
+            console.log("cancelled")
             ModalState.addonsMenu = false;
         }}
     </AddonsMenuModal>
