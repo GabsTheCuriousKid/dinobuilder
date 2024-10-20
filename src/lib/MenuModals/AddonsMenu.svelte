@@ -33,7 +33,7 @@
                 >   
                     {'Hide Text in Category Buttons'}
                     <button class="addon-button" on:click={toggleDsText}>
-                        {dstext ? 'On' : 'Off'}
+                        {localDsText ? 'On' : 'Off'}
                     </button>
                 </div>
             </div>
