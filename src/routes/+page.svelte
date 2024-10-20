@@ -463,13 +463,14 @@
     />
 {/if}
 {#if ModalState.addonsMenu}
-    alert("The Addons Menu is work in progress")
+    {alert("The Addons Menu is work in progress")}
     <AddonsMenuModal>
-        on:completed={async (dstext) => {
+        on:completed={async (event) => {
             ModalState.addonsMenu = false;
+            const { dstext } = event.detail;
             async function onMount() {
                 const root = document.documentElement;
-                if (dstext===(true)) {
+                if (dstext === true) {
                     root.style.setProperty('--dinobuilder-text', 'transparent');
                 } else {
                     root.style.setProperty('--dinobuilder-text', '');
