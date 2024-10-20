@@ -9,14 +9,14 @@
     
     function event() {
         dispatch("completed", {
-            dstext
+            dstext: localDsText
         });
     }
     
-    export let dstext = false;
+    let localDsText = false;
 
     function toggleDsText() {
-        dstext = !dstext
+        localDsText = !localDsText;
     }
 </script>
 <div class="bg">
