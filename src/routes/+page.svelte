@@ -411,8 +411,6 @@
         addExtensions: false,
         addonsMenu: false,
     };
-
-    let alerted = false;
 </script>
 
 <CreateBlockModal
@@ -465,13 +463,10 @@
     />
 {/if}
 {#if ModalState.addonsMenu}
-    {#if !alerted}
-        {alert("The Addons Menu is work in progress")}
-        {alerted = true}
-    {/if}
     <AddonsMenuModal>
         on:completed={(events) => {
             ModalState.addonsMenu = false;
+            document.documentElement.style.setProperty('--dinobuilder-text', events.detail.dstext ? 'transparent' : '');
         }}
         on:cancel={() => {
             ModalState.addonsMenu = false;
@@ -479,6 +474,8 @@
     </AddonsMenuModal>
 {/if}
 <NavigationBar>
+    <NavigationButton on:click={() => { ModalState.addonsMenu = true; }}>Addons</NavigationButton>
+    <NavigationDivider />
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
     <NavigationDivider />
@@ -510,13 +507,6 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
-                <StyledButton
-                    on:click={() => {
-                        ModalState.addonsMenu = true;
-                    }}
-                >
-                    Addons
-                </StyledButton>
                 <StyledButton
                     on:click={() => {
                         ModalState.addExtensions = true;
