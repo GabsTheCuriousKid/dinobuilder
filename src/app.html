@@ -11,7 +11,6 @@
     	<meta name="og:image" content="/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<style id="XTI0GZwZotMzDMi0wcGctLFttIWctMdtLPXI9M0aGGDQyMHRpMViW3E="></style>
-		<script src="https://unpkg.com/blockly/blockly.min.js"></script>
 		<style>
 			*:not(code, .token) {
 				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -46,13 +45,6 @@
 				font-weight: "600";
 				padding: 0 8px;
 				color: var(--dinobuilder-text, #575E75) !important;
-			}
-			.blockIcon {
-    			position: absolute;
-    			left: -20px;
-    			top: 0;
-    			width: 16px;
-    			height: 16px;
 			}
 			.blocklyScrollbarHandle {
 				opacity: 0.5;
@@ -130,50 +122,6 @@
 			// reset events
 			window.tbevents_ = [];
 
-			window.ModalState = {
-        		extensionColors: false,
-        		addExtensions: false,
-        		addonsMenu: false,
-        		dsText: false,
-        		blockPIcons: false,
-    		};
-
-			window.addIconsToCategories = function(categoryIcons) {
-        		const categories = document.querySelectorAll('.blocklyTreeLabel');
-        		categories.forEach(category => {
-            		const categoryName = category.textContent.trim();
-            		if (!category.querySelector('.blockIcon') && categoryIcons[categoryName]) {
-                		const icon = document.createElement('img');
-                		icon.src = categoryIcons[categoryName];
-                		icon.classList.add('blockIcon');
-                		category.appendChild(icon);
-            		}
-        		});
-    		};
-
-    		Blockly.getMainWorkspace().addChangeListener(function() {
-        		if (window.ModalState.blockPIcons) {
-            		window.addIconsToCategories({
-                		"Sprites": "/images/addons/blockpaletteicons/motion_icon.svg",
-                		"Effects": "/images/addons/blockpaletteicons/effects_icon.svg",
-                		"Sound": "/images/addons/blockpaletteicons/motion_icon.svg",
-                		"Events": "/images/addons/blockpaletteicons/events_icon.svg",
-						"Control": "/images/addons/blockpaletteicons/control_icon.svg",
-						"Sensing": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Literals": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Operators": "/images/addons/blockpaletteicons/operators.svg",
-						"Conversions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Variables": "/images/addons/blockpaletteicons/variables_icon.svg",
-						"JSON": "/images/addons/blockpaletteicons/json_icon.svg",
-						"Blocks": "/images/addons/blockpaletteicons/blocks_icon.svg",
-						"Menus": "/images/addons/blockpaletteicons/menus_icon.svg",
-						"Functions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Technical": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Penguinmod": "/images/addons/blockpaletteicons/penguinmod_icon.svg"
-            		});
-        		}
-    		});
-
 			// if localhost, get rid of the alert
 			const isLocalHost = location.hostname === 'localhost';
 			if (isLocalHost) {
@@ -239,27 +187,6 @@
 
 			window.themeUpdated_ = () => {
 				updateTheme();
-				addIconsToCategories();
-				if (window.ModalState.blockPIcons) {
-            		window.addIconsToCategories({
-                		"Sprites": "/images/addons/blockpaletteicons/motion_icon.svg",
-                		"Effects": "/images/addons/blockpaletteicons/effects_icon.svg",
-                		"Sound": "/images/addons/blockpaletteicons/motion_icon.svg",
-                		"Events": "/images/addons/blockpaletteicons/events_icon.svg",
-						"Control": "/images/addons/blockpaletteicons/control_icon.svg",
-						"Sensing": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Literals": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Operators": "/images/addons/blockpaletteicons/operators.svg",
-						"Conversions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Variables": "/images/addons/blockpaletteicons/variables_icon.svg",
-						"JSON": "/images/addons/blockpaletteicons/json_icon.svg",
-						"Blocks": "/images/addons/blockpaletteicons/blocks_icon.svg",
-						"Menus": "/images/addons/blockpaletteicons/menus_icon.svg",
-						"Functions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Technical": "/images/addons/blockpaletteicons/no-image_icon.svg",
-						"Penguinmod": "/images/addons/blockpaletteicons/penguinmod_icon.svg"
-            		});
-        		}
 				for (const event in window.tbevents_) {
 					if (event.type === 'THEME') {
 						event.callback();
