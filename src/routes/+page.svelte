@@ -412,6 +412,7 @@
         addonsMenu: false,
     };
 
+    let alerted = false;
 </script>
 
 <CreateBlockModal
@@ -463,21 +464,19 @@
     />
 {/if}
 {#if ModalState.addonsMenu}
-    {alert("The Addons Menu is work in progress")}
+        {#if !alerted}
+            {alert("The Addons Menu is work in progress")}
+            {alerted = true}
+        {/if}
     <AddonsMenuModal>
-        on:completed={async (event) => {
+        on:completed={(events) => {
             ModalState.addonsMenu = false;
-            const { dstext } = event.detail;
-            async function onMount() {
-                const root = document.documentElement;
-                if (dstext === true) {
-                    root.style.setProperty('--dinobuilder-text', 'transparent');
-                } else {
-                    root.style.setProperty('--dinobuilder-text', '');
-                }
+            const root = document.documentElement;
+            if (events.detail.dstext === true) {
+                root.style.setProperty('--dinobuilder-text', 'transparent');
+            } else {
+                root.style.setProperty('--dinobuilder-text', '');
             }
-
-            onMount()
         }}
         on:cancel={() => {
             ModalState.addonsMenu = false;
