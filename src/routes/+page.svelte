@@ -405,14 +405,7 @@
         return Boolean(String(id).match(/[^a-z0-9]/gim));
     }
 
-    // Modals
-    const ModalState = {
-        extensionColors: false,
-        addExtensions: false,
-        addonsMenu: false,
-        dsText: false,
-        blockPIcons: false,
-    };
+    // Modals are in App.html
 </script>
 
 <CreateBlockModal
