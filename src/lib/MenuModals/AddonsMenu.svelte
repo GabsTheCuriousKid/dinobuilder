@@ -33,10 +33,10 @@
                 <div
                     style="display:flex;flex-direction:row;align-items:center;"
                 >   
-                    {dstext ? 'On' : 'Off'}
-                    <button class="addon-button" on:click={toggleDsText}>
                     {'Hide Text in Category Buttons'}
-            </button>
+                    <button class="addon-button" on:click={toggleDsText}>
+                        {dstext ? 'On' : 'Off'}
+                    </button>
                 </div>
             </div>
         </div>

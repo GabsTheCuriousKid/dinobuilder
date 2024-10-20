@@ -11,7 +11,7 @@
     import ExtensionColorsModal from "$lib/MenuModals/ExtensionColors.svelte";
     import AddExtensionsModal from "$lib/MenuModals/AddExtension.svelte";
     import CreateBlockModal from "$lib/MenuModals/CreateBlock.svelte";
-    import AddonsMenuModal from "$lib/MenuModals/addonsMenu.svelte";
+    import AddonsMenuModal from "$lib/MenuModals/AddonsMenu.svelte";
 
     // Modal Scripts
     import CreateBlockModalScript from "$lib/MenuModals/createblock.js";
@@ -472,7 +472,6 @@
     <AddonsMenuModal>
         on:completed={(events) => {
             ModalState.addonsMenu = false;
-            document.documentElement.style.setProperty('--dinobuilder-text', events.detail.dstext ? 'transparent' : '');
         }}
         on:cancel={() => {
             ModalState.addonsMenu = false;
