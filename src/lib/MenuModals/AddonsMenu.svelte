@@ -9,14 +9,19 @@
     
     function event() {
         dispatch("completed", {
-            dstext: localDsText
+            dstext: localDsText,
+            blockPaletteIcons: localBlockPIcons
         });
     }
     
     let localDsText = false;
+    let localBlockPIcons = false;
 
     function toggleDsText() {
         localDsText = !localDsText;
+    }
+    function toggleBlockPI() {
+        localBlockPIcons = !localBlockPIcons;
     }
 </script>
 <div class="bg">
@@ -34,6 +39,10 @@
                     {'Hide Text in Category Buttons'}
                     <button class="addon-button" on:click={toggleDsText}>
                         {localDsText ? 'On' : 'Off'}
+                    </button>
+                    {'Block Palette Icons (Test)'}
+                    <button class="addon-button" on:click={toggleBlockPI}>
+                        {localBlockPIcons ? 'On' : 'Off'}
                     </button>
                 </div>
             </div>
