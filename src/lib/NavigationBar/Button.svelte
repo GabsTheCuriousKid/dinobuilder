@@ -27,7 +27,7 @@
 
         font-weight: bold;
         font-size: 0.75rem;
-        color: var(--dinobuilder-text, white);
+        color: white;
         background: transparent;
         cursor: pointer;
         border: 0;
