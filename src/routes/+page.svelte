@@ -463,7 +463,7 @@
     />
 {/if}
 {#if ModalState.addonsMenu}
-    <AddonsMenuModal>
+    <AddonsMenuModal
         on:completed={(events) => {
             ModalState.addonsMenu = false;
             document.documentElement.style.setProperty('--dinobuilder-text', events.detail.dstext ? 'transparent' : '');
@@ -471,7 +471,7 @@
         on:cancel={() => {
             ModalState.addonsMenu = false;
         }}
-    </AddonsMenuModal>
+    />
 {/if}
 <NavigationBar>
     <NavigationButton on:click={() => { ModalState.addonsMenu = true; }}>Addons</NavigationButton>
