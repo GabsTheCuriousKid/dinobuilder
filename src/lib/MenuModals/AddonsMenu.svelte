@@ -43,10 +43,6 @@
                     <button class="addon-button" on:click={toggleDsText}>
                         {localDsText ? 'On' : 'Off'}
                     </button>
-                    {'Block Palette Icons (Test)'}
-                    <button class="addon-button" on:click={toggleBlockPI}>
-                        {localBlockPIcons ? 'On' : 'Off'}
-                    </button>
                 </div>
             </div>
         </div>

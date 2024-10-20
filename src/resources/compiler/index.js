@@ -146,7 +146,7 @@ class Compiler {
             `(async function (Scratch) {`,
             `const variables = {};`,
             `const blocks = [];`,
-            `const menus = [];`,
+            `const menus = {};`,
             ``,
             start
         ];
