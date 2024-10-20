@@ -471,7 +471,6 @@
         {/if}
     <AddonsMenuModal>
         on:completed={(events) => {
-            console.log("completed")
             ModalState.addonsMenu = false;
             const root = document.documentElement;
             if (events.detail.dstext === true) {
@@ -481,7 +480,6 @@
             }
         }}
         on:cancel={() => {
-            console.log("cancelled")
             ModalState.addonsMenu = false;
         }}
     </AddonsMenuModal>

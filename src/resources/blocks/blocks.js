@@ -50,8 +50,8 @@ function register() {
                 "name": "FILTER",
                 "options": [
                     [ "no filter", "" ],
-                    [ "stage only", "filter: [Scratch.TargetType.STAGE]," ],
-                    [ "sprite only", "filter: [Scratch.TargetType.SPRITE]," ],
+                    [ "stage only", "\nilter: [Scratch.TargetType.STAGE]," ],
+                    [ "sprite only", "\nfilter: [Scratch.TargetType.SPRITE]," ],
                 ]
             },
             {
@@ -109,8 +109,7 @@ function register() {
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
             hideFromPalette: ${CONDITION},
-            text: \`${TEXT}\`,
-            ${FILTER}
+            text: \`${TEXT}\`,${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
         });
@@ -395,8 +394,8 @@ function register() {
                 "name": "FILTER",
                 "options": [
                     [ "no filter", "" ],
-                    [ "stage only", "filter: [Scratch.TargetType.STAGE]" ],
-                    [ "sprite only", "filter: [Scratch.TargetType.SPRITE]" ],
+                    [ "stage only", "\nfilter: [Scratch.TargetType.STAGE]" ],
+                    [ "sprite only", "\nfilter: [Scratch.TargetType.SPRITE]" ],
                 ]
             },
             {
@@ -484,8 +483,7 @@ function register() {
             color1: \`${COLOR1}\`,
             color2: \`${COLOR2}\`,
             color3: \`${COLOR3}\`,
-            text: \`${TEXT}\`,
-            ${FILTER}
+            text: \`${TEXT}\`,${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
         });

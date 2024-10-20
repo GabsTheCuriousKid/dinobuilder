@@ -641,7 +641,7 @@ function register() {
     }, (block) => {
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        return [`(String(${X}).includes(String(${Y})))`, javascriptGenerator.ORDER_ATOMIC];
+        return [`(${X}.includes(${Y}))`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 

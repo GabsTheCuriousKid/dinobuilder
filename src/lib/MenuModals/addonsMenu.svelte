@@ -5,12 +5,14 @@
 
     function cancel() {
         dispatch("cancel");
+        console.log("Cancel event dispatched");
     }
     
     function event() {
         dispatch("completed", {
             dstext
         });
+        console.log("Completed event dispatched");
     }
     
     export let dstext = false;
@@ -30,7 +32,6 @@
                     <label>
                         Don't show text in Categories
                         <input type="checkbox" bind:checked={dstext} />
-                        {console.log(dstext)}
                     </label>
                 </div>
             </div>
