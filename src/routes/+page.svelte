@@ -410,6 +410,8 @@
         extensionColors: false,
         addExtensions: false,
         addonsMenu: false,
+        dsText: false,
+        blockPIcons: false,
     };
 </script>
 
@@ -464,8 +466,12 @@
 {/if}
 {#if ModalState.addonsMenu}
     <AddonsMenuModal
+        dsText={ModalState.dsText}
+        blockPIcons={ModalState.blockPIcons}
         on:completed={(events) => {
             ModalState.addonsMenu = false;
+            ModalState.dsText = events.detail.dstext;
+            ModalState.blockPIcons = events.detail.blockPaletteIcons;
             document.documentElement.style.setProperty('--dinobuilder-text', events.detail.dstext ? 'transparent' : '');
         }}
         on:cancel={() => {

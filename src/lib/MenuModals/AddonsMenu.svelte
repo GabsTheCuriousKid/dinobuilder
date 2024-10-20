@@ -1,7 +1,13 @@
 <script>
+    export let dsText = false;
+    export let blockPIcons = false;
+
     import { createEventDispatcher } from "svelte";
     
     const dispatch = createEventDispatcher();
+
+    let localDsText = dsText;
+    let localBlockPIcons = blockPIcons;
 
     function cancel() {
         dispatch("cancel");
@@ -13,9 +19,6 @@
             blockPaletteIcons: localBlockPIcons
         });
     }
-    
-    let localDsText = false;
-    let localBlockPIcons = false;
 
     function toggleDsText() {
         localDsText = !localDsText;
