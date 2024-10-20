@@ -5,14 +5,12 @@
 
     function cancel() {
         dispatch("cancel");
-        console.log("Cancel event dispatched");
     }
     
     function event() {
         dispatch("completed", {
             dstext
         });
-        console.log("Completed event dispatched");
     }
     
     export let dstext = false;

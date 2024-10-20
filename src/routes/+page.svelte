@@ -479,8 +479,6 @@
     </AddonsMenuModal>
 {/if}
 <NavigationBar>
-    <NavigationButton on:click={() => { ModalState.addonsMenu = true; }}>Addons</NavigationButton>
-    <NavigationDivider />
     <NavigationButton on:click={downloadProject}>Save</NavigationButton>
     <NavigationButton on:click={loadProject}>Load</NavigationButton>
     <NavigationDivider />
@@ -512,6 +510,13 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
+                <StyledButton
+                    on:click={() => {
+                        ModalState.addonsMenu = true;
+                    }}
+                >
+                    Addons
+                </StyledButton>
                 <StyledButton
                     on:click={() => {
                         ModalState.addExtensions = true;
