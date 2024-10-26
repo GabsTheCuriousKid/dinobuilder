@@ -180,7 +180,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}createobject`, {
-        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10 %11',
+        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10',
         args0: [
             {
                 "type": "input_dummy"
@@ -231,7 +231,6 @@ function register() {
         inputsInline: false,
         colour: categoryColor,
     }, (block) => {
-        
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
         const ID = TYPE === 'BUTTON' ? 'opcode: \`' + block.getFieldValue('ID') + '\`,' : ''
@@ -420,8 +419,7 @@ function register() {
             {
                 "type": "field_number",
                 "name": "HEIGHT",
-                "value": "48",
-                "spellcheck": false
+                "value": "48"
             },
         ],
         inputsInline: true,
