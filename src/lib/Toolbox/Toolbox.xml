@@ -138,6 +138,8 @@
         <block type="operators_randomint" />
         <block type="operators_random" />
         <sep gap="48"></sep>
+        <block type="operators_clamp" />
+        <sep gap="48"></sep>
         <block type="operators_join" />
         <block type="operators_includes" />
         <block type="operators_split" />
@@ -186,6 +188,8 @@
     <category name="Blocks" colour="#FF6680">
         <block type="blocks_create" />
         <!--<block type="blocks_createcap" />-->
+        <block type="blocks_createobject" />
+        <block type="blocks_gap" />
         <block type="blocks_input" />
         <block type="blocks_menu" />
         <block type="blocks_callhat" />
@@ -194,8 +198,6 @@
         <sep gap="48"></sep>
         <block type="blocks_get" />
         <block type="blocks_return" />
-        <!--<sep gap="48"></sep>
-        <block type="blocks_gap" />-->
     </category>
     <category name="Menus" colour="#CB48E8">
         <block type="menus_itemtextvalue" />

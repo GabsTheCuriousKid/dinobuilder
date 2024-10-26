@@ -136,38 +136,6 @@
 				alert.remove();
 			}
 
-			window.addIconsToCategories = function(categoryIcons) {
-            	const categories = document.querySelectorAll('.blocklyTreeLabel');
-            	categories.forEach(category => {
-                	const categoryName = category.textContent.trim();
-                	if (!category.querySelector('.blockIcon') && categoryIcons[categoryName]) {
-                    	const icon = document.createElement('img');
-                    	icon.src = categoryIcons[categoryName];
-                		icon.classList.add('blockIcon');
-                		category.appendChild(icon);
-            		}
-            	});
-        	};
-
-			window.addIconsToCategories({
-                "Sprites": "/images/addons/blockpaletteicons/motion_icon.svg",
-                "Effects": "/images/addons/blockpaletteicons/effects_icon.svg",
-                "Sound": "/images/addons/blockpaletteicons/motion_icon.svg",
-                "Events": "/images/addons/blockpaletteicons/events_icon.svg",
-				"Control": "/images/addons/blockpaletteicons/control_icon.svg",
-				"Sensing": "/images/addons/blockpaletteicons/no-image_icon.svg",
-				"Literals": "/images/addons/blockpaletteicons/no-image_icon.svg",
-				"Operators": "/images/addons/blockpaletteicons/operators.svg",
-				"Conversions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-				"Variables": "/images/addons/blockpaletteicons/variables_icon.svg",
-				"JSON": "/images/addons/blockpaletteicons/json_icon.svg",
-				"Blocks": "/images/addons/blockpaletteicons/blocks_icon.svg",
-				"Menus": "/images/addons/blockpaletteicons/menus_icon.svg",
-				"Functions": "/images/addons/blockpaletteicons/no-image_icon.svg",
-				"Technical": "/images/addons/blockpaletteicons/no-image_icon.svg",
-				"Penguinmod": "/images/addons/blockpaletteicons/penguinmod_icon.svg"
-            });
-
 			// prism styles
 			const prismStyles = {
 				light: null,

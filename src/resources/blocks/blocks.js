@@ -38,7 +38,8 @@ function register() {
                     [ "block", "COMMAND," ],
                     [ "reporter", "REPORTER," ],
                     [ "boolean", "BOOLEAN," ],
-                    [ "hat", "EVENT," ],
+                    [ "hat", "HAT," ],
+                    [ "event hat", "EVENT," ],
                     [ "cap", "COMMAND,\nisTerminal: true," ],
                 ]
             },
@@ -175,6 +176,75 @@ function register() {
             disableMonitor: true
         });
         Extension.prototype[\`${ID}\`] = async (args, util) => { ${FUNC} };`;
+        return `${code}\n`;
+    })
+
+    registerBlock(`${categoryPrefix}createobject`, {
+        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10 %11',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_input",
+                "name": "TEXT",
+                "text": "text",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "TYPE",
+                "options": [
+                    [ "label", "LABEL" ],
+                    [ "button", "BUTTON" ],
+                ]
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "CONDITION",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "FUNC"
+            }
+        ],
+        nextStatement: null,
+        inputsInline: false,
+        colour: categoryColor,
+    }, (block) => {
+        
+        const TEXT = block.getFieldValue('TEXT')
+        const TYPE = block.getFieldValue('TYPE')
+        const ID = TYPE === 'BUTTON' ? 'opcode: \`' + block.getFieldValue('ID') + '\`,' : ''
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
+        const FUNC = TYPE === 'BUTTON' ? 'Extension.prototype[\`' + block.getFieldValue('ID') + '\`] = async (args, util) => { ' + javascriptGenerator.statementToCode(block, 'FUNC') + ' };' : '';
+        
+        const code = `blocks.push({
+            ${ID},
+            blockType: Scratch.BlockType.${TYPE},
+            hideFromPalette: ${CONDITION},
+            text: \`${TEXT}\`,
+        });
+        ${FUNC}`;
         return `${code}\n`;
     })
 
@@ -342,12 +412,26 @@ function register() {
 
     // gap
     registerBlock(`${categoryPrefix}gap`, {
-        message0: 'gap',
-        args0: [],
+        message0: 'create gap %1 gap height: %2',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "field_number",
+                "name": "HEIGHT",
+                "value": "48",
+                "spellcheck": false
+            },
+        ],
         inputsInline: true,
         colour: categoryColor,
     }, (block) => {
-        const code = `"---",`;
+        const HEIGHT = block.getFieldValue('HEIGHT')
+        const code = `blocks.push({
+            blockType: Scratch.BlockType.XML,
+            xml: '<sep gap='${HEIGHT}'/>',
+        });`;
         return `${code}\n`;
     })
     // create dem blocks!!!

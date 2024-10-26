@@ -602,6 +602,41 @@ function register() {
         return [`((Math.random()+${X})*${Y-X})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    registerBlock(`${categoryPrefix}clamp`, {
+        message0: 'clamp %1 %2 min: %3 %4 max: %5',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "VALUE",
+                "check": "Number"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "X",
+                "check": "Number"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_value",
+                "name": "Y",
+                "check": "Number"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const Value = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+        return [`Math.min(Math.max(${Value}, ${X}), ${Y});`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // length of
     registerBlock(`${categoryPrefix}length_of`, {
         message0: 'length of %1',
