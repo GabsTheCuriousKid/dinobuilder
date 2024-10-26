@@ -8,7 +8,7 @@ const categoryColor = '#FF6680';
 function register() {
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}create`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 %11 disable monitor?: %12 %13 inputs: %14 %15 function: %16 %17',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 disable monitor?: %11 %12 inputs: %13 %14 function: %15 %16',
         args0: [
             {
                 "type": "input_dummy"
@@ -62,9 +62,6 @@ function register() {
                 "type": "input_value",
                 "name": "CONDITION",
                 "check": "Boolean"
-            },
-            {
-                "type": "input_dummy"
             },
             {
                 "type": "field_dropdown",
@@ -180,7 +177,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}createobject`, {
-        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10',
+        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10 %11',
         args0: [
             {
                 "type": "input_dummy"
@@ -223,6 +220,9 @@ function register() {
                 "type": "input_dummy"
             },
             {
+                "type": "input_dummy"
+            },
+            {
                 "type": "input_statement",
                 "name": "FUNC"
             }
@@ -238,7 +238,7 @@ function register() {
         const FUNC = TYPE === 'BUTTON' ? 'Extension.prototype[\`' + block.getFieldValue('ID') + '\`] = async (args, util) => { ' + javascriptGenerator.statementToCode(block, 'FUNC') + ' };' : '';
         
         const code = `blocks.push({
-            ${ID},
+            ${ID}
             blockType: Scratch.BlockType.${TYPE},
             hideFromPalette: ${CONDITION},
             text: \`${TEXT}\`,
@@ -422,19 +422,19 @@ function register() {
                 "value": "48"
             },
         ],
-        inputsInline: true,
+        inputsInline: false,
         colour: categoryColor,
     }, (block) => {
         const HEIGHT = block.getFieldValue('HEIGHT')
         const code = `blocks.push({
             blockType: Scratch.BlockType.XML,
-            xml: '<sep gap='${HEIGHT}'/>',
+            xml: \`<sep gap='${HEIGHT}'/>\`,
         });`;
         return `${code}\n`;
     })
     // create dem blocks!!!
     registerBlock(`${categoryPrefix}penguinmodcreate`, {
-        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 %11 disable monitor: %12 %13 color1: %14 %15 color2: %16 %17 color3: %18 %19 inputs: %20 %21 function: %22 %23',
+        message0: 'create block %1 id: %2 %3 text: %4 %5 type: %6 %7 filter: %8 %9 hide from palette?: %10 disable monitor: %11 %12 color1: %13 %14 color2: %15 %16 color3: %17 %18 inputs: %19 %20 function: %21 %22',
         args0: [
             {
                 "type": "input_dummy"
@@ -487,9 +487,6 @@ function register() {
                 "type": "input_value",
                 "name": "CONDITION",
                 "check": "Boolean"
-            },
-            {
-                "type": "input_dummy"
             },
             {
                 "type": "field_dropdown",

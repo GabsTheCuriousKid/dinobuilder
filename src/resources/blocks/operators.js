@@ -603,7 +603,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}clamp`, {
-        message0: 'clamp %1 %2 min: %3 %4 max: %5',
+        message0: 'clamp %1 min: %2 max: %3',
         args0: [
             {
                 "type": "input_value",
@@ -611,15 +611,9 @@ function register() {
                 "check": "Number"
             },
             {
-                "type": "input_dummy"
-            },
-            {
                 "type": "input_value",
                 "name": "X",
                 "check": "Number"
-            },
-            {
-                "type": "input_dummy"
             },
             {
                 "type": "input_value",
