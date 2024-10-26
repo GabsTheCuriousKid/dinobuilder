@@ -622,13 +622,13 @@ function register() {
             },
         ],
         output: "Number",
-        inputsInline: true,
+        inputsInline: false,
         colour: categoryColor
     }, (block) => {
         const Value = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        return [`Math.min(Math.max(${Value}, ${X}), ${Y});`, javascriptGenerator.ORDER_ATOMIC];
+        return [`Math.min(Math.max(${Value}, ${X}), ${Y})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // length of

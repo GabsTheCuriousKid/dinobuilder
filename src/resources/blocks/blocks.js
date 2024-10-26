@@ -177,7 +177,7 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}createobject`, {
-        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 %9 function: %10 %11',
+        message0: 'create object %1 id: %2 %3 text: %4 %5 type: %6 %7 hide from palette?: %8 function: %9 %10',
         args0: [
             {
                 "type": "input_dummy"
@@ -220,9 +220,6 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "input_dummy"
-            },
-            {
                 "type": "input_statement",
                 "name": "FUNC"
             }
@@ -233,12 +230,11 @@ function register() {
     }, (block) => {
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
-        const ID = TYPE === 'BUTTON' ? 'opcode: \`' + block.getFieldValue('ID') + '\`,' : ''
+        const ID = TYPE === 'BUTTON' ? '\nopcode: \`' + block.getFieldValue('ID') + '\`,' : ''
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
         const FUNC = TYPE === 'BUTTON' ? 'Extension.prototype[\`' + block.getFieldValue('ID') + '\`] = async (args, util) => { ' + javascriptGenerator.statementToCode(block, 'FUNC') + ' };' : '';
         
-        const code = `blocks.push({
-            ${ID}
+        const code = `blocks.push({${ID}
             blockType: Scratch.BlockType.${TYPE},
             hideFromPalette: ${CONDITION},
             text: \`${TEXT}\`,
