@@ -427,8 +427,9 @@
             async function onHiddenBlocksMount() {
                 try {
                   let newToolbox = await injectXML(hiddenblocksExtension, Toolbox, 'xml');
+                  console.log(newToolbox)
                   config = {
-                    toolbox: newToolbox,
+                    toolbox: Toolbox,
                     collapse: true,
                     comments: true,
                     scrollbars: true,
