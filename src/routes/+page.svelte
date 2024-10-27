@@ -430,8 +430,8 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            Blockly.getMainWorkspace().clear();
-            Blockly.getMainWorkspace().updateToolbox(newToolbox);
+            workspace.clear();
+            workspace.updateToolbox(newToolbox);
             /*config = {
                 toolbox: newToolbox,
                 collapse: true,
@@ -482,8 +482,8 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            Blockly.getMainWorkspace().clear();
-            Blockly.getMainWorkspace().updateToolbox(newToolbox);
+            workspace.clear();
+            workspace.updateToolbox(newToolbox);
             /*config = {
                 toolbox: newToolbox,
                 collapse: true,
