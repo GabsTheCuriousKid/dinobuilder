@@ -467,6 +467,7 @@
                     },
                   };
                   console.log(sourceXML + ' has been fetched into: ' + targetXML + ' and injected into element: ' + elementToInject)
+                  console.log('now the Toolbox\'s xml is: ' + targetXML)
                 } catch (error) {
                   console.error('Error injecting XML:', error);
                 }
