@@ -9,36 +9,53 @@
 
     function event() {
         dispatch("completed", {
-            hiddenblocksExt
+            hiddenblocksExt: localhiddenblocksExt,
+            webextensionExt: localwebextensionExt,
         });
     }
 
     export let hiddenblocksExt = false;
+    export let webextensionExt = false;
+    let localhiddenblocksExt = hiddenblocksExt;
+    let localwebextensionExt = webextensionExt;
 
     function toggleHidden() {
-        hiddenblocksExt = !hiddenblocksExt
+        localhiddenblocksExt = !localhiddenblocksExt
+    }
+    function toggleWeb() {
+        localwebextensionExt = !localwebextensionExt
     }
 </script>
 
 <div class="bg">
     <div class="modal">
         <div class="modal-title">
-            <p>Extensions (Currently Not Working)</p>
+            <p>Extensions</p>
         </div>
         <div class="modal-content">
             <div 
                 style="display:flex;flex-direction:column;align-items:center;justify-content:center;height=100%"
             >
             <p>Choose an Extension you'll like to add</p>
+            <p>Note: After you select one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
             </div>
             <button class="block-extension" on:click={toggleHidden}>
+                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
+                <div style="height:5px" />
                 <img 
                     alt="HiddenBlocksPNG"
                     src="images/extensionIcons/HiddenBlocksIcon.png"
                     height={50}
-                 />
-                 {hiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
-                 <div style="height:5px" />
+                />
+            </button>
+            <button class="block-extension" on:click={toggleWeb}>
+                {localwebextensionExt ? 'Selected' : 'Site Runtime'}
+                <div style="height:5px" />
+                <img 
+                    alt="HiddenBlocksPNG"
+                    src="images/extensionIcons/NoIcon.png"
+                    height={50}
+                />
             </button>
         </div>
         <div class="modal-buttons">

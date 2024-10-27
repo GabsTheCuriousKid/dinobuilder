@@ -20,6 +20,7 @@
     import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
 
     import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
+    import webExtensionExtension from "$lib/Extensions/webextension.xml?raw";
 
     import JSZip from "jszip";
     import beautify from "js-beautify";
@@ -93,6 +94,10 @@
     registerMenus();
     registerFunctions();
     registerDebug();
+
+    // Extension Blocks
+    import registerWebExtension from "../resources/blocks/webextension.js";
+    registerWebExtension();
 
     const en = {
         rtl: false,
@@ -413,6 +418,106 @@
         dsText: false,
         blockPIcons: false,
     };
+    async function onHiddenBlocksMount() {
+        try {
+            if (!newToolbox) {
+                let newToolboxResult = AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>');
+                newToolbox = newToolboxResult
+            } else {
+                let newToolboxResult = AddXMLtoXML(hiddenblocksExtension, newToolbox, '</category>', '</xml>');
+                newToolbox = newToolboxResult
+            }
+            console.log(newToolbox)
+            config = {
+                toolbox: newToolbox,
+                collapse: true,
+                comments: true,
+                scrollbars: true,
+                disable: false,
+                theme: Theme,
+                renderer: "custom_renderer",
+                grid: {
+                    spacing: 25,
+                    length: 3,
+                    colour: "#00000011",
+                    snap: false,
+                },
+                zoom: {
+                    controls: true,
+                    wheel: false,
+                    startScale: 0.8,
+                    maxScale: 4,
+                    minScale: 0.25,
+                    scaleSpeed: 1.1,
+                },
+                plugins: {
+                    toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
+                    flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
+                    metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
+                },
+                move: {
+                    scrollbars: {
+                        horizontal: true,
+                        vertical: true,
+                    },
+                    drag: true,
+                    wheel: true,
+                },
+            };
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
+    async function onWebExtensionMount() {
+        try {
+            if (!newToolbox) {
+                let newToolboxResult = AddXMLtoXML(webExtensionExtension, Toolbox, '</category>', '</xml>');
+                newToolbox = newToolboxResult
+            } else {
+                let newToolboxResult = AddXMLtoXML(webExtensionExtension, newToolbox, '</category>', '</xml>');
+                newToolbox = newToolboxResult
+            }
+            console.log(newToolbox)
+            config = {
+                toolbox: newToolbox,
+                collapse: true,
+                comments: true,
+                scrollbars: true,
+                disable: false,
+                theme: Theme,
+                renderer: "custom_renderer",
+                grid: {
+                    spacing: 25,
+                    length: 3,
+                    colour: "#00000011",
+                    snap: false,
+                },
+                zoom: {
+                    controls: true,
+                    wheel: false,
+                    startScale: 0.8,
+                    maxScale: 4,
+                    minScale: 0.25,
+                    scaleSpeed: 1.1,
+                },
+                plugins: {
+                    toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
+                    flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
+                    metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
+                },
+                move: {
+                    scrollbars: {
+                        horizontal: true,
+                        vertical: true,
+                    },
+                    drag: true,
+                    wheel: true,
+                },
+            };
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
 </script>
 
 <CreateBlockModal
@@ -424,52 +529,11 @@
     <AddExtensionsModal
         on:completed={async (addextensiondata) => {
             ModalState.addExtensions = false;
-            async function onHiddenBlocksMount() {
-                try {
-                  let newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>');
-                  console.log(newToolbox)
-                  config = {
-                    toolbox: newToolbox,
-                    collapse: true,
-                    comments: true,
-                    scrollbars: true,
-                    disable: false,
-                    theme: Theme,
-                    renderer: "custom_renderer",
-                    grid: {
-                      spacing: 25,
-                      length: 3,
-                      colour: "#00000011",
-                      snap: false,
-                    },
-                    zoom: {
-                      controls: true,
-                      wheel: false,
-                      startScale: 0.8,
-                      maxScale: 4,
-                      minScale: 0.25,
-                      scaleSpeed: 1.1,
-                    },
-                    plugins: {
-                      toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
-                      flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
-                      metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
-                    },
-                    move: {
-                      scrollbars: {
-                        horizontal: true,
-                        vertical: true,
-                      },
-                      drag: true,
-                      wheel: true,
-                    },
-                  };
-                } catch (error) {
-                  console.error('Error injecting XML:', error);
-                }
-            }
             if (addextensiondata.detail.hiddenblocksExt === true) {
                 onHiddenBlocksMount()
+            }
+            if (addextensiondata.detail.webextensionExt === true) {
+                onWebExtensionMount()
             }
         }}
         on:cancel={() => {
