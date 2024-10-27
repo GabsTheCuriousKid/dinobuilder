@@ -1,6 +1,5 @@
-<xml>
-    <!--Title: Hidden Blocks
-    Description: View blocks that have been hidden from the main toolbox.-->
+<!--Title: Hidden Blocks
+Description: View blocks that have been hidden from the main toolbox.-->
 <category name="Hidden Blocks" colour="#FF0000">
     <block type="blocks_createcap" />
     <sep gap="48"></sep>
@@ -13,4 +12,3 @@
     <block type="sensing_pausetimer" />
     <block type="sensing_resumetimer" />
 </category>
-</xml>

@@ -28,7 +28,7 @@
     import fileDialog from "../resources/fileDialog";
     import EventManager from "../resources/events";
 
-    import injectXML from '../utils/injectXML.js';
+    import AddXMLtoXML from '../utils/AddXMLtoXML.js';
 
     import Blockly from "blockly/core";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
@@ -426,7 +426,7 @@
             ModalState.addExtensions = false;
             async function onHiddenBlocksMount() {
                 try {
-                  let newToolbox = await injectXML(hiddenblocksExtension, Toolbox, 'xml');
+                  let newToolbox = await AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>);
                   console.log(newToolbox)
                   config = {
                     toolbox: newToolbox,
