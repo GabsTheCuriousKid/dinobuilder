@@ -432,10 +432,7 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            workspace.clear();
-            config.toolbox = newToolbox
-            workspace.getMetrics().viewLeft = scrollX;
-            workspace.getMetrics().viewTop = scrollY;
+            updateToolbox(newToolbox)
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -452,13 +449,16 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            workspace.clear();
-            config.toolbox = newToolbox
-            workspace.getMetrics().viewLeft = scrollX;
-            workspace.getMetrics().viewTop = scrollY;
+            updateToolbox(newToolbox)
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
+    }
+    function updateToolbox(newToolbox) {
+        config = {
+            ...config,
+            toolbox: newToolbox,
+        };
     }
 </script>
 
