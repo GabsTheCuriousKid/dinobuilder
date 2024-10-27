@@ -1,4 +1,4 @@
-async function AddXMLtoXML(sourceXML, targetXML, elementBetween, elementToInject) {
+function AddXMLtoXML(sourceXML, targetXML, elementBetween, elementToInject) {
   const cleanSourceXML = sourceXML.replace(/<\/?xml[^>]*>/g, '');
   const parser = new DOMParser();
   const targetDoc = parser.parseFromString(targetXML, 'text/xml');
