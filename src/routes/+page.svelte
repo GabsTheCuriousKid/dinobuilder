@@ -422,6 +422,8 @@
     };
     async function onHiddenBlocksMount() {
         try {
+            const scrollX = workspace.getMetrics().viewLeft;
+            const scrollY = workspace.getMetrics().viewTop;
             if (!newToolbox) {
                 let newToolboxResult = AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>');
                 newToolbox = newToolboxResult
@@ -430,13 +432,18 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
+            workspace.clear();
             config.toolbox = newToolbox
+            workspace.getMetrics().viewLeft = scrollX;
+            workspace.getMetrics().viewTop = scrollY;
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
     }
     async function onWebExtensionMount() {
         try {
+            const scrollX = workspace.getMetrics().viewLeft;
+            const scrollY = workspace.getMetrics().viewTop;
             if (!newToolbox) {
                 let newToolboxResult = AddXMLtoXML(webExtensionExtension, Toolbox, '</category>', '</xml>');
                 newToolbox = newToolboxResult
@@ -445,7 +452,10 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
+            workspace.clear();
             config.toolbox = newToolbox
+            workspace.getMetrics().viewLeft = scrollX;
+            workspace.getMetrics().viewTop = scrollY;
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
