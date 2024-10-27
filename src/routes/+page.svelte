@@ -430,7 +430,8 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            config = {
+            workspace.updateToolbox(newToolbox);
+            /*config = {
                 toolbox: newToolbox,
                 collapse: true,
                 comments: true,
@@ -465,7 +466,7 @@
                     drag: true,
                     wheel: true,
                 },
-            };
+            };*/
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -480,7 +481,8 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            config = {
+            workspace.updateToolbox(newToolbox);
+            /*config = {
                 toolbox: newToolbox,
                 collapse: true,
                 comments: true,
@@ -515,7 +517,7 @@
                     drag: true,
                     wheel: true,
                 },
-            };
+            };*/
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -533,11 +535,9 @@
             ModalState.addExtensions = false;
             if (addextensiondata.detail.hiddenblocksExt === true) {
                 onHiddenBlocksMount()
-                window.location.reload()
             }
             if (addextensiondata.detail.webextensionExt === true) {
                 onWebExtensionMount()
-                window.location.reload()
             }
         }}
         on:cancel={() => {
