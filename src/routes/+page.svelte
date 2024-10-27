@@ -459,6 +459,7 @@
             ...config,
             toolbox: newToolbox,
         };
+        document.getElementsByClassName('blocklyWrapper')[0].innerHTML = '<BlocklyComponent config=${JSON.stringify(config)} locale="en" bind:workspace />';
     }
 </script>
 
