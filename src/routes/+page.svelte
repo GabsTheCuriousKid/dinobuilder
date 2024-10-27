@@ -105,7 +105,7 @@
     Blockly.blockRendering.unregister('custom_renderer') //weird bug
     Blockly.blockRendering.register('custom_renderer', customRenderer)
 
-    const config = {
+    let config = {
         toolbox: Toolbox,
         collapse: true,
         comments: true,
@@ -430,6 +430,42 @@
                 const elementToInject = 'xml';
                 try {
                   await injectXML(sourceXML, targetXML, elementToInject);
+                  config = {
+                    toolbox: Toolbox,
+                    collapse: true,
+                    comments: true,
+                    scrollbars: true,
+                    disable: false,
+                    theme: Theme,
+                    renderer: "custom_renderer",
+                    grid: {
+                      spacing: 25,
+                      length: 3,
+                      colour: "#00000011",
+                      snap: false,
+                    },
+                    zoom: {
+                      controls: true,
+                      wheel: false,
+                      startScale: 0.8,
+                      maxScale: 4,
+                      minScale: 0.25,
+                      scaleSpeed: 1.1,
+                    },
+                    plugins: {
+                      toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
+                      flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
+                      metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
+                    },
+                    move: {
+                      scrollbars: {
+                        horizontal: true,
+                        vertical: true,
+                      },
+                      drag: true,
+                      wheel: true,
+                    },
+                  };
                   console.log(sourceXML + ' has been fetched into: ' + targetXML + ' and injected into element: ' + elementToInject)
                 } catch (error) {
                   console.error('Error injecting XML:', error);
