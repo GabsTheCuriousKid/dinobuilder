@@ -426,10 +426,10 @@
             ModalState.addExtensions = false;
             async function onHiddenBlocksMount() {
                 try {
-                  let newToolbox = await injectXML(hiddenblocksExtension, Toolbox, 'xml');
+                  let newToolbox = await injectXML(hiddenblocksExtension, Toolbox, category[name="Hidden Blocks"]);
                   console.log(newToolbox)
                   config = {
-                    toolbox: Toolbox,
+                    toolbox: newToolbox,
                     collapse: true,
                     comments: true,
                     scrollbars: true,
