@@ -410,6 +410,8 @@
         return Boolean(String(id).match(/[^a-z0-9]/gim));
     }
 
+    let newToolbox;
+
     // Modals
     const ModalState = {
         extensionColors: false,
