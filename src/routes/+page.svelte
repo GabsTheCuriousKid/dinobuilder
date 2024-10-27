@@ -431,8 +431,7 @@
             }
             console.log(newToolbox)
             workspace.clear();
-            workspace.updateToolbox(newToolbox);
-            /*config = {
+            config = {
                 toolbox: newToolbox,
                 collapse: true,
                 comments: true,
@@ -467,7 +466,8 @@
                     drag: true,
                     wheel: true,
                 },
-            };*/
+            };
+            workspace.setConfig(config);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -483,8 +483,7 @@
             }
             console.log(newToolbox)
             workspace.clear();
-            workspace.updateToolbox(newToolbox);
-            /*config = {
+            config = {
                 toolbox: newToolbox,
                 collapse: true,
                 comments: true,
@@ -519,7 +518,8 @@
                     drag: true,
                     wheel: true,
                 },
-            };*/
+            };
+            workspace.setConfig(config);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
