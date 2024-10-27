@@ -533,9 +533,11 @@
             ModalState.addExtensions = false;
             if (addextensiondata.detail.hiddenblocksExt === true) {
                 onHiddenBlocksMount()
+                window.location.reload()
             }
             if (addextensiondata.detail.webextensionExt === true) {
                 onWebExtensionMount()
+                window.location.reload()
             }
         }}
         on:cancel={() => {
