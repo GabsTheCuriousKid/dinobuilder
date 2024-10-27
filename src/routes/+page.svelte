@@ -426,7 +426,7 @@
             ModalState.addExtensions = false;
             async function onHiddenBlocksMount() {
                 try {
-                  let newToolbox = await AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>);
+                  let newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>');
                   console.log(newToolbox)
                   config = {
                     toolbox: newToolbox,
