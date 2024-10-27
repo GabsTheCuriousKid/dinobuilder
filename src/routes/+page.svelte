@@ -430,44 +430,7 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            workspace.clear();
-            config = {
-                toolbox: newToolbox,
-                collapse: true,
-                comments: true,
-                scrollbars: true,
-                disable: false,
-                theme: Theme,
-                renderer: "custom_renderer",
-                grid: {
-                    spacing: 25,
-                    length: 3,
-                    colour: "#00000011",
-                    snap: false,
-                },
-                zoom: {
-                    controls: true,
-                    wheel: false,
-                    startScale: 0.8,
-                    maxScale: 4,
-                    minScale: 0.25,
-                    scaleSpeed: 1.1,
-                },
-                plugins: {
-                    toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
-                    flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
-                    metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
-                },
-                move: {
-                    scrollbars: {
-                        horizontal: true,
-                        vertical: true,
-                    },
-                    drag: true,
-                    wheel: true,
-                },
-            };
-            workspace.setConfig(config);
+            config.toolbox = newToolbox
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -482,44 +445,7 @@
                 newToolbox = newToolboxResult
             }
             console.log(newToolbox)
-            workspace.clear();
-            config = {
-                toolbox: newToolbox,
-                collapse: true,
-                comments: true,
-                scrollbars: true,
-                disable: false,
-                theme: Theme,
-                renderer: "custom_renderer",
-                grid: {
-                    spacing: 25,
-                    length: 3,
-                    colour: "#00000011",
-                    snap: false,
-                },
-                zoom: {
-                    controls: true,
-                    wheel: false,
-                    startScale: 0.8,
-                    maxScale: 4,
-                    minScale: 0.25,
-                    scaleSpeed: 1.1,
-                },
-                plugins: {
-                    toolbox: ContinuousToolboxPlugin.ContinuousToolbox,
-                    flyoutsVerticalToolbox: ContinuousToolboxPlugin.ContinuousFlyout,
-                    metricsManager: ContinuousToolboxPlugin.ContinuousMetrics,
-                },
-                move: {
-                    scrollbars: {
-                        horizontal: true,
-                        vertical: true,
-                    },
-                    drag: true,
-                    wheel: true,
-                },
-            };
-            workspace.setConfig(config);
+            config.toolbox = newToolbox
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
