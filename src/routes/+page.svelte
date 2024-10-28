@@ -461,16 +461,6 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
-        compiler = new Compiler(workspace);
-        workspace.addChangeListener(updateGeneratedCode);
-
-        EventManager.allowAttachment();
-        EventManager.on(EventManager.EVENT_THEME_CHANGED, () => {
-            workspace.refreshTheme();
-        });
-
-        const minimap = new PositionedMinimap(workspace);
-        minimap.init();
     }
 </script>
 
@@ -612,7 +602,7 @@
                 </div>
             </div>
             <div class="blocklyWrapper">
-                <BlocklyComponent {config} locale={en} bind:workspace />
+                <BlocklyComponent {config} key={refreshKey} locale={en} bind:workspace />
             </div>
         </div>
         <div class="row-submenus">
