@@ -461,6 +461,7 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
+        updateGeneratedCode(lastGeneratedCode)
     }
 </script>
 
