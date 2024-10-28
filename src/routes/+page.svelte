@@ -459,7 +459,7 @@
             ...config,
             toolbox: newToolbox,
         };
-        document.getElementsByClassName('blocklyWrapper')[0].innerHTML = '<BlocklyComponent config=${JSON.stringify(config)} locale="en" bind:workspace />';
+        document.getElementsByClassName('codeDisplay')[0].innerHTML = '{@html displayGeneratedCode(lastGeneratedCode)}';
     }
 </script>
 
