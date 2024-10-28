@@ -459,7 +459,7 @@
             ...config,
             toolbox: newToolbox,
         };
-        document.getElementsByClassName('codeDisplay')[0].innerHTML = '{@html displayGeneratedCode(lastGeneratedCode)}';
+        document.getElementsByClassName('codeDisplay')[0].innerHTML = {@html displayGeneratedCode(lastGeneratedCode)};
     }
 </script>
 
