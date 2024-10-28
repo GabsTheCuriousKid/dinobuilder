@@ -461,7 +461,6 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
-        document.querySelector('.codeDisplay').innerHTML = '{@html displayGeneratedCode(lastGeneratedCode)}';
         workspace.addChangeListener(updateGeneratedCode);
     }
 </script>
