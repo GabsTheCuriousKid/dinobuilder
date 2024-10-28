@@ -461,7 +461,16 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
-        onMount()
+        compiler = new Compiler(workspace);
+        workspace.addChangeListener(updateGeneratedCode);
+
+        EventManager.allowAttachment();
+        EventManager.on(EventManager.EVENT_THEME_CHANGED, () => {
+            workspace.refreshTheme();
+        });
+
+        const minimap = new PositionedMinimap(workspace);
+        minimap.init();
     }
 </script>
 
