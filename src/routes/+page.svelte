@@ -461,7 +461,7 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
-        workspace.addChangeListener(updateGeneratedCode);
+        onMount()
     }
 </script>
 
