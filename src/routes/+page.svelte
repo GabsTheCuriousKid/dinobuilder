@@ -461,7 +461,6 @@
             toolbox: newToolbox,
         };
         refreshKey += 1
-        document.getElementsByClassName('codeDisplay')[0].innerHTML = {@html displayGeneratedCode(lastGeneratedCode)};
     }
 </script>
 
