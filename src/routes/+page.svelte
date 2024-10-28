@@ -454,11 +454,13 @@
             console.error('Error injecting XML:', error);
         }
     }
+    let refreshKey = 0;
     function updateToolbox(newToolbox) {
         config = {
             ...config,
             toolbox: newToolbox,
         };
+        refreshKey += 1
         document.getElementsByClassName('codeDisplay')[0].innerHTML = {@html displayGeneratedCode(lastGeneratedCode)};
     }
 </script>
@@ -719,7 +721,7 @@
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
-                    <div class="codeDisplay">
+                    <div class="codeDisplay" key={refreshKey}>
                         {@html displayGeneratedCode(lastGeneratedCode)}
                     </div>
                 </div>
