@@ -1,6 +1,7 @@
 import { compileVars } from '../compiler/compileVarSection';
 import javascriptGenerator from '../javascriptGenerator';
 import registerBlock from '../register';
+import Blockly from 'blockly/core';
 
 const categoryPrefix = 'control_';
 const categoryColor = '#FFAB19';
