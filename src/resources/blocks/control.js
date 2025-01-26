@@ -135,13 +135,13 @@ function register() {
         colour: categoryColor,
         mutator: `${categoryPrefix}if_mutator`
     }, (block) => {
-        const BOOL0 = javascriptGenerator.valueToCode(block, 'BOOL0') || "false";
+        const BOOL0 = javascriptGenerator.valueToCode(block, 'BOOL0', javascriptGenerator.ORDER_ATOMIC) || "false";
         const BLOCKS0 = javascriptGenerator.statementToCode(block, 'BLOCKS0');
 
         let code = `if (${BOOL0}) { ${BLOCKS0} }`;
 
         for (let i = 1; block.getInput(`BOOL${i}`); i++) {
-            const BOOLx = javascriptGenerator.valueToCode(block, `BOOL${i}`) || "false";
+            const BOOLx = javascriptGenerator.valueToCode(block, `BOOL${i}`, javascriptGenerator.ORDER_ATOMIC) || "false";
             const BLOCKSx = javascriptGenerator.statementToCode(block, `BLOCKS${i}`);
 
             code += ` else if (${BOOLx}) { ${BLOCKSx} }`;
