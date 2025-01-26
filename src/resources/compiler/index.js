@@ -125,6 +125,21 @@ const playSound = async (url, target) => {
 };
 
 playSound(ab, cd)
+}
+
+const ExtForge_Utils = {
+  // from https://jwklong.github.io/extforge
+  Broadcasts: new function() {
+    this.raw_ = {};
+    this.register = (name, blocks) => {
+      this.raw_[name] = blocks;
+    };
+    this.execute = async (name) => {
+      if (this.raw_[name]) {
+        await this.raw_[name]();
+      };
+    };
+  }
 }`
 
 class Compiler {

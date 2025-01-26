@@ -54,8 +54,10 @@
         <block type="control_repeat" />
         <block type="control_forever" />
         <sep gap="48"></sep>
-        <block type="control_ifthen" />
-        <block type="control_ifthenelse" />
+        <block type="control_if" />
+        <block type="control_if">
+            <mutation else="1" />
+        </block>
         <block type="control_ifthenreturn" />
         <sep gap="48"></sep>
         <block type="control_switch" />
