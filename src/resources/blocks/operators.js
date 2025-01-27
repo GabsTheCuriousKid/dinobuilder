@@ -246,24 +246,49 @@ function register() {
         args0: [
             {
                 "type": "input_value",
-                "name": "X",
+                "name": "ITEM-1",
                 "checks": "String"
             },
             {
                 "type": "input_value",
-                "name": "Y",
+                "name": "ITEM0",
                 "checks": "String"
             }
         ],
         output: "String",
         inputsInline: true,
-        colour: categoryColor
+        colour: categoryColor,
+        mutator: `${categoryPrefix}join_mutator`
     }, (block) => {
-        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
-        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+        const X = javascriptGenerator.valueToCode(block, 'ITEM-1', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'ITEM0', javascriptGenerator.ORDER_ATOMIC);
 
-        return [`(${String(X) || ''} + ${String(Y) || ''})`, javascriptGenerator.ORDER_ATOMIC];
+        let code = `${String(X) || ''} + ${String(Y) || ''}`
+        
+        for (let i = 1; block.getInput(`ITEM${i}`); i++) {
+            const ITEM = javascriptGenerator.valueToCode(block, `ITEM${i}`, javascriptGenerator.ORDER_ATOMIC) || "undefined";
+
+            code += ` + ${String(ITEM) || ''}`;
+        }
+
+        return [code, javascriptGenerator.ORDER_ATOMIC];
     })
+    registerBlock(`${categoryPrefix}join_mutator_join`, {
+        message0: 'join',
+        args0: [],
+        nextStatement: null,
+        inputsInline: true,
+        enableContextMenu: false,
+        colour: categoryColor,
+    }, (block) => {})
+    registerBlock(`${categoryPrefix}join_mutator_item`, {
+        message0: 'item',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {})
 
     // split
     registerBlock(`${categoryPrefix}split`, {
@@ -672,6 +697,133 @@ function register() {
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
         return [`(${X}.includes(${Y}))`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    const operators_join_mutator = {
+        itemCount_: 0,
+
+        mutationToDom: function () {
+            if (!this.itemCount_ && !this.itemCount_) {
+                return null;
+            }
+
+            const container = Blockly.utils.xml.createElement('mutation');
+            if (this.itemCount_) {
+              container.setAttribute('item', String(this.itemCount_));
+            }
+            return container;
+        },
+
+        domToMutation: function (xmlElement) {
+            this.itemCount_ = parseInt(xmlElement.getAttribute('item'));
+            this.rebuildShape_()
+        },
+
+        decompose: function (workspace) {
+            const containerBlock = workspace.newBlock(`${categoryPrefix}join_mutator_join`);
+            containerBlock.initSvg();
+            let connection = containerBlock.nextConnection;
+
+            for (let i = 1; i <= this.itemCount_; i++) {
+                const itemBlock = workspace.newBlock(`${categoryPrefix}join_mutator_item`);
+                itemBlock.initSvg()
+                connection.connect(itemBlock.previousConnection);
+                connection = itemBlock.nextConnection;
+            }
+
+            return containerBlock
+        },
+
+        compose: function (containerBlock) {
+            let clauseBlock = containerBlock.nextConnection.targetBlock();
+
+            this.itemCount_ = 0;
+
+            const valueConnections = [null]
+
+            while (clauseBlock) {
+                if (clauseBlock.isInsertionMarker()) {
+                    clauseBlock = clauseBlock.getNextBlock()
+                    continue;
+                }
+
+                switch (clauseBlock.type) {
+                    case `${categoryPrefix}join_mutator_item`:
+                        this.itemCount_++;
+                        valueConnections.push(clauseBlock.valueConnection_);
+                        break;
+                }
+
+                clauseBlock = clauseBlock.getNextBlock();
+            }
+
+            this.updateShape_()
+
+            this.reconnectChildBlocks_(valueConnections)
+        },
+
+        saveConnections: function (containerBlock) {
+            let clauseBlock = containerBlock.nextConnection.targetBlock();
+            let i = 1;
+            while (clauseBlock) {
+                if (clauseBlock.isInsertionMarker()) {
+                    clauseBlock = clauseBlock.getNextBlock()
+                    continue;
+                }
+
+                switch (clauseBlock.type) {
+                    case `${categoryPrefix}join_mutator_item`:
+                        const inputBool = this.getInput(`ITEM${i}`);
+                        clauseBlock.valueConnection_ = inputBool && inputBool.connection.targetConnection;
+                        i++;
+                        break;
+                }
+
+                clauseBlock = clauseBlock.getNextBlock();
+            }
+        },
+
+        rebuildShape_: function () {
+            const valueConnections = [null]
+
+            for (let i = 1; this.getInput(`ITEM${i}`); i++) {
+                valueConnections.push(this.getInput(`ITEM${i}`).connection.targetConnection);
+            }
+
+            this.updateShape_()
+            this.reconnectChildBlocks_(
+                valueConnections,
+            );
+        },
+
+        updateShape_: function () {
+            //remove all
+            for (let i = 1; this.getInput(`ITEM${i}`); i++) {
+                this.removeInput(`ITEM${i}`)
+            }
+
+            //rebuild
+            for (let i = 1; i <= this.itemCount_; i++) {
+                this.appendValueInput(`ITEM${i}`)
+                    .setCheck('String')
+                    .appendField("item")
+            }
+        },
+        reconnectChildBlocks_: function (
+            valueConnections,
+        ) {
+            for (let i = 1; i <= this.itemCount_; i++) {
+                Blockly.Mutator.reconnect(valueConnections[i], this, `ITEM${i}`)
+            }
+        }
+    }
+
+    Blockly.Extensions.unregister(`${categoryPrefix}join_mutator`)
+    Blockly.Extensions.registerMutator(
+        `${categoryPrefix}join_mutator`,
+        operators_join_mutator,
+        null,
+        [`${categoryPrefix}join_mutator_item`],
+    );
 }
 
 export default register;
