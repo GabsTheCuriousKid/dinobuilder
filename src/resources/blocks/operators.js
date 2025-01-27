@@ -1,5 +1,6 @@
 import javascriptGenerator from '../javascriptGenerator';
 import registerBlock from '../register';
+import Blockly from 'blockly/core';
 
 const categoryPrefix = 'operators_';
 const categoryColor = '#59C059';
