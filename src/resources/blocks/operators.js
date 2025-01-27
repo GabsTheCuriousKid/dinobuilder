@@ -805,8 +805,6 @@ function register() {
             //rebuild
             for (let i = 1; i <= this.itemCount_; i++) {
                 this.appendValueInput(`ITEM${i}`)
-                    .setCheck('String')
-                    .appendField("item")
             }
         },
         reconnectChildBlocks_: function (
