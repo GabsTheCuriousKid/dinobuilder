@@ -456,14 +456,20 @@
     }
     let refreshKey = 0;
     function updateToolbox(newToolbox) {
-        workspace.removeChangeListener(updateGeneratedCode);
-        config = {
-            ...config,
-            toolbox: newToolbox,
-        };
-        refreshKey = 1;
-        workspace.addChangeListener(updateGeneratedCode);
-        updateGeneratedCode()
+        try {
+            workspace.removeChangeListener(updateGeneratedCode);
+            config = {
+                ...config,
+                toolbox: newToolbox,
+            };
+            const newToolboxDom = Blockly.Xml.textToDom(newToolbox);
+            workspace.updateToolbox(newToolboxDom);
+            refreshKey = 1;
+            workspace.addChangeListener(updateGeneratedCode);
+            updateGeneratedCode()
+        } catch (error) {
+            console.error("Failed to update toolbox:", error);
+        }
     }
 </script>
 
