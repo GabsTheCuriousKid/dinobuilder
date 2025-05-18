@@ -456,12 +456,14 @@
     }
     let refreshKey = 0;
     function updateToolbox(newToolbox) {
+        workspace.removeChangeListener(updateGeneratedCode);
         config = {
             ...config,
             toolbox: newToolbox,
         };
-        refreshKey += 1
+        refreshKey = 1;
         workspace.addChangeListener(updateGeneratedCode);
+        updateGeneratedCode()
     }
 </script>
 
