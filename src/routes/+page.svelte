@@ -32,7 +32,7 @@
     import AddXMLtoXML from '../utils/AddXMLtoXML.js';
 
     import Blockly from "blockly/core";
-    import * as FullBlockly from "blockly";
+    import { textToDom } from 'blockly/core/xml';
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
     import "@blockly/field-colour-hsv-sliders";
 
@@ -463,7 +463,7 @@
                 ...config,
                 toolbox: newToolbox,
             };
-            const newToolboxDom = FullBlockly.Xml.textToDom(newToolbox);
+            const newToolboxDom = textToDom(newToolbox);
             workspace.updateToolbox(newToolboxDom);
             refreshKey = 1;
             workspace.addChangeListener(updateGeneratedCode);
