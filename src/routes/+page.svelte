@@ -463,7 +463,12 @@
                 toolbox: newToolbox,
             };
             workspace.updateToolbox(newToolbox);
+            Blockly.svgResize(workspace);
+            workspace.getAllBlocks(false).forEach(b => b.render());
+            Blockly.blockRendering.unregister('custom_renderer') //weird bug
+            Blockly.blockRendering.register('custom_renderer', customRenderer)
             refreshKey = 1;
+            workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
             updateGeneratedCode()
         } catch (error) {
