@@ -34,6 +34,42 @@ function register() {
         return `${code}\n`;
     })
 
+    // function
+    registerBlock(`${categoryPrefix}createPara`, {
+        message0: 'function %1 parameters %2 %3 %4',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "field_input",
+                "name": "PARAMETERS",
+                "text": "1, 2",
+                "spellcheck": false
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "FUNC"
+            }
+        ],
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const PARAMETERS = block.getFieldValue('PARAMETERS')
+        const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
+        
+        const code = `async function ${ID}(${PARAMETERS}) { ${FUNC} }`;
+        return `${code}\n`;
+    })
+
     // inline function
     registerBlock(`${categoryPrefix}inline`, {
         message0: 'inline function %1 %2',
@@ -110,6 +146,60 @@ function register() {
     }, (block) => {
         const ID = block.getFieldValue('ID')
         return [`${ID}()\n`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    // call
+    registerBlock(`${categoryPrefix}callPara`, {
+        message0: 'call %1 with parameters %2',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "field_input",
+                "name": "PARAMETERS",
+                "text": "1, 2",
+                "spellcheck": false
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const PARAMETERS = block.getFieldValue('PARAMETERS')
+        const code = `${ID}(${PARAMETERS})`;
+        return `${code}\n`;
+    })
+
+    // call
+    registerBlock(`${categoryPrefix}callreporterPara`, {
+        message0: 'call %1 with parameters %2',
+        args0: [
+            {
+                "type": "field_input",
+                "name": "ID",
+                "text": "id",
+                "spellcheck": false
+            },
+            {
+                "type": "field_input",
+                "name": "PARAMETERS",
+                "text": "1, 2",
+                "spellcheck": false
+            },
+        ],
+        output: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {
+        const ID = block.getFieldValue('ID')
+        const PARAMETERS = block.getFieldValue('PARAMETERS')
+        return [`${ID}(${PARAMETERS})\n`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}getsprites`, {

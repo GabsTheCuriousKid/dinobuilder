@@ -210,6 +210,11 @@
                 <block type="functions_return" />
             </statement>
         </block>
+        <block type="functions_createPara">
+            <statement name="FUNC">
+                <block type="functions_return" />
+            </statement>
+        </block>
         <block type="functions_define">
             <statement name="BLOCKS">
                 <block type="functions_return" />
@@ -222,6 +227,8 @@
         <sep gap="48"></sep>
         <block type="functions_call" />
         <block type="functions_callreporter" />
+        <block type="functions_callPara" />
+        <block type="functions_callreporterPara" />
         <sep gap="48"></sep>
         <block type="functions_execute_a" />
         <block type="functions_execute_b" />
