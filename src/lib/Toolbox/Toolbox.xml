@@ -1,14 +1,11 @@
 <xml>
     <category name="Sprites" colour="#4C97FF">
         <block type="motion_goto_position" />
-        <block type="motion_getx" />
-        <block type="motion_gety" />
-        <block type="motion_setdirection" />
-        <block type="motion_getdir" />
-        <sep gap="48"></sep>
         <block type="motion_getsprite" />
         <block type="motion_getxof" />
         <block type="motion_getyof" />
+        <sep gap="48"></sep>
+        <block type="motion_setdirection" />
         <block type="motion_getdirof" />
         <sep gap="48"></sep>
         <block type="motion_stage" />
@@ -25,8 +22,6 @@
         <sep gap="48"></sep>
         <block type="looks_setlayer" />
         <block type="looks_golayer" />
-        <block type="looks_getlayer" />
-        <sep gap="48"></sep>
         <block type="looks_getlayerof" />
     </category>
     <category name="Sound" colour="#CF63CF">
@@ -34,7 +29,6 @@
         <block type="sound_startsound" />
         <!--<sep gap="48"></sep>-->
         <!--<block type="sound_stopallsounds" />-->
-        <block type="sound_getvolume" />
         <block type="sound_getvolumeof" />
         <sep gap="48"></sep>
         <block type="sound_setprojectvolume" />
@@ -55,10 +49,6 @@
         <block type="control_forever" />
         <sep gap="48"></sep>
         <block type="control_if" />
-        <block type="control_if">
-            <mutation bool="1" />
-            <mutation else="1" />
-        </block>
         <block type="control_if">
             <mutation else="1" />
         </block>

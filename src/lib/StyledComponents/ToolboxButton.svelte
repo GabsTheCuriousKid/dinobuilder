@@ -6,9 +6,15 @@
     function event() {
         dispatch("click");
     }
+
+    export let disabled = false;
 </script>
 
-<button on:click={event}>
+<button 
+    on:click={event}
+    disabled={disabled}
+    class:disabled-style={disabled}>
+>
     <slot />
 </button>
 
@@ -38,4 +44,8 @@
     :global(body.dark) button:active {
         background: #111;
     }
+    .disabled-style {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 </style>

@@ -6,8 +6,13 @@ const categoryColor = '#4C97FF';
 
 function register() {
     registerBlock(`${categoryPrefix}goto_position`, {
-        message0: 'go to x\: %1 y\: %2',
+        message0: 'place %1 at x\: %2 y\: %3',
         args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
             {
                 "type": "input_value",
                 "name": "X",
@@ -24,9 +29,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        const code = `util.target.setXY(${X}, ${Y});`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setXY(${X}, ${Y});`;
         return `${code}\n`;
     })
 
@@ -50,8 +56,13 @@ function register() {
     })
 
     registerBlock(`${categoryPrefix}setdirection`, {
-        message0: 'point in direction %1',
+        message0: 'point %1 to direction %2',
         args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
             {
                 "type": "input_value",
                 "name": "DIR",
@@ -63,8 +74,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         const DIR = javascriptGenerator.valueToCode(block, 'DIR', javascriptGenerator.ORDER_ATOMIC);
-        const code = `util.target.setDirection(${DIR});`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setDirection(${DIR});`;
         return `${code}\n`;
     })
 
@@ -171,6 +183,23 @@ function register() {
     }, (block) => {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.direction : 0)`, javascriptGenerator.ORDER_ATOMIC]
+    })
+
+    registerBlock(`${categoryPrefix}getrotatestyleof`, {
+        message0: 'rotation style of %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        return [`(${SPRITE || "undefined"} !== undefined ? ${SPRITE}.rotationStyle : 0)`, javascriptGenerator.ORDER_ATOMIC]
     })
 }
 

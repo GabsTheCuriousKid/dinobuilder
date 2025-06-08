@@ -475,6 +475,68 @@
             console.error("Failed to update toolbox:", error);
         }
     }
+
+    function detectBrowser() {
+        if (!('userAgent' in navigator)) return 'Unknown';
+        const agent = navigator.userAgent;
+        if ('userAgentData' in navigator) {
+            const agentData = JSON.stringify(navigator.userAgentData.brands);
+            if (agentData.includes('Google Chrome')) {
+                return 'Chrome';
+            }
+            if (agentData.includes('Opera')) {
+                return 'Opera';
+            }
+            if (agentData.includes('Microsoft Edge')) {
+                if (agentData.includes('Chromium')) return 'Edge Chromium';
+                return 'Edge';
+            }
+        }
+        if (agent.includes('Chrome')) {
+            return 'Chrome';
+        }
+        if (agent.includes('Firefox')) {
+            return 'Firefox';
+        }
+        if (agent.includes('MSIE') || agent.includes('rv:')) {
+            return 'Internet Explorer';
+        }
+        if (agent.includes('Safari')) {
+            return 'Safari';
+        }
+        return 'Unknown';
+    }
+
+    function getMaxUrlLimit() {
+        const browser = detectBrowser();
+        switch (browser) {
+            case 'Chrome':
+            case 'Opera':
+            case 'Edge Chromium':
+                return 32000;
+            case 'Internet Explorer':
+            case 'Edge':
+                return 2083;
+            case 'Firefox':
+                return 65000;
+            case 'Safari':
+                return 80000;
+            default:
+                return 4194304;
+        }
+    }
+
+    const maxUrlLimit = getMaxUrlLimit();
+
+    const encodedCode = encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode));
+
+	const turboWarpUrl = "https://turbowarp.org/editor?extension=" + encodedCode;
+	const penguinModUrl = "https://studio.penguinmod.com/editor?extension=" + encodedCode;
+	const dinosaurModUrl = "https://dinosaurmod.github.io/editor?extension=" + encodedCode;
+
+	$: turboWarpDisabled = turboWarpUrl.length > maxUrlLimit;
+	$: penguinModDisabled = penguinModUrl.length > maxUrlLimit;
+	$: dinosaurModDisabled = dinosaurModUrl.length > maxUrlLimit;
 </script>
 
 <CreateBlockModal
@@ -730,6 +792,33 @@
                         }}
                     >
                         Download
+                    </StyledButton>
+                    <div style="margin-right: 8px" />
+                    <StyledButton
+                        on:click={() => {Add commentMore actions
+                            window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
+                        }}
+                        disabled={turboWarpDisabled}
+                    >
+                        TurboWarp
+                    </StyledButton>
+                    <div style="margin-right: 4px" />
+                    <StyledButton
+                        on:click={() => {
+                            window.open("https://studio.penguinmod.com/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
+                        }}
+                        disabled={penguinModDisabled}
+                    >
+                        PenguinMod
+                    </StyledButton>
+                    <div style="margin-right: 4px" />
+                    <StyledButton
+                        on:click={() => {
+                            window.open("https://dinosaurmod.github.io/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
+                        }}
+                        disabled={dinosaurModDisabled}
+                    >
+                        DinosaurMod
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
