@@ -419,18 +419,31 @@
         dsText: false,
         blockPIcons: false,
     };
+
+    let newToolbox;
+
     async function onHiddenBlocksMount() {
         try {
-            let newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, null);
-            updateToolbox(newToolbox)
+            if (!newToolbox) {
+                newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, null);
+                updateToolbox(newToolbox)
+            } else {
+                newToolbox = AddXMLtoXML(hiddenblocksExtension, newToolbox, null);
+                updateToolbox(newToolbox)
+            }
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
     }
     async function onWebExtensionMount() {
         try {
-            let newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox, null);
-            updateToolbox(newToolbox)
+            if (!newToolbox) {
+                newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox, null);
+                updateToolbox(newToolbox)
+            } else {
+                newToolbox = AddXMLtoXML(webExtensionExtension, newToolbox, null);
+                updateToolbox(newToolbox)
+            }
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -705,30 +718,6 @@
                         }}
                     >
                         Download
-                    </StyledButton>
-                    <div style="margin-right: 8px" />
-                    <StyledButton
-                        on:click={() => {
-                            window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
-                        }}
-                    >
-                        TurboWarp
-                    </StyledButton>
-                    <div style="margin-right: 4px" />
-                    <StyledButton
-                        on:click={() => {
-                            window.open("https://studio.penguinmod.com/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
-                        }}
-                    >
-                        PenguinMod
-                    </StyledButton>
-                    <div style="margin-right: 4px" />
-                    <StyledButton
-                        on:click={() => {
-                            window.open("https://dinosaurmod.github.io/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
-                        }}
-                    >
-                        DinosaurMod
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
