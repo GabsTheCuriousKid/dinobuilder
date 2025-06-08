@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { browser } from '$app/environment';
+    import { page } from '$app/stores';
 
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
@@ -466,7 +467,7 @@
     }
     let IsLiveTests;
 
-    $: IsLiveTests = new URLSearchParams(location.search).has('livetests');
+    $: IsLiveTests = $page.url.searchParams.has('livetests');
 </script>
 
 <CreateBlockModal
