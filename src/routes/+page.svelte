@@ -477,7 +477,7 @@
         }
     }
 
-    function getMaxUrlLimit() {
+    /*function getMaxUrlLimit() {
         function detectBrowser() {
             if (!('userAgent' in navigator)) return 'Unknown';
             const agent = navigator.userAgent;
@@ -548,7 +548,7 @@
 	    turboWarpDisabled = turboWarpUrl.length > maxUrlLimit;
 	    penguinModDisabled = penguinModUrl.length > maxUrlLimit;
 	    dinosaurModDisabled = dinosaurModUrl.length > maxUrlLimit;
-    }
+    }*/
 </script>
 
 <CreateBlockModal
