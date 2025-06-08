@@ -1,4 +1,4 @@
-<img src="./icon.png" width="64" height="64" /> <img src="./icon_title.png" height="64" />
+<img src="./icon.png" width="58" height="64" /> <img src="./icon_title.png" height="64" />
 
 # DinoBuilder
 Create extensions for TurboWarp, Penguinmod & Dinosaurmod using block-based coding.
