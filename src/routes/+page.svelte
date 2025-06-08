@@ -420,16 +420,20 @@
         blockPIcons: false,
     };
 
+    function hasCategory(xmlString, categoryName) {
+        const doc = new DOMParser().parseFromString(xmlString, 'text/xml');
+        return !![...doc.querySelectorAll('category')].find(
+            el => el.getAttribute('name') === categoryName
+        );
+    }
+
     let newToolbox;
 
     async function onHiddenBlocksMount() {
         try {
-            if (!newToolbox) {
-                newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, null);
-                updateToolbox(newToolbox)
-            } else {
-                newToolbox = AddXMLtoXML(hiddenblocksExtension, newToolbox, null);
-                updateToolbox(newToolbox)
+            if (!hasCategory(newToolbox ?? Toolbox, "Hidden Blocks")) {
+                newToolbox = AddXMLtoXML(hiddenblocksExtension, newToolbox ?? Toolbox, null);
+                updateToolbox(newToolbox);
             }
         } catch (error) {
             console.error('Error injecting XML:', error);
@@ -437,12 +441,9 @@
     }
     async function onWebExtensionMount() {
         try {
-            if (!newToolbox) {
-                newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox, null);
-                updateToolbox(newToolbox)
-            } else {
-                newToolbox = AddXMLtoXML(webExtensionExtension, newToolbox, null);
-                updateToolbox(newToolbox)
+            if (!hasCategory(newToolbox ?? Toolbox, "Site Runtime")) {
+                newToolbox = AddXMLtoXML(webExtensionExtension, newToolbox ?? Toolbox, null);
+                updateToolbox(newToolbox);
             }
         } catch (error) {
             console.error('Error injecting XML:', error);
