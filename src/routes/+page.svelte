@@ -1,4 +1,6 @@
 <script>
+    console.log("Debug Log 1");
+
     import { onMount } from "svelte";
     import { browser } from '$app/environment';
 
@@ -477,38 +479,38 @@
         }
     }
 
-    function detectBrowser() {
-        if (!('userAgent' in navigator)) return 'Unknown';
-        const agent = navigator.userAgent;
-        if ('userAgentData' in navigator) {
-            const agentData = JSON.stringify(navigator.userAgentData.brands);
-            if (agentData.includes('Google Chrome')) {
+    function getMaxUrlLimit() {
+        function detectBrowser() {
+            if (!('userAgent' in navigator)) return 'Unknown';
+            const agent = navigator.userAgent;
+            if ('userAgentData' in navigator) {
+                const agentData = JSON.stringify(navigator.userAgentData.brands);
+                if (agentData.includes('Google Chrome')) {
+                    return 'Chrome';
+                }
+                if (agentData.includes('Opera')) {
+                    return 'Opera';
+                }
+                if (agentData.includes('Microsoft Edge')) {
+                    if (agentData.includes('Chromium')) return 'Edge Chromium';
+                    return 'Edge';
+                }
+            }
+            if (agent.includes('Chrome')) {
                 return 'Chrome';
             }
-            if (agentData.includes('Opera')) {
-                return 'Opera';
+            if (agent.includes('Firefox')) {
+                return 'Firefox';
             }
-            if (agentData.includes('Microsoft Edge')) {
-                if (agentData.includes('Chromium')) return 'Edge Chromium';
-                return 'Edge';
+            if (agent.includes('MSIE') || agent.includes('rv:')) {
+                return 'Internet Explorer';
             }
+            if (agent.includes('Safari')) {
+                return 'Safari';
+            }
+            return 'Unknown';
         }
-        if (agent.includes('Chrome')) {
-            return 'Chrome';
-        }
-        if (agent.includes('Firefox')) {
-            return 'Firefox';
-        }
-        if (agent.includes('MSIE') || agent.includes('rv:')) {
-            return 'Internet Explorer';
-        }
-        if (agent.includes('Safari')) {
-            return 'Safari';
-        }
-        return 'Unknown';
-    }
 
-    function getMaxUrlLimit() {
         const browser = detectBrowser();
         switch (browser) {
             case 'Chrome':
