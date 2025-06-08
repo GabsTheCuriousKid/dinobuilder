@@ -159,10 +159,8 @@ function register() {
                 "spellcheck": false
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "PARAMETERS",
-                "text": "1, 2",
-                "spellcheck": false
             },
         ],
         previousStatement: null,
@@ -171,8 +169,8 @@ function register() {
         colour: categoryColor,
     }, (block) => {
         const ID = block.getFieldValue('ID')
-        const PARAMETERS = block.getFieldValue('PARAMETERS')
-        const code = `${ID}(${PARAMETERS})`;
+        const PARAMETERS = javascriptGenerator.valueToCode(block, 'PARAMETERS', javascriptGenerator.ORDER_ATOMIC);
+        const code = `${ID}(${PARAMETERS ?? ''})`;
         return `${code}\n`;
     })
 
@@ -187,10 +185,8 @@ function register() {
                 "spellcheck": false
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "PARAMETERS",
-                "text": "1, 2",
-                "spellcheck": false
             },
         ],
         output: null,
@@ -198,8 +194,8 @@ function register() {
         colour: categoryColor,
     }, (block) => {
         const ID = block.getFieldValue('ID')
-        const PARAMETERS = block.getFieldValue('PARAMETERS')
-        return [`${ID}(${PARAMETERS})\n`, javascriptGenerator.ORDER_ATOMIC];
+        const PARAMETERS = javascriptGenerator.valueToCode(block, 'PARAMETERS', javascriptGenerator.ORDER_ATOMIC);
+        return [`${ID}(${PARAMETERS ?? ''})\n`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}getsprites`, {
