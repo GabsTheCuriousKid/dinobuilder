@@ -464,9 +464,9 @@
             console.error("Failed to update toolbox:", error);
         }
     }
+    let IsLiveTests;
 
-    const urlParams = new URLSearchParams(location.search);
-    const IsLiveTests = urlParams.has('livetests');
+    $: IsLiveTests = new URLSearchParams(location.search).has('livetests');
 </script>
 
 <CreateBlockModal
