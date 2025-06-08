@@ -453,6 +453,7 @@
     let refreshKey = 0;
     function updateToolbox(newToolbox) {
         try {
+            console.log(newToolbox)
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
