@@ -1,6 +1,4 @@
 <script>
-    console.log("Debug Log 1");
-
     import { onMount } from "svelte";
     import { browser } from '$app/environment';
 
@@ -812,7 +810,6 @@
                         on:click={() => {
                             window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={turboWarpDisabled}
                     >
                         TurboWarp
                     </StyledButton>
@@ -821,7 +818,6 @@
                         on:click={() => {
                             window.open("https://studio.penguinmod.com/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={penguinModDisabled}
                     >
                         PenguinMod
                     </StyledButton>
@@ -830,7 +826,6 @@
                         on:click={() => {
                             window.open("https://dinosaurmod.github.io/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={dinosaurModDisabled}
                     >
                         DinosaurMod
                     </StyledButton>
