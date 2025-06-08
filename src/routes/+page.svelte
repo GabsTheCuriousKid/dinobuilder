@@ -428,8 +428,8 @@
     }
 
     async function onAddExtension(extensionXML, categoryName) {
-        if (!hasCategory(newToolbox, categoryName)) {
-            let newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox);
+        if (!hasCategory(Toolbox, categoryName)) {
+            let newToolbox = AddXMLtoXML(extensionXML, Toolbox);
             updateToolbox(newToolbox);
         }
     }
