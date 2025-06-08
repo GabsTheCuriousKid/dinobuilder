@@ -464,6 +464,9 @@
             console.error("Failed to update toolbox:", error);
         }
     }
+
+    const urlParams = new URLSearchParams(location.search);
+    const IsLiveTests = urlParams.has('livetests');
 </script>
 
 <CreateBlockModal
@@ -556,13 +559,15 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
-                <StyledButton
-                    on:click={() => {
-                        ModalState.addExtensions = true;
-                    }}
-                >
-                    Add an Extension
-                </StyledButton>
+                {#if IsLiveTests}
+                    <StyledButton
+                        on:click={() => {
+                            ModalState.addExtensions = true;
+                        }}
+                    >
+                        Add an Extension
+                    </StyledButton>
+                {/if}
                 <div style="margin-left:8px" />
                 <StyledButton
                     on:click={() => {
