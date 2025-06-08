@@ -427,24 +427,25 @@
         );
     }
 
-    let newToolbox;
+    let newToolbox = Toolbox;
+
+    async function onAddExtension(extensionXML, categoryName) {
+        if (!hasCategory(newToolbox, categoryName)) {
+            newToolbox = AddXMLtoXML(extensionXML, newToolbox);
+            updateToolbox(newToolbox);
+        }
+    }
 
     async function onHiddenBlocksMount() {
         try {
-            if (!hasCategory(newToolbox ?? Toolbox, "Hidden Blocks")) {
-                newToolbox = AddXMLtoXML(hiddenblocksExtension, newToolbox ?? Toolbox, null);
-                updateToolbox(newToolbox);
-            }
+            onAddExtension(hiddenblocksExtension, "Hidden Blocks");
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
     }
     async function onWebExtensionMount() {
         try {
-            if (!hasCategory(newToolbox ?? Toolbox, "Site Runtime")) {
-                newToolbox = AddXMLtoXML(webExtensionExtension, newToolbox ?? Toolbox, null);
-                updateToolbox(newToolbox);
-            }
+            onAddExtension(webExtensionExtension, "Site Runtime");
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
