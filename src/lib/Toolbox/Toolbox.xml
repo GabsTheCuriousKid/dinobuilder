@@ -56,7 +56,7 @@
         <sep gap="48"></sep>
         <block type="control_if" />
         <block type="control_if">
-            <mutation bool1="1" />
+            <mutation bool="1" />
             <mutation else="1" />
         </block>
         <block type="control_if">
