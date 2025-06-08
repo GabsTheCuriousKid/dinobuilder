@@ -8,6 +8,8 @@
         <block type="motion_setdirection" />
         <block type="motion_getdirof" />
         <sep gap="48"></sep>
+        <block type="motion_getrotatestyleof" />
+        <sep gap="48"></sep>
         <block type="motion_stage" />
         <block type="motion_isstage" />
     </category>

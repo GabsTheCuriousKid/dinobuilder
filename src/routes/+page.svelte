@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { browser } from '$app/environment';
 
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
@@ -528,15 +529,18 @@
 
     const maxUrlLimit = getMaxUrlLimit();
 
-    const encodedCode = encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode));
+    $: if (browser) {
+        const codeToEncode = lastGeneratedCode ?? "";
+        encodedCode = encodeURIComponent("data:text/plain;base64," + btoa(codeToEncode));
 
-	const turboWarpUrl = "https://turbowarp.org/editor?extension=" + encodedCode;
-	const penguinModUrl = "https://studio.penguinmod.com/editor?extension=" + encodedCode;
-	const dinosaurModUrl = "https://dinosaurmod.github.io/editor?extension=" + encodedCode;
+	    turboWarpUrl = "https://turbowarp.org/editor?extension=" + encodedCode;
+	    penguinModUrl = "https://studio.penguinmod.com/editor?extension=" + encodedCode;
+	    dinosaurModUrl = "https://dinosaurmod.github.io/editor?extension=" + encodedCode;
 
-	$: turboWarpDisabled = turboWarpUrl.length > maxUrlLimit;
-	$: penguinModDisabled = penguinModUrl.length > maxUrlLimit;
-	$: dinosaurModDisabled = dinosaurModUrl.length > maxUrlLimit;
+	    turboWarpDisabled = turboWarpUrl.length > maxUrlLimit;
+	    penguinModDisabled = penguinModUrl.length > maxUrlLimit;
+	    dinosaurModDisabled = dinosaurModUrl.length > maxUrlLimit;
+    }
 </script>
 
 <CreateBlockModal
@@ -798,7 +802,7 @@
                         on:click={() => {
                             window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={turboWarpDisabled}
+                        disabled={Boolean(turboWarpDisabled)}
                     >
                         TurboWarp
                     </StyledButton>
@@ -807,7 +811,7 @@
                         on:click={() => {
                             window.open("https://studio.penguinmod.com/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={penguinModDisabled}
+                        disabled={Boolean(penguinModDisabled)}
                     >
                         PenguinMod
                     </StyledButton>
@@ -816,7 +820,7 @@
                         on:click={() => {
                             window.open("https://dinosaurmod.github.io/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={dinosaurModDisabled}
+                        disabled={Boolean(dinosaurModDisabled)}
                     >
                         DinosaurMod
                     </StyledButton>
