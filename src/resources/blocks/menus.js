@@ -27,7 +27,7 @@ function register() {
     }, (block) => {
         const TEXT = block.getFieldValue('TEXT');
         const VALUE = block.getFieldValue('VALUE');
-        return [`{ text: "${TEXT}", value: "${VALUE}" }`, javascriptGenerator.ORDER_ATOMIC];
+        return [`{ "${TEXT}", "${VALUE}" }`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // make item
