@@ -529,6 +529,14 @@
 
     const maxUrlLimit = getMaxUrlLimit();
 
+    let encodedCode;
+    let turboWarpUrl;
+    let penguinModUrl;
+    let dinosaurModUrl;
+    let turboWarpDisabled;
+    let penguinModDisabled;
+    let dinosaurModDisabled;
+
     $: if (browser) {
         const codeToEncode = lastGeneratedCode ?? "";
         encodedCode = encodeURIComponent("data:text/plain;base64," + btoa(codeToEncode));
@@ -802,7 +810,7 @@
                         on:click={() => {
                             window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={Boolean(turboWarpDisabled)}
+                        disabled={turboWarpDisabled}
                     >
                         TurboWarp
                     </StyledButton>
@@ -811,7 +819,7 @@
                         on:click={() => {
                             window.open("https://studio.penguinmod.com/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={Boolean(penguinModDisabled)}
+                        disabled={penguinModDisabled}
                     >
                         PenguinMod
                     </StyledButton>
@@ -820,7 +828,7 @@
                         on:click={() => {
                             window.open("https://dinosaurmod.github.io/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
-                        disabled={Boolean(dinosaurModDisabled)}
+                        disabled={dinosaurModDisabled}
                     >
                         DinosaurMod
                     </StyledButton>
