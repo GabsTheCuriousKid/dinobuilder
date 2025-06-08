@@ -1,13 +1,30 @@
-function AddXMLtoXML(sourceXML, targetXML, elementBetween, elementToInject) {
-  const cleanSourceXML = sourceXML.replace(/<\/?xml[^>]*>/g, '');
+export default function AddXMLtoXML(sourceXML, targetXML, insertBeforeCategory = null) {
   const parser = new DOMParser();
+  const sourceDoc = parser.parseFromString(sourceXML, 'text/xml');
   const targetDoc = parser.parseFromString(targetXML, 'text/xml');
-  let targetXMLString = new XMLSerializer().serializeToString(targetDoc);
-  const escapedElementBetween = elementBetween.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const escapedElementToInject = elementToInject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const pattern = new RegExp(`(${escapedElementBetween})(\\s*${escapedElementToInject})`, 's');
-  const updatedXMLString = targetXMLString.replace(pattern, `$1${cleanSourceXML}$2`);
-  return updatedXMLString;
-}
 
-export default AddXMLtoXML;
+  const sourceCategory = sourceDoc.querySelector('category');
+  if (!sourceCategory) {
+    throw new Error("Source XML does not contain a <category> element.");
+  }
+
+  const importedCategory = targetDoc.importNode(sourceCategory, true);
+  const toolbox = targetDoc.documentElement;
+
+  if (insertBeforeCategory) {
+    const beforeNode = [...toolbox.children].find(
+      el => el.tagName === 'category' && el.getAttribute('name') === insertBeforeCategory
+    );
+
+    if (beforeNode) {
+      toolbox.insertBefore(importedCategory, beforeNode);
+    } else {
+      console.warn(`Category "${insertBeforeCategory}" not found. Appending to end.`);
+      toolbox.appendChild(importedCategory);
+    }
+  } else {
+    toolbox.appendChild(importedCategory);
+  }
+
+  return new XMLSerializer().serializeToString(targetDoc);
+}

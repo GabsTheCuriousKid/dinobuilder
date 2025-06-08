@@ -411,8 +411,6 @@
         return Boolean(String(id).match(/[^a-z0-9]/gim));
     }
 
-    let newToolbox;
-
     // Modals
     const ModalState = {
         extensionColors: false,
@@ -423,16 +421,7 @@
     };
     async function onHiddenBlocksMount() {
         try {
-            const scrollX = workspace.getMetrics().viewLeft;
-            const scrollY = workspace.getMetrics().viewTop;
-            if (!newToolbox) {
-                let newToolboxResult = AddXMLtoXML(hiddenblocksExtension, Toolbox, '</category>', '</xml>');
-                newToolbox = newToolboxResult
-            } else {
-                let newToolboxResult = AddXMLtoXML(hiddenblocksExtension, newToolbox, '</category>', '</xml>');
-                newToolbox = newToolboxResult
-            }
-            console.log(newToolbox)
+            let newToolbox = AddXMLtoXML(hiddenblocksExtension, Toolbox, null);
             updateToolbox(newToolbox)
         } catch (error) {
             console.error('Error injecting XML:', error);
@@ -440,16 +429,7 @@
     }
     async function onWebExtensionMount() {
         try {
-            const scrollX = workspace.getMetrics().viewLeft;
-            const scrollY = workspace.getMetrics().viewTop;
-            if (!newToolbox) {
-                let newToolboxResult = AddXMLtoXML(webExtensionExtension, Toolbox, '</category>', '</xml>');
-                newToolbox = newToolboxResult
-            } else {
-                let newToolboxResult = AddXMLtoXML(webExtensionExtension, newToolbox, '</category>', '</xml>');
-                newToolbox = newToolboxResult
-            }
-            console.log(newToolbox)
+            let newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox, null);
             updateToolbox(newToolbox)
         } catch (error) {
             console.error('Error injecting XML:', error);
@@ -459,96 +439,17 @@
     function updateToolbox(newToolbox) {
         try {
             workspace.removeChangeListener(updateGeneratedCode);
-            config = {
-                ...config,
-                toolbox: newToolbox,
-            };
+            workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
             Blockly.svgResize(workspace);
-            workspace.getAllBlocks(false).forEach(b => b.render());
             Blockly.blockRendering.unregister('custom_renderer') //weird bug
             Blockly.blockRendering.register('custom_renderer', customRenderer)
             refreshKey = 1;
-            workspace.removeChangeListener(updateGeneratedCode);
-            workspace.addChangeListener(updateGeneratedCode);
             updateGeneratedCode()
         } catch (error) {
             console.error("Failed to update toolbox:", error);
         }
     }
-
-    /*function getMaxUrlLimit() {
-        function detectBrowser() {
-            if (!('userAgent' in navigator)) return 'Unknown';
-            const agent = navigator.userAgent;
-            if ('userAgentData' in navigator) {
-                const agentData = JSON.stringify(navigator.userAgentData.brands);
-                if (agentData.includes('Google Chrome')) {
-                    return 'Chrome';
-                }
-                if (agentData.includes('Opera')) {
-                    return 'Opera';
-                }
-                if (agentData.includes('Microsoft Edge')) {
-                    if (agentData.includes('Chromium')) return 'Edge Chromium';
-                    return 'Edge';
-                }
-            }
-            if (agent.includes('Chrome')) {
-                return 'Chrome';
-            }
-            if (agent.includes('Firefox')) {
-                return 'Firefox';
-            }
-            if (agent.includes('MSIE') || agent.includes('rv:')) {
-                return 'Internet Explorer';
-            }
-            if (agent.includes('Safari')) {
-                return 'Safari';
-            }
-            return 'Unknown';
-        }
-
-        const browser = detectBrowser();
-        switch (browser) {
-            case 'Chrome':
-            case 'Opera':
-            case 'Edge Chromium':
-                return 32000;
-            case 'Internet Explorer':
-            case 'Edge':
-                return 2083;
-            case 'Firefox':
-                return 65000;
-            case 'Safari':
-                return 80000;
-            default:
-                return 4194304;
-        }
-    }
-
-    const maxUrlLimit = getMaxUrlLimit();
-
-    let encodedCode;
-    let turboWarpUrl;
-    let penguinModUrl;
-    let dinosaurModUrl;
-    let turboWarpDisabled;
-    let penguinModDisabled;
-    let dinosaurModDisabled;
-
-    $: if (browser) {
-        const codeToEncode = lastGeneratedCode ?? "";
-        encodedCode = encodeURIComponent("data:text/plain;base64," + btoa(codeToEncode));
-
-	    turboWarpUrl = "https://turbowarp.org/editor?extension=" + encodedCode;
-	    penguinModUrl = "https://studio.penguinmod.com/editor?extension=" + encodedCode;
-	    dinosaurModUrl = "https://dinosaurmod.github.io/editor?extension=" + encodedCode;
-
-	    turboWarpDisabled = turboWarpUrl.length > maxUrlLimit;
-	    penguinModDisabled = penguinModUrl.length > maxUrlLimit;
-	    dinosaurModDisabled = dinosaurModUrl.length > maxUrlLimit;
-    }*/
 </script>
 
 <CreateBlockModal
