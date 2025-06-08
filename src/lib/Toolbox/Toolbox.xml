@@ -57,6 +57,10 @@
         <block type="control_if" />
         <block type="control_if">
             <mutation else="1" />
+            <mutation elseif="1" />
+        </block>
+        <block type="control_if">
+            <mutation else="1" />
         </block>
         <block type="control_ifthenreturn" />
         <sep gap="48"></sep>

@@ -119,7 +119,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
-        return [`Scratch.vm.runtime.getSpriteTargetByName("${SPRITE}")`, javascriptGenerator.ORDER_ATOMIC];
+        return [`Scratch.vm.runtime.getSpriteTargetByName(${SPRITE})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}getxof`, {
