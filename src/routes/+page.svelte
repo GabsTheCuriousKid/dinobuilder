@@ -427,11 +427,9 @@
         );
     }
 
-    let newToolbox = Toolbox;
-
     async function onAddExtension(extensionXML, categoryName) {
         if (!hasCategory(newToolbox, categoryName)) {
-            newToolbox = AddXMLtoXML(extensionXML, newToolbox);
+            let newToolbox = AddXMLtoXML(webExtensionExtension, Toolbox);
             updateToolbox(newToolbox);
         }
     }
