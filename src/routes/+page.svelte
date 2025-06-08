@@ -795,7 +795,7 @@
                     </StyledButton>
                     <div style="margin-right: 8px" />
                     <StyledButton
-                        on:click={() => {Add commentMore actions
+                        on:click={() => {
                             window.open("https://turbowarp.org/editor?extension=" + encodeURIComponent("data:text/plain;base64," + btoa(lastGeneratedCode)), '_blank').focus();
                         }}
                         disabled={turboWarpDisabled}
