@@ -451,41 +451,39 @@
         }
     }
     let refreshKey = 0;
-    // This function is a mess
+    
     async function updateToolbox(newToolbox) {
         try {
-            console.log(newToolbox)
+            console.log("New toolbox XML:", newToolbox);
+
             while (!workspace) {
-                await new Promise(resolve => setTimeout(resolve, 0))
+                await new Promise(resolve => setTimeout(resolve, 0));
             }
+
+            workspace.updateToolbox(newToolbox);
+
+            Blockly.svgResize(workspace);
+
+            while (!workspace.getToolbox || !workspace.getToolbox()) {
+                await new Promise(resolve => setTimeout(resolve, 0));
+            }
+
+            const toolbox = workspace.getToolbox();
+            const selectedItem = toolbox.getSelectedItem?.();
+
+            if (selectedItem && typeof selectedItem.setSelected === 'function') {
+                selectedItem.setSelected(false);
+                selectedItem.setSelected(true);
+            } else {
+                const items = toolbox.getToolboxItems?.();
+                const firstSelectable = items?.find(item => item.isSelectable?.());
+                if (firstSelectable) {
+                    toolbox.setSelectedItem(firstSelectable);
+                }
+            }
+
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
-            workspace.updateToolbox(newToolbox);
-            while (!workspace.recordUndo) {
-                await new Promise(resolve => setTimeout(resolve, 0))
-            }
-            Blockly.svgResize(workspace);
-            workspace.fireChangeListener();
-            workspace.resizeContents();
-            while (!workspace.getToolbox) {
-                await new Promise(resolve => setTimeout(resolve, 0))
-            }
-            workspace.getToolbox().setToolboxXml(newToolbox);
-            workspace.getToolbox().render();
-
-            const selectedItem = workspace.getToolbox().getSelectedItem?.();
-            if (selectedItem && typeof selectedItem.setSelected === 'function') {
-                selectedItem.setSelected(false); // Deselect
-                selectedItem.setSelected(true);  // Reselect to refresh flyout
-            }
-
-            while (!workspace.getToolbox().flyout_) {
-                await new Promise(resolve => setTimeout(resolve, 0))
-            }
-
-            const flyout = workspace.getToolbox().flyout_;
-            flyout.hide();
-            flyout.show(workspace.getToolbox().getSelectedItem_().getFlyoutItems());
 
             refreshKey = 1;
             updateGeneratedCode()
