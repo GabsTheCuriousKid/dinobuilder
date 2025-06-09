@@ -35,12 +35,12 @@
 	});
 </script>
 
-<button on:click={toggleDropdown}>
-	<b>
-        <slot />
-    </b>
-</button>
 <div class="dropdown-container" bind:this={dropdownRef}>
+    <button on:click={toggleDropdown}>
+	    <b>
+            <slot />
+        </b>
+    </button>
 	{#if showDropdown}
 		<div class="dropdown">
 			<slot name="content">
@@ -53,10 +53,7 @@
 </div>
 
 <style>
-	.dropdown-container {
-		position: relative;
-		display: inline-block;
-	}
+	.dropdown-container {}
 
     button {
         position: relative;
