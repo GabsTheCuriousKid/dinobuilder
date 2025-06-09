@@ -984,11 +984,10 @@
         height: 100%;
 
         border: 0;
-        padding: 0;
+        padding: 0 0 0 3em; /* leave space for line numbers */
         overflow: auto;
 
         counter-reset: linenumber;
-        padding-left: 3em;
 
         background: #f9f9f9;
         white-space: pre-wrap;
@@ -998,25 +997,29 @@
         background-color: #111;
     }
 
-    .line {
+    .codeDisplay .line {
         display: block;
         position: relative;
         padding-left: 0.5em;
+        font-family: monospace !important;
+        line-height: 1.4em;
     }
 
-    .line::before {
+    .codeDisplay .line::before {
         counter-increment: linenumber;
         content: counter(linenumber);
         position: absolute;
-        left: -2.5em;
-        width: 2em;
+        left: 0;
+        width: 2.5em;
         text-align: right;
         color: #aaa;
         font-weight: normal;
         user-select: none;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
-    :global(body.dark) .line::before {
+    :global(body.dark) .codeDisplay .line::before {
         color: #555;
     }
 
