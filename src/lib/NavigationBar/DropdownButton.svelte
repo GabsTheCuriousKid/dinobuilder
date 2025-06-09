@@ -87,7 +87,6 @@
 		left: 0;
 		background: #80f41a;
 		border: 1px solid #ccc;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 		padding: 0.5rem;
 		color: white;
 		z-index: 999999;

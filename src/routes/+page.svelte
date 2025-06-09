@@ -594,6 +594,19 @@
     <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
         File
 	    <div slot="content">
+            <button class="button-thingy" on:click={() => {
+                const confirmation = confirm("Are you sure?");
+                if (confirmation) {
+                    while (!workspace) {
+                        await new Promise(resolve => setTimeout(resolve, 0));
+                    }
+                    workspace.clear();
+                }
+            }}>
+	            <b>
+                    <slot>New</slot>
+                </b>
+            </button>
             <button class="button-thingy" on:click={downloadProject}>
 	            <b>
                     <slot>Save</slot>
@@ -1081,7 +1094,7 @@
     .button-thingy {
 		position: relative;
 		height: 2.5rem;
-		padding: 0;
+		padding: 0 0.75rem;
         width: 100%;
 		display: flex;
 		flex-direction: row;
