@@ -62,6 +62,7 @@
 		height: 100%;
 		padding: 0 0.75rem;
 		display: flex;
+		flex-direction: row;
 		align-items: center;
 		font-weight: bold;
 		font-size: 0.75rem;
