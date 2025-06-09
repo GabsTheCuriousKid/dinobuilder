@@ -594,7 +594,7 @@
     <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
         File
 	    <div slot="content">
-            <button class="button-thingy" on:click={() => {
+            <button class="button-thingy" on:click={async () => {
                 const confirmation = confirm("Are you sure?");
                 if (confirmation) {
                     while (!workspace) {
