@@ -88,7 +88,7 @@
 		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 		padding: 0.5rem;
 		color: black;
-		z-index: 99999;
+		z-index: 999999;
 		min-width: 150px;
 	}
 
