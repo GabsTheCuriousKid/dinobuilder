@@ -422,6 +422,8 @@
         blockPIcons: false,
     };
 
+    let newToolbox = Toolbox;
+
     function hasCategory(xmlString, categoryName) {
         const doc = new DOMParser().parseFromString(xmlString, 'text/xml');
         return !![...doc.querySelectorAll('category')].find(
@@ -430,8 +432,9 @@
     }
 
     async function onAddExtension(extensionXML, categoryName) {
-        if (!hasCategory(Toolbox, categoryName)) {
-            let newToolbox = AddXMLtoXML(extensionXML, Toolbox);
+        if (!hasCategory(newToolbox, categoryName)) {
+            let modifiedToolbox = AddXMLtoXML(extensionXML, newToolbox);
+            newToolbox = modifiedToolbox
             updateToolbox(newToolbox);
         }
     }
@@ -454,8 +457,6 @@
     
     async function updateToolbox(newToolbox) {
         try {
-            console.log("New toolbox XML:", newToolbox);
-
             while (!workspace) {
                 await new Promise(resolve => setTimeout(resolve, 0));
             }
@@ -489,7 +490,6 @@
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
             let newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
-            console.log(newToolbox)
             updateToolbox(newToolbox);
         } catch (error) {
             console.error('Error injecting XML:', error);
