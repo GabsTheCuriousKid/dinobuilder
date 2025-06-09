@@ -216,6 +216,10 @@
         minimap.init();
     });
 
+    let IsLiveTests;
+
+    $: IsLiveTests = $page.url.searchParams.has('livetests');
+
     function downloadProject() {
         // generate file name
         let filteredProjectName = (projectName || projectID).replace(/[^a-z0-9\-]+/gim, "_");
@@ -322,8 +326,11 @@
             beautified,
             Prism.languages.javascript
         );
-        const lines = highlighted.split('\n').map(line => `<span class="line">${line}</span>`).join('\n');
-        return lines;
+        if (IsLiveTests) {
+            const lines = highlighted.split('\n').map(line => `<span class="line">${line}</span>`).join('\n');
+            return lines
+        }
+        return highlighted;
     }
 
     // image importing
@@ -483,9 +490,6 @@
             console.error("Failed to update toolbox:", error);
         }
     }
-    let IsLiveTests;
-
-    $: IsLiveTests = $page.url.searchParams.has('livetests');
 
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
