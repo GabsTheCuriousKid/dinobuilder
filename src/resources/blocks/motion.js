@@ -230,7 +230,7 @@ function register() {
                 "options": [
                     [ "all around", "all around" ],
                     [ "left-right", "left-right" ],
-                    [ "don't rotate", "don't rotate" ],
+                    [ "don't rotate", "don\'t rotate" ],
                 ]
             },
         ],

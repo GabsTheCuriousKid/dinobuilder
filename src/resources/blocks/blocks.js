@@ -106,7 +106,7 @@ function register() {
         const code = `blocks.push({
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
-            hideFromPalette: ${CONDITION ?? false},
+            hideFromPalette: ${CONDITION || false},
             text: \`${TEXT}\`,${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
@@ -236,7 +236,7 @@ function register() {
         
         const code = `blocks.push({${ID}
             blockType: Scratch.BlockType.${TYPE},
-            hideFromPalette: ${CONDITION ?? false},
+            hideFromPalette: ${CONDITION || false},
             text: \`${TEXT}\`,
         });
         ${FUNC}`;
