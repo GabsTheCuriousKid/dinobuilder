@@ -220,6 +220,8 @@
 
     $: IsLiveTests = $page.url.searchParams.has('livetests');
 
+    const addedExtensions = [];
+
     function downloadProject() {
         // generate file name
         let filteredProjectName = (projectName || projectID).replace(/[^a-z0-9\-]+/gim, "_");
@@ -235,7 +237,8 @@
         projectData = {
             blockly: projectData,
             metadata: extensionMetadata,
-            images: extensionImageStates
+            images: extensionImageStates,
+            extensions: addedExtensions
         }
 
         // zip
@@ -302,6 +305,15 @@
                         .async("string");
                 }
                 // console.log(idWorkspacePairs); // debug
+
+                // extensions
+                async function addAllExtensions() {
+                    const extensions = projectJson.extensions;
+                    extensions.forEach((extension) => {
+                        onAddExtension(extension.xml, extension.name)
+                    });
+                }
+                addAllExtensions()
 
                 // laod
                 console.log(projectJson); // debug
@@ -442,7 +454,11 @@
     async function onAddExtension(extensionXML, categoryName) {
         if (!hasCategory(newToolbox, categoryName)) {
             let modifiedToolbox = AddXMLtoXML(extensionXML, newToolbox);
-            newToolbox = modifiedToolbox
+            newToolbox = modifiedToolbox;
+            addedExtensions.push({
+                name: categoryName,
+                xml: extensionXML
+            })
             updateToolbox(newToolbox);
         }
     }
