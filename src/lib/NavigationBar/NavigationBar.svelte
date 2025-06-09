@@ -42,6 +42,7 @@
         left: 0px;
         top: 0px;
         width: 100%;
+        z-index: 99999;
         height: var(--nav-height);
 
         display: flex;
