@@ -23,6 +23,7 @@
 
     import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
     import webExtensionExtension from "$lib/Extensions/webextension.xml?raw";
+    import liveTestsCategory from "$lib/Extensions/livetests.xml?raw";
 
     import JSZip from "jszip";
     import beautify from "js-beautify";
@@ -468,6 +469,14 @@
     let IsLiveTests;
 
     $: IsLiveTests = $page.url.searchParams.has('livetests');
+
+    if (!!IsLiveTests) {
+        try {
+            onAddExtension(liveTestsCategory, "Live Tests");
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
 </script>
 
 <CreateBlockModal
