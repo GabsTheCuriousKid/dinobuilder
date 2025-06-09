@@ -208,8 +208,10 @@
 			const alertPrompt = document.getElementById('AlertPrompt');
 			if (!!IsLiveTests) {
 				alertPrompt.innerHTML = "This is a dev version of DinoBuilder, this is where features are made and tested."
+				document.title = "DinoBuilder - Dev version"
 			} else {
 				alertPrompt.innerHTML = "DinoBuilder is currently in development, some project files may break due to code changing all the time."
+				document.title = "DinoBuilder - Make extensions with blocks"
 			}
 		</script>
 		<div style="display: contents">%sveltekit.body%</div>
