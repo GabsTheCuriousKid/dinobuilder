@@ -465,6 +465,7 @@
             }
             Blockly.svgResize(workspace);
             workspace.fireChangeListener();
+            workspace.resizeContents();
             refreshKey = 1;
             updateGeneratedCode()
         } catch (error) {
