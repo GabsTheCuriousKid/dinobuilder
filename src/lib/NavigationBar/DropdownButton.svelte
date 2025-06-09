@@ -35,13 +35,12 @@
 	});
 </script>
 
-<div class="dropdown-container" bind:this={dropdownRef}>
-	<button on:click={toggleDropdown}>
+<button on:click={toggleDropdown}>
 		<b>
             <slot />
-        </b>
-	</button>
-
+    </b>
+</button>
+<div class="dropdown-container" bind:this={dropdownRef}>
 	{#if showDropdown}
 		<div class="dropdown">
 			<slot name="content">
