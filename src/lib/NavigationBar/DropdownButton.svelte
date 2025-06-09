@@ -85,17 +85,17 @@
 		position: absolute;
 		top: 100%;
 		left: 0;
-		background: white;
+		background: #80f41a;
 		border: 1px solid #ccc;
 		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 		padding: 0.5rem;
-		color: black;
+		color: white;
 		z-index: 999999;
 		min-width: 150px;
 	}
 
 	:global(body.dark) .dropdown {
-		background: #222;
+		background: #333;
 		color: white;
 		border-color: #444;
 	}

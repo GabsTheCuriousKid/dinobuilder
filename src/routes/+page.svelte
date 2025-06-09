@@ -1081,7 +1081,8 @@
     .button-thingy {
 		position: relative;
 		height: 2.5rem;
-		padding: 0 0.75rem;
+		padding: 0;
+        width: 100%
 		display: flex;
 		flex-direction: row;
 		align-items: center;
