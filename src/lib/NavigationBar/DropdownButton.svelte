@@ -54,7 +54,7 @@
 
 <style>
 	.dropdown-container {
-		position: relative;
+		display: inline-block;
 	}
 
     button {
