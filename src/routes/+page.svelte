@@ -466,6 +466,8 @@
             Blockly.svgResize(workspace);
             workspace.fireChangeListener();
             workspace.resizeContents();
+            workspace.getToolbox().setToolboxXml(newToolbox);
+            workspace.getToolbox().render();
             refreshKey = 1;
             updateGeneratedCode()
         } catch (error) {
