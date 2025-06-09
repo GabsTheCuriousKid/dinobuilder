@@ -8,7 +8,7 @@
         <sep gap="48"></sep>
         <block type="motion_setdirection" />
         <block type="motion_getdirof" />
-        <block type="setrotatestyle" />
+        <block type="motion_setrotatestyle" />
         <block type="motion_getrotatestyleof" />
         <sep gap="48"></sep>
         <block type="motion_stage" />
