@@ -310,7 +310,7 @@
                 async function addAllExtensions() {
                     const extensions = projectJson.extensions;
                     extensions.forEach((extension) => {
-                        onAddExtension(extension.xml, extension.name)
+                        await onAddExtension(extension.xml, extension.name)
                     });
                 }
                 addAllExtensions()
