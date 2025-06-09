@@ -29,10 +29,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.setXY(${X}, ${Y});`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setXY(${X}, ${Y});`;
         return `${code}\n`;
     })
 
@@ -60,10 +60,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.setXY(${SPRITE}.x + ${X}, ${SPRITE}.y + ${Y});`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setXY(${SPRITE}.x + ${X}, ${SPRITE}.y + ${Y});`;
         return `${code}\n`;
     })
 
@@ -105,9 +105,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const DIR = javascriptGenerator.valueToCode(block, 'DIR', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.setDirection(${DIR});`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setDirection(${DIR});`;
         return `${code}\n`;
     })
 
@@ -239,9 +239,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const STYLE = block.getFieldValue('STYLE')
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.setRotationStyle('${STYLE}');`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setRotationStyle('${STYLE}');`;
         return `${code}\n`;
     })
 

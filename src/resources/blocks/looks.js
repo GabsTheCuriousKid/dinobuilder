@@ -26,9 +26,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) Scratch.vm.runtime.emit('SAY', ${SPRITE}, 'say', ${TEXT});`;
+        const code = `if (${SPRITE} !== undefined) Scratch.vm.runtime.emit('SAY', ${SPRITE}, 'say', ${TEXT});`;
         return `${code}\n`;
     })
 
@@ -52,9 +52,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) Scratch.vm.runtime.emit('SAY', ${SPRITE}, 'think', ${TEXT});`;
+        const code = `if (${SPRITE} !== undefined) Scratch.vm.runtime.emit('SAY', ${SPRITE}, 'think', ${TEXT});`;
         return `${code}\n`;
     })
 
@@ -91,10 +91,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const EFFECTS = block.getFieldValue('EFFECTS');
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.setEffect(Scratch.Cast.toString('${EFFECTS}').toLowerCase(), Scratch.Cast.toNumber(${VALUE}));`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setEffect(Scratch.Cast.toString('${EFFECTS}').toLowerCase(), Scratch.Cast.toNumber(${VALUE}));`;
         return `${code}\n`;
     })
 
@@ -131,10 +131,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const EFFECTS = block.getFieldValue('EFFECTS')
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) {\nconst effect = Scratch.Cast.toString(${EFFECTS}).toLowerCase();\nconst change = Scratch.Cast.toNumber(${VALUE});\nif (!${SPRITE}.effects.hasOwnProperty(effect)) return;\nlet newValue = change + ${SPRITE}.effects[effect];\n${SPRITE}.setEffect(effect, newValue);\n}`;
+        const code = `if (${SPRITE} !== undefined) {\nconst effect = Scratch.Cast.toString(${EFFECTS}).toLowerCase();\nconst change = Scratch.Cast.toNumber(${VALUE});\nif (!${SPRITE}.effects.hasOwnProperty(effect)) return;\nlet newValue = change + ${SPRITE}.effects[effect];\n${SPRITE}.setEffect(effect, newValue);\n}`;
         return `${code}\n`;
     })
 
@@ -153,8 +153,8 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.clearEffects();`;
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.clearEffects();`;
         return `${code}\n`;
     })
 
@@ -186,8 +186,8 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
-        return [`if (${SPRITE || "undefined"} !== undefined) ${SPRITE}.effects[Scratch.Cast.toString('${EFFECTS}').toLowercase()]`, javascriptGenerator.ORDER_ATOMIC]
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
+        return [`if (${SPRITE} !== undefined) ${SPRITE}.effects[Scratch.Cast.toString('${EFFECTS}').toLowercase()]`, javascriptGenerator.ORDER_ATOMIC]
     })
 
     // set effect 2
@@ -276,9 +276,9 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) {\nconst target = ${SPRITE};\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ${VALUE} - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);\n}`;
+        const code = `if (${SPRITE} !== undefined) {\nconst target = ${SPRITE};\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ${VALUE} - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);\n}`;
         return `${code}\n`;
     })
 
@@ -310,10 +310,10 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const MENU = block.getFieldValue('MENU')
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `if (${SPRITE || "undefined"} !== undefined) {\nconst target = ${SPRITE};\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ((${VALUE} ${MENU}) + layerOrder) - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);\n}`;
+        const code = `if (${SPRITE} !== undefined) {\nconst target = ${SPRITE};\nconst layerOrder = target.getLayerOrder();\nconst newLayer = ((${VALUE} ${MENU}) + layerOrder) - layerOrder;\ntarget.renderer.setDrawableOrder(target.drawableID, newLayer, "sprite", true);\n}`;
         return `${code}\n`;
     })
 
