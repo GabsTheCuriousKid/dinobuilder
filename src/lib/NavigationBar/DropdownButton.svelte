@@ -1,0 +1,94 @@
+<script>
+	import { onMount, onDestroy, createEventDispatcher } from "svelte";
+
+	export let dropdownContent = null;
+	export let initiallyOpen = false;
+
+	let showDropdown = initiallyOpen;
+	let dropdownRef;
+	const dispatch = createEventDispatcher();
+
+	function toggleDropdown() {
+		showDropdown = !showDropdown;
+		dispatch("toggle", { open: showDropdown });
+	}
+
+	function handleClickOutside(event) {
+		if (!dropdownRef?.contains(event.target)) {
+			showDropdown = false;
+			dispatch("close");
+		}
+	}
+
+	onMount(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+	});
+
+	onDestroy(() => {
+		document.removeEventListener("mousedown", handleClickOutside);
+	});
+</script>
+
+<div class="dropdown-container" bind:this={dropdownRef}>
+	<button on:click={toggleDropdown}>
+		<b><slot name="button">Menu</slot></b>
+	</button>
+
+	{#if showDropdown}
+		<div class="dropdown">
+			<slot name="content">
+				{#if dropdownContent}
+					{@html dropdownContent}
+				{/if}
+			</slot>
+		</div>
+	{/if}
+</div>
+
+<style>
+	.dropdown-container {
+		position: relative;
+		display: inline-block;
+	}
+
+	button {
+		position: relative;
+		height: 100%;
+		padding: 0 0.75rem;
+		display: flex;
+		align-items: center;
+		font-weight: bold;
+		font-size: 0.75rem;
+		color: white;
+		background: transparent;
+		cursor: pointer;
+		border: 0;
+	}
+
+	button:hover {
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	:global(body.dark) button:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	.dropdown {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		background: white;
+		border: 1px solid #ccc;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+		padding: 0.5rem;
+		color: black;
+		z-index: 1000;
+		min-width: 150px;
+	}
+
+	:global(body.dark) .dropdown {
+		background: #222;
+		color: white;
+		border-color: #444;
+	}
+</style>

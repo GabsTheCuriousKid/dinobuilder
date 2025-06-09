@@ -7,6 +7,7 @@
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
     import NavigationDivider from "$lib/NavigationBar/Divider.svelte";
     import NavigationButton from "$lib/NavigationBar/Button.svelte";
+    import DropdownButton from "$lib/NavigationBar/DropdownButton.svelte";
     import StyledButton from "$lib/StyledComponents/ToolboxButton.svelte";
 
     // Modals
@@ -590,10 +591,16 @@
     />
 {/if}
 <NavigationBar>
-    <NavigationButton on:click={() => { ModalState.addonsMenu = true; }}>Addons</NavigationButton>
+    <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
+	    <span slot="button">File</span>
+
+	    <div slot="content">
+		    <p on:click={downloadProject}>Save</p>
+		    <p on:click={loadProject}>Load</p>
+	    </div>
+    </DropdownButton>
     <NavigationDivider />
-    <NavigationButton on:click={downloadProject}>Save</NavigationButton>
-    <NavigationButton on:click={loadProject}>Load</NavigationButton>
+    <NavigationButton on:click={() => { ModalState.addonsMenu = true; }}>Addons</NavigationButton>
     <NavigationDivider />
     <input
         class="project-name"
