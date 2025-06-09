@@ -54,7 +54,8 @@
 
 <style>
 	.dropdown-container {
-		display: inline-block;
+		position: relative;
+		height: 100%;
 	}
 
     button {
