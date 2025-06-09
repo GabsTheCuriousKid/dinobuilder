@@ -592,7 +592,8 @@
 {/if}
 <NavigationBar>
     <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
-	    <span slot="button">File</span>
+	    <!--<span slot="button">File</span>-->
+        File
 
 	    <div slot="content">
 		    <p on:click={downloadProject}>Save</p>

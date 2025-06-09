@@ -37,7 +37,9 @@
 
 <div class="dropdown-container" bind:this={dropdownRef}>
 	<button on:click={toggleDropdown}>
-		<b><slot name="button">Menu</slot></b>
+		<b>
+            <slot />
+        </b>
 	</button>
 
 	{#if showDropdown}
@@ -57,20 +59,20 @@
 		display: inline-block;
 	}
 
-	button {
-		position: relative;
-		height: 100%;
-		padding: 0 0.75rem;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		font-weight: bold;
-		font-size: 0.75rem;
-		color: white;
-		background: transparent;
-		cursor: pointer;
-		border: 0;
-	}
+    button {
+        position: relative;
+        height: 100%;
+        padding: 0 0.75rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-weight: bold;
+        font-size: 0.75rem;
+        color: white;
+        background: transparent;
+        cursor: pointer;
+        border: 0;
+    }
 
 	button:hover {
 		background: rgba(0, 0, 0, 0.2);
