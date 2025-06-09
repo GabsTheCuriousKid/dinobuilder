@@ -470,9 +470,10 @@
 
     $: IsLiveTests = $page.url.searchParams.has('livetests');
 
-    if (!!IsLiveTests) {
+    if (IsLiveTests) {
         try {
-            onAddExtension(liveTestsCategory, "Live Tests");
+            let newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
+            updateToolbox(newToolbox);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
