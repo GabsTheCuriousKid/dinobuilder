@@ -470,8 +470,8 @@
 
     $: IsLiveTests = $page.url.searchParams.has('livetests');
 
-    if (IsLiveTests) {
-        console.log(IsLiveTests)
+    $: if (IsLiveTests) {
+        console.log("Is Live Tests?: ", IsLiveTests)
         try {
             let newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
             console.log(newToolbox)
