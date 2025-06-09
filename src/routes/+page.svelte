@@ -1080,7 +1080,7 @@
 
     .button-thingy {
 		position: relative;
-		height: 100%;
+		height: 2.5rem;
 		padding: 0 0.75rem;
 		display: flex;
 		flex-direction: row;
