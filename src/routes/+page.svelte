@@ -586,15 +586,13 @@
     <div class="row-menus">
         <div class="row-first-submenus">
             <div class="blockMenuButtons">
-                {#if IsLiveTests}
-                    <StyledButton
-                        on:click={() => {
-                            ModalState.addExtensions = true;
-                        }}
-                    >
-                        Add an Extension
-                    </StyledButton>
-                {/if}
+                <StyledButton
+                    on:click={() => {
+                        ModalState.addExtensions = true;
+                    }}
+                >
+                    Add an Extension
+                </StyledButton>
                 <div style="margin-left:8px" />
                 <StyledButton
                     on:click={() => {

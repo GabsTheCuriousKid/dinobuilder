@@ -40,7 +40,7 @@
             <p>Note: After you select one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
             </div>
             <button class="block-extension" on:click={toggleHidden}>
-                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}Add commentMore actions
+                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
                 <div style="height:5px" />
                 <img 
                     alt="HiddenBlocksPNG"
