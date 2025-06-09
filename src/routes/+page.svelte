@@ -463,23 +463,14 @@
             workspace.updateToolbox(newToolbox);
 
             Blockly.svgResize(workspace);
+            workspace.resize();
 
             while (!workspace.getToolbox || !workspace.getToolbox()) {
                 await new Promise(resolve => setTimeout(resolve, 0));
             }
 
             const toolbox = workspace.getToolbox();
-
-            let flyout;
-            while (!(flyout = toolbox.getFlyout?.())) {
-                await new Promise(resolve => setTimeout(resolve, 0));
-            }
-
-            const selectedItem = toolbox.getSelectedItem?.();
-            const contents = selectedItem?.getContents?.() ?? [];
-
-            flyout.hide();
-            flyout.show(contents);
+            toolbox.refreshSelection();
 
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
