@@ -489,7 +489,7 @@
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
-            let newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
+            newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
             updateToolbox(newToolbox);
         } catch (error) {
             console.error('Error injecting XML:', error);
