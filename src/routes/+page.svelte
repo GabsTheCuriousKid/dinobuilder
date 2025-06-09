@@ -451,6 +451,7 @@
         }
     }
     let refreshKey = 0;
+    // This function is a mess
     async function updateToolbox(newToolbox) {
         try {
             console.log(newToolbox)
@@ -466,8 +467,20 @@
             Blockly.svgResize(workspace);
             workspace.fireChangeListener();
             workspace.resizeContents();
+            while (!workspace.getToolbox) {
+                await new Promise(resolve => setTimeout(resolve, 0))
+            }
             workspace.getToolbox().setToolboxXml(newToolbox);
             workspace.getToolbox().render();
+
+            while (!workspace.getToolbox().flyout_) {
+                await new Promise(resolve => setTimeout(resolve, 0))
+            }
+            
+            const flyout = workspace.getToolbox().flyout_;
+            flyout.hide();
+            flyout.show(workspace.getToolbox().getSelectedItem_().getFlyoutItems());
+
             refreshKey = 1;
             updateGeneratedCode()
         } catch (error) {
