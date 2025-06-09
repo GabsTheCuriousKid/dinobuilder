@@ -98,7 +98,7 @@ function register() {
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
         const FILTER = block.getFieldValue('FILTER')
-        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) ?? false;
         const INPUTS = javascriptGenerator.statementToCode(block, 'INPUTS');
         const DMCONDITION = (TYPE === 'REPORTER,' || TYPE === 'BOOLEAN,' ? block.getFieldValue('DMCONDITION') : true);
         const FUNC = javascriptGenerator.statementToCode(block, 'FUNC');
@@ -106,7 +106,7 @@ function register() {
         const code = `blocks.push({
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
-            hideFromPalette: ${CONDITION || false},
+            hideFromPalette: ${CONDITION ?? false},
             text: \`${TEXT}\`,${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
@@ -231,12 +231,12 @@ function register() {
         const TEXT = block.getFieldValue('TEXT')
         const TYPE = block.getFieldValue('TYPE')
         const ID = TYPE === 'BUTTON' ? '\nopcode: \`' + block.getFieldValue('ID') + '\`,' : ''
-        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) || false;
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC) ?? false;
         const FUNC = TYPE === 'BUTTON' ? 'Extension.prototype[\`' + block.getFieldValue('ID') + '\`] = async (args, util) => { ' + javascriptGenerator.statementToCode(block, 'FUNC') + ' };' : '';
         
         const code = `blocks.push({${ID}
             blockType: Scratch.BlockType.${TYPE},
-            hideFromPalette: ${CONDITION || false},
+            hideFromPalette: ${CONDITION ?? false},
             text: \`${TEXT}\`,
         });
         ${FUNC}`;
