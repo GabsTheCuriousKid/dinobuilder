@@ -1082,7 +1082,7 @@
 		position: relative;
 		height: 2.5rem;
 		padding: 0;
-        width: 100%
+        width: 100%;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
