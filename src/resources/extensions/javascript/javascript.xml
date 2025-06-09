@@ -1,0 +1,6 @@
+<!--Title: Javascript
+Description: Adds blocks that runs Javascript-->
+<category name="Javascript" colour="#0FBD8C">
+    <block type="javascript_eval" />
+    <block type="javascript_evalreporter" />
+</category>

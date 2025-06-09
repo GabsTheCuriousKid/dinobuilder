@@ -20,10 +20,7 @@
 
     // Toolbox
     import Toolbox from "$lib/Toolbox/Toolbox.xml?raw";
-
-    import hiddenblocksExtension from "$lib/Extensions/hiddenblocks.xml?raw";
-    import webExtensionExtension from "$lib/Extensions/webextension.xml?raw";
-    import liveTestsCategory from "$lib/Extensions/livetests.xml?raw";
+    import liveTestsCategory from "$lib/Toolbox/livetests.xml?raw";
 
     import JSZip from "jszip";
     import beautify from "js-beautify";
@@ -99,8 +96,15 @@
     registerDebug();
 
     // Extension Blocks
-    import registerWebExtension from "../resources/blocks/webextension.js";
+    import registerWebExtension from "../resources/extensions/webextension/webextension.js";
+    import registerJSExtension from "../resources/extensions/javascript/javascript.js";
+
     registerWebExtension();
+    registerJSExtension();
+
+    import hiddenblocksExtension from "../resources/extensions/hiddenblocks/hiddenblocks.xml?raw";
+    import webExtensionExtension from "../resources/extensions/webextension/webextension.xml?raw";
+    import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
 
     const en = {
         rtl: false,
@@ -451,28 +455,37 @@
         );
     }
 
-    async function onAddExtension(extensionXML, categoryName) {
+    async function onAddExtension(extensionXML, categoryName, shouldSave) {
         if (!hasCategory(newToolbox, categoryName)) {
             let modifiedToolbox = AddXMLtoXML(extensionXML, newToolbox);
             newToolbox = modifiedToolbox;
-            addedExtensions.push({
-                name: categoryName,
-                xml: extensionXML
-            })
+            if (!!shouldSave) {
+                addedExtensions.push({
+                    name: categoryName,
+                    xml: extensionXML
+                })
+            }
             updateToolbox(newToolbox);
         }
     }
 
     async function onHiddenBlocksMount() {
         try {
-            onAddExtension(hiddenblocksExtension, "Hidden Blocks");
+            onAddExtension(hiddenblocksExtension, "Hidden Blocks", true);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
     }
     async function onWebExtensionMount() {
         try {
-            onAddExtension(webExtensionExtension, "Site Runtime");
+            onAddExtension(webExtensionExtension, "Site Runtime", true);
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
+    async function onJSExtensionMount() {
+        try {
+            onAddExtension(javascriptExtension, "Javascript", true);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -510,7 +523,7 @@
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
-            onAddExtension(liveTestsCategory, "Live Tests");
+            onAddExtension(liveTestsCategory, "Live Tests", false);
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
@@ -531,6 +544,9 @@
             }
             if (addextensiondata.detail.webextensionExt === true) {
                 onWebExtensionMount()
+            }
+            if (addextensiondata.detail.jsextensionExt === true) {
+                onJSExtensionMount()
             }
         }}
         on:cancel={() => {

@@ -87,7 +87,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const code = `(document.fullscreenElement)`;
+        const code = `document.fullscreenElement !== null ? true : false`;
         return `${code}\n`;
     })
 }

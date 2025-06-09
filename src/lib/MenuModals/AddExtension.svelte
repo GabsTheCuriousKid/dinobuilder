@@ -11,19 +11,25 @@
         dispatch("completed", {
             hiddenblocksExt: localhiddenblocksExt,
             webextensionExt: localwebextensionExt,
+            jsextensionExt: localjsextensionExt,
         });
     }
 
     export let hiddenblocksExt = false;
     export let webextensionExt = false;
+    export let jsextensionExt = false;
     let localhiddenblocksExt = hiddenblocksExt;
     let localwebextensionExt = webextensionExt;
+    let localjsextensionExt = jsextensionExt;
 
     function toggleHidden() {
         localhiddenblocksExt = !localhiddenblocksExt
     }
     function toggleWeb() {
         localwebextensionExt = !localwebextensionExt
+    }
+    function toggleJS() {
+        localjsextensionExt = !localjsextensionExt
     }
 </script>
 
@@ -40,22 +46,31 @@
             <p>Note: After you select one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
             </div>
             <button class="block-extension" on:click={toggleHidden}>
-                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
-                <div style="height:5px" />
                 <img 
                     alt="HiddenBlocksPNG"
                     src="images/extensionIcons/HiddenBlocksIcon.png"
                     height={50}
                 />
+                <div style="height:5px" />
+                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
             </button>
             <button class="block-extension" on:click={toggleWeb}>
-                {localwebextensionExt ? 'Selected' : 'Site Runtime'}
-                <div style="height:5px" />
                 <img 
-                    alt="HiddenBlocksPNG"
+                    alt="WebExtensionPNG"
                     src="images/extensionIcons/NoIcon.png"
                     height={50}
                 />
+                <div style="height:5px" />
+                {localwebextensionExt ? 'Selected' : 'Site Runtime'}
+            </button>
+            <button class="block-extension" on:click={toggleJS}>
+                <img 
+                    alt="JSExtensionPNG"
+                    src="images/extensionIcons/NoIcon.png"
+                    height={50}
+                />
+                <div style="height:5px" />
+                {localjsextensionExt ? 'Selected' : 'Javascript'}
             </button>
         </div>
         <div class="modal-buttons">
