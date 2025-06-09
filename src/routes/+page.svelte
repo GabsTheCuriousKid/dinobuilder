@@ -584,7 +584,8 @@
             ModalState.dsText = events.detail.dstext;
             ModalState.blockPIcons = events.detail.blockPaletteIcons;
             document.documentElement.style.setProperty('--dinobuilder-text', events.detail.dstext ? 'transparent' : '');
-            document.documentElement.style.setProperty('--dinobuilder-text-display', events.detail.dstext ? 'none' : '');
+            document.documentElement.style.setProperty('--dinobuilder-text-overflow', events.detail.dstext ? 'hidden' : 'visible');
+            document.documentElement.style.setProperty('--dinobuilder-text-white-space', events.detail.dstext ? 'nowrap' : 'normal');
         }}
         on:cancel={() => {
             ModalState.addonsMenu = false;
