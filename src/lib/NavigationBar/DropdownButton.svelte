@@ -53,7 +53,9 @@
 </div>
 
 <style>
-	.dropdown-container {}
+	.dropdown-container {
+		position: relative;
+	}
 
     button {
         position: relative;
