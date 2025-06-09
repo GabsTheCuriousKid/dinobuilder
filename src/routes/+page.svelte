@@ -594,12 +594,12 @@
     <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
         File
 	    <div slot="content">
-            <button on:click={downloadProject}>
+            <button class="button-thingy" on:click={downloadProject}>
 	            <b>
                     <slot>Save</slot>
                 </b>
             </button>
-            <button on:click={loadProject}>
+            <button class="button-thingy" on:click={loadProject}>
 	            <b>
                     <slot>Load</slot>
                 </b>
@@ -1077,4 +1077,26 @@
         background-color: yellow;
         color: black;
     }
+
+    .button-thingy {
+		position: relative;
+		height: 100%;
+		padding: 0 0.75rem;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-weight: bold;
+		font-size: 0.75rem;
+		color: white;
+		background: transparent;
+		cursor: pointer;
+		border: 0;
+	}
+
+	.button-thingy:hover {
+		background: rgba(0, 0, 0, 0.2);
+	}
+	:global(body.dark) .button-thingy:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
 </style>
