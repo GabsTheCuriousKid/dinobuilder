@@ -1,5 +1,5 @@
-import javascriptGenerator from '../javascriptGenerator';
-import registerBlock from '../register';
+import javascriptGenerator from '../../javascriptGenerator';
+import registerBlock from '../../register';
 
 const categoryPrefix = 'javascript_';
 const categoryColor = '#0FBD8C';

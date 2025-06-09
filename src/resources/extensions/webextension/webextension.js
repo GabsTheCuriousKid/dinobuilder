@@ -1,5 +1,5 @@
-import javascriptGenerator from '../javascriptGenerator';
-import registerBlock from '../register';
+import javascriptGenerator from '../../javascriptGenerator';
+import registerBlock from '../../register';
 
 const categoryPrefix = 'webextension_';
 const categoryColor = '#8361FF';
