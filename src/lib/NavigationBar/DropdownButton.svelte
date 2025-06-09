@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy, createEventDispatcher } from "svelte";
 
-	export let dropdownContent = null;
+    export let dropdownContent = null;
 	export let initiallyOpen = false;
 
 	let showDropdown = initiallyOpen;
@@ -14,18 +14,24 @@
 	}
 
 	function handleClickOutside(event) {
-		if (!dropdownRef?.contains(event.target)) {
+		if (dropdownRef && !dropdownRef.contains(event.target)) {
 			showDropdown = false;
 			dispatch("close");
 		}
 	}
 
+	let removeListener;
+
 	onMount(() => {
-		document.addEventListener("mousedown", handleClickOutside);
+		if (typeof document !== 'undefined') {
+			document.addEventListener("mousedown", handleClickOutside);
+			removeListener = () =>
+				document.removeEventListener("mousedown", handleClickOutside);
+		}
 	});
 
 	onDestroy(() => {
-		document.removeEventListener("mousedown", handleClickOutside);
+		if (removeListener) removeListener();
 	});
 </script>
 
