@@ -230,7 +230,7 @@ function register() {
                 "options": [
                     [ "all around", "all around" ],
                     [ "left-right", "left-right" ],
-                    [ "don't rotate", "don\'t rotate" ],
+                    [ "don't rotate", "don't rotate" ],
                 ]
             },
         ],
@@ -241,7 +241,7 @@ function register() {
     }, (block) => {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
         const STYLE = block.getFieldValue('STYLE')
-        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setRotationStyle('${STYLE}');`;
+        const code = `if (${SPRITE} !== undefined) ${SPRITE}.setRotationStyle("${STYLE}");`;
         return `${code}\n`;
     })
 
