@@ -36,8 +36,8 @@
 </script>
 
 <button on:click={toggleDropdown}>
-		<b>
-            <slot />
+	<b>
+        <slot />
     </b>
 </button>
 <div class="dropdown-container" bind:this={dropdownRef}>

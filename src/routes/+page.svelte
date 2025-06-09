@@ -593,10 +593,17 @@
 <NavigationBar>
     <DropdownButton on:toggle={(e) => console.log("Dropdown is ", e.detail.open)}>
         File
-
 	    <div slot="content">
-		    <NavigationDivider on:click={downloadProject}>Save</NavigationDivider>
-		    <NavigationDivider on:click={loadProject}>Load</NavigationDivider>
+            <button on:click={downloadProject}>
+	            <b>
+                    <slot>Save</slot>
+                </b>
+            </button>
+            <button on:click={loadProject}>
+	            <b>
+                    <slot>Load</slot>
+                </b>
+            </button>
 	    </div>
     </DropdownButton>
     <NavigationDivider />
