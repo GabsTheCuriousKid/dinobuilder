@@ -454,8 +454,6 @@
     function updateToolbox(newToolbox) {
         try {
             console.log(newToolbox)
-            workspace.removeChangeListener(updateGeneratedCode);
-            workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
             Blockly.svgResize(workspace);
             Blockly.blockRendering.unregister('custom_renderer') //weird bug
