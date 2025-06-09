@@ -473,10 +473,16 @@
             workspace.getToolbox().setToolboxXml(newToolbox);
             workspace.getToolbox().render();
 
+            const selectedItem = workspace.getToolbox().getSelectedItem?.();
+            if (selectedItem && typeof selectedItem.setSelected === 'function') {
+                selectedItem.setSelected(false); // Deselect
+                selectedItem.setSelected(true);  // Reselect to refresh flyout
+            }
+
             while (!workspace.getToolbox().flyout_) {
                 await new Promise(resolve => setTimeout(resolve, 0))
             }
-            
+
             const flyout = workspace.getToolbox().flyout_;
             flyout.hide();
             flyout.show(workspace.getToolbox().getSelectedItem_().getFlyoutItems());
