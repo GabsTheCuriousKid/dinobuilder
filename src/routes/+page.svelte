@@ -469,18 +469,17 @@
             }
 
             const toolbox = workspace.getToolbox();
-            const selectedItem = toolbox.getSelectedItem?.();
 
-            if (selectedItem && typeof selectedItem.setSelected === 'function') {
-                selectedItem.setSelected(false);
-                selectedItem.setSelected(true);
-            } else {
-                const items = toolbox.getToolboxItems?.();
-                const firstSelectable = items?.find(item => item.isSelectable?.());
-                if (firstSelectable) {
-                    toolbox.setSelectedItem(firstSelectable);
-                }
+            let flyout;
+            while (!(flyout = toolbox.getFlyout?.())) {
+                await new Promise(resolve => setTimeout(resolve, 0));
             }
+
+            const selectedItem = toolbox.getSelectedItem?.();
+            const contents = selectedItem?.getContents?.() ?? [];
+
+            flyout.hide();
+            flyout.show(contents);
 
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
