@@ -987,24 +987,24 @@
         padding: 0;
         overflow: auto;
 
+        counter-reset: linenumber;
+        padding-left: 3em;
+
         background: #f9f9f9;
         white-space: pre-wrap;
         font-family: monospace !important;
-
-        counter-reset: linenumber;
-        padding-left: 3em;
     }
     :global(body.dark) .codeDisplay {
         background-color: #111;
     }
 
-    .codeDisplay .line {
+    .line {
         display: block;
         position: relative;
         padding-left: 0.5em;
     }
 
-    .codeDisplay .line::before {
+    .line::before {
         counter-increment: linenumber;
         content: counter(linenumber);
         position: absolute;
@@ -1016,7 +1016,7 @@
         user-select: none;
     }
 
-    :global(body.dark) .codeDisplay .line::before {
+    :global(body.dark) .line::before {
         color: #555;
     }
 
