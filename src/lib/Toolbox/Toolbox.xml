@@ -87,9 +87,9 @@
         <sep gap="48"></sep>
         <block type="sensing_gettimer" />
         <block type="sensing_resettimer" />
-        <!--<block type="sensing_pausetimer" />
-        <block type="sensing_resumetimer" />-->
-        <block type="sensing_optiontimer" />
+        <block type="sensing_pausetimer" />
+        <block type="sensing_resumetimer" />
+        <!--<block type="sensing_optiontimer" />-->
         <sep gap="48"></sep>
         <block type="sensing_getusername" />
     </category>
