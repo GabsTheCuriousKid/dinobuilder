@@ -322,7 +322,8 @@
             beautified,
             Prism.languages.javascript
         );
-        return highlighted;
+        const lines = highlighted.split('\n').map(line => `<span class="line">${line}</span>`).join('\n');
+        return lines;
     }
 
     // image importing
@@ -989,9 +990,34 @@
         background: #f9f9f9;
         white-space: pre-wrap;
         font-family: monospace !important;
+
+        counter-reset: linenumber;
+        padding-left: 3em;
     }
     :global(body.dark) .codeDisplay {
         background-color: #111;
+    }
+
+    .codeDisplay .line {
+        display: block;
+        position: relative;
+        padding-left: 0.5em;
+    }
+
+    .codeDisplay .line::before {
+        counter-increment: linenumber;
+        content: counter(linenumber);
+        position: absolute;
+        left: -2.5em;
+        width: 2em;
+        text-align: right;
+        color: #aaa;
+        font-weight: normal;
+        user-select: none;
+    }
+
+    :global(body.dark) .codeDisplay .line::before {
+        color: #555;
     }
 
     .warning {
