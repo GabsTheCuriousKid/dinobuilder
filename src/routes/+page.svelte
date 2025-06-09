@@ -451,9 +451,14 @@
         }
     }
     let refreshKey = 0;
-    function updateToolbox(newToolbox) {
+    async function updateToolbox(newToolbox) {
         try {
             console.log(newToolbox)
+            while (!workspace) {
+                await new Promise(resolve => setTimeout(resolve, 0))
+            }
+            workspace.removeChangeListener(updateGeneratedCode);
+            workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
             Blockly.svgResize(workspace);
             Blockly.blockRendering.unregister('custom_renderer') //weird bug
