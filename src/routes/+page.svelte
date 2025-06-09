@@ -309,9 +309,9 @@
                 // extensions
                 async function addAllExtensions() {
                     const extensions = projectJson.extensions;
-                    extensions.forEach((extension) => {
-                        await onAddExtension(extension.xml, extension.name)
-                    });
+                    for (const extension of extensions) {
+                        await onAddExtension(extension.xml, extension.name);
+                    };
                 }
                 addAllExtensions()
 
