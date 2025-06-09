@@ -461,8 +461,7 @@
             workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
             Blockly.svgResize(workspace);
-            Blockly.blockRendering.unregister('custom_renderer') //weird bug
-            Blockly.blockRendering.register('custom_renderer', customRenderer)
+            workspace.fireChangeListener();
             refreshKey = 1;
             updateGeneratedCode()
         } catch (error) {
