@@ -471,8 +471,10 @@
     $: IsLiveTests = $page.url.searchParams.has('livetests');
 
     if (IsLiveTests) {
+        console.log(IsLiveTests)
         try {
             let newToolbox = AddXMLtoXML(liveTestsCategory, Toolbox);
+            console.log(newToolbox)
             updateToolbox(newToolbox);
         } catch (error) {
             console.error('Error injecting XML:', error);
