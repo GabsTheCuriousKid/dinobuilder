@@ -460,6 +460,9 @@
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
             workspace.updateToolbox(newToolbox);
+            while (!workspace.recordUndo) {
+                await new Promise(resolve => setTimeout(resolve, 0))
+            }
             Blockly.svgResize(workspace);
             workspace.fireChangeListener();
             refreshKey = 1;
