@@ -23,7 +23,7 @@ class Extension {
                     }
                 },
                 {
-                    "opcode": "boolean", // "Reporter" is the condition block you can put in boolean inputs
+                    "opcode": "boolean", // "Boolean" is the condition block you can put in boolean inputs
                     "text": "example boolean",
                     "type": "boolean",
                     "returns": (block, javascriptGenerator) => {
@@ -33,6 +33,25 @@ class Extension {
                 {
                     "type": "gap", // "Gap" is a gap
                     "gap": "36" // this determines how big the gap is
+                },
+                {
+                    "opcode": "block2",
+                    "text": "example inputs [arg1] [arg2]",
+                    "type": "block",
+                    "arguments": { // This defines the arguments
+                        "arg1": {
+                            "type": "input_value", // This determines the type of the input (input_value is the empty slot)
+                            "check": "String" // This checks which type of reporter blocks are allowed to be put in the input. (e.x.: String allows string reporter blocks)
+                        },
+                        "arg2": {
+                            "type": "field_input" // Field inputs don't have a check attribute.
+                        },
+                    },
+                    "returns": (block, javascriptGenerator) => {
+                        const arg1 = javascriptGenerator.valueToCode(block, "arg1", javascriptGenerator.ORDER_ATOMIC);
+                        const arg2 = block.getFieldValue("arg2");
+                        return `console.log(${arg1}, "${arg2}")`;
+                    }
                 },
                 {
                     "type": "label", // "label" is a label

@@ -79,8 +79,33 @@ function registerCustomExtension(extensionClass) {
             continue;
         }
 
-        jsonData["message0"] = text;
-        jsonData["args0"] = [];
+        let argIndex = 1;
+        jsonData["message0"] = text.replace(/\[([^\]]+)\]/g, () => `%${argIndex++}`);
+        
+        const args = [];
+        const argMap = block["arguments"] || {};
+        for (const [argName, argDef] of Object.entries(argMap)) {
+            const argType = argDef["type"];
+            const arg = {
+                type: argType,
+                name: argName
+            };
+
+            if (argType === "input_value" || argType === "input_statement") {
+                if (argDef["check"]) {
+                    arg.check = argDef["check"];
+                }
+            } else if (argType.startsWith("field_")) {
+                if (argType === "field_input") {
+                    arg.text = "";
+                } else if (argType === "field_number") {
+                    arg.value = 0;
+                }
+            }
+
+            args.push(arg);
+        }
+        jsonData["args0"] = args;
         jsonData["inputsInline"] = true;
         switch (type) {
             case 'block':

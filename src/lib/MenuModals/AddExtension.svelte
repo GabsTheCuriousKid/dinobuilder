@@ -1,4 +1,5 @@
 <script>
+    import { page } from '$app/stores';
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
@@ -12,15 +13,20 @@
             hiddenblocksExt: localhiddenblocksExt,
             webextensionExt: localwebextensionExt,
             jsextensionExt: localjsextensionExt,
+            customextensionExt: localcustomextensionExt,
+            extensionCode: localCustomExtensionCode,
         });
     }
 
     export let hiddenblocksExt = false;
     export let webextensionExt = false;
     export let jsextensionExt = false;
+    export let customextensionExt = false;
     let localhiddenblocksExt = hiddenblocksExt;
     let localwebextensionExt = webextensionExt;
     let localjsextensionExt = jsextensionExt;
+    let localcustomextensionExt = customextensionExt;
+    let localCustomExtensionCode = '';
 
     function toggleHidden() {
         localhiddenblocksExt = !localhiddenblocksExt
@@ -31,6 +37,20 @@
     function toggleJS() {
         localjsextensionExt = !localjsextensionExt
     }
+    function toggleCustom() {
+        const extensionCode = prompt("Paste the custom Extension Code");
+        if (extensionCode == '') {
+            localcustomextensionExt = false
+            localCustomExtensionCode = ''
+        } else {
+            localcustomextensionExt = true
+            localCustomExtensionCode = extensionCode
+        }
+    }
+
+    let IsLiveTests;
+
+    $: IsLiveTests = $page.url.searchParams.has('livetests');
 </script>
 
 <div class="bg">
@@ -72,6 +92,17 @@
                 <div style="height:5px" />
                 {localjsextensionExt ? 'Selected' : 'Javascript'}
             </button>
+            {#if IsLiveTests}
+                <button class="block-extension" on:click={toggleCustom}>
+                    <img 
+                        alt="CustomExtensionPNG"
+                        src="images/extensionIcons/NoIcon.png"
+                        height={50}
+                    />
+                    <div style="height:5px" />
+                    {localcustomextensionExt ? 'Selected' : 'Add Custom Extension'}
+                </button>
+            {/if}
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>

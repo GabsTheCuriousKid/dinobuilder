@@ -619,6 +619,11 @@
             if (addextensiondata.detail.jsextensionExt === true) {
                 onJSExtensionMount()
             }
+            if (addextensiondata.detail.customextensionExt === true) {
+                if (!typeof window === undefined) {
+                    window.registerCustomExtension(addextensiondata.detail.extensionCode)
+                }
+            }
         }}
         on:cancel={() => {
             ModalState.addExtensions = false;
