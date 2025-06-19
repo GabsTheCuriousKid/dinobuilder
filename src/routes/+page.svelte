@@ -224,6 +224,17 @@
         const minimap = new PositionedMinimap(workspace);
         minimap.init();
 
+        workspace.getToolbox().getDiv().addEventListener('mousedown', (e) => {
+            const category = e.target.closest('.blocklyTreeLabel');
+            if (!category) return;
+            const name = category.textContent.trim();
+            if (isExtensionCategory(name)) {
+                showExtensionDropdown(e, name);
+            } else {
+                hideExtensionDropdown();
+            }
+        });
+
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
 				await new Promise(resolve => setTimeout(resolve, 10))
@@ -571,17 +582,6 @@
         dropdownEl.style.display = 'none';
         selectedExtension = null;
     }
-
-    workspace.getToolbox().getDiv().addEventListener('mousedown', (e) => {
-        const category = e.target.closest('.blocklyTreeLabel');
-        if (!category) return;
-        const name = category.textContent.trim();
-        if (isExtensionCategory(name)) {
-            showExtensionDropdown(e, name);
-        } else {
-            hideExtensionDropdown();
-        }
-    });
 
     function isExtensionCategory(name) {
         const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
