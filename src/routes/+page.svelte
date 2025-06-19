@@ -579,6 +579,12 @@
         const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
         return extensionNames.includes(name)
     }
+
+    function handleClickOutside(event) {
+        if (dropdownEl && !dropdownEl.contains(event.target)) {
+            hideExtensionDropdown();
+        }
+    }
 </script>
 
 <CreateBlockModal
