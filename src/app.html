@@ -205,15 +205,7 @@
 			};
 			updateTheme();
 
-			document.addEventListener('DOMContentLoaded', () => {
-				let isSiteDown = false;
-				const announcer = document.getElementById('svelte-announcer');
-
-				if (announcer) {
-					console.log('Matching <div> found:', div);
-					isSiteDown = true;
-				}
-
+			document.addEventListener('DOMContentLoaded', async () => {
 				const alertPrompt = document.getElementById('AlertPrompt');
 				const urlParams = new URLSearchParams(location.search);
 				const IsLiveTests = urlParams.has('livetests');
@@ -224,6 +216,18 @@
 				} else {
 					alertPrompt.innerHTML = "DinoBuilder is currently in development, some project files may break due to code changing all the time."
 					document.title = "DinoBuilder - Make extensions with blocks"
+				}
+
+				let isSiteDown = false;
+
+				while (!document.getElementById('svelte-announcer')) {
+					await new Promise(resolve => setTimeout(resolve, 10))
+				}
+				const announcer = document.getElementById('svelte-announcer');
+
+				if (announcer) {
+					console.warn('DinoBuilder is down');
+					isSiteDown = true;
 				}
 				if (!!isSiteDown) {
 					alertPrompt.innerHTML = "DinoBuilder is currently dealing with some errors, we're working on fixing them."
