@@ -203,6 +203,9 @@
         lastGeneratedCode = code;
     }
 
+    let dropdownEl;
+    let selectedExtension = null;
+
     import pkg from '@blockly/workspace-minimap';
     const { PositionedMinimap } = pkg;
     onMount(() => {
@@ -221,7 +224,15 @@
         const minimap = new PositionedMinimap(workspace);
         minimap.init();
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', (event) => {
+            while (!document.getElementById('extensionDropdown')) {
+				await new Promise(resolve => setTimeout(resolve, 10))
+			}
+            dropdownEl = document.getElementById("extensionDropdown");
+            if (dropdownEl && !dropdownEl.contains(event.target)) {
+                hideExtensionDropdown();
+            }
+        });
     });
 
     let IsLiveTests;
@@ -549,9 +560,6 @@
         }
     }
 
-    let dropdownEl;
-    let selectedExtension = null;
-
     function showExtensionDropdown(event, extensionName) {
         selectedExtension = extensionName;
         dropdownEl.style.display = 'block';
@@ -578,12 +586,6 @@
     function isExtensionCategory(name) {
         const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
         return extensionNames.includes(name)
-    }
-
-    function handleClickOutside(event) {
-        if (dropdownEl && !dropdownEl.contains(event.target)) {
-            hideExtensionDropdown();
-        }
     }
 </script>
 
@@ -758,7 +760,7 @@
             <div class="blocklyWrapper">
                 <BlocklyComponent {config} key={refreshKey} locale={en} bind:workspace />
                 {#if IsLiveTests}
-                    <div class="extensionDropdown" bind:this={dropdownEl} style="display: none; position: absolute;">
+                    <div class="extensionDropdown" style="display: none; position: absolute;">
                         <button on:click={() => removeExtension(selectedExtension)}>Remove Extension</button>
                     </div>
                 {/if}
