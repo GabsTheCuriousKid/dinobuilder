@@ -229,7 +229,7 @@
 		}
         const toolboxEl = document.querySelector('.blocklyToolboxDiv');
         
-        toolboxEl.addEventListener('mousedown', (e) => {
+        toolboxEl.addEventListener('mousedown', async (e) => {
             const category = e.target.closest('.blocklyTreeLabel');
             if (!category) return;
             const name = category.textContent.trim();
