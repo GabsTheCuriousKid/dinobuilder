@@ -108,6 +108,8 @@
     import webExtensionExtension from "../resources/extensions/webextension/webextension.xml?raw";
     import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
 
+    import registerCustomExtension from "../resources/extensions/custom/extension_renderer,js";
+
     const en = {
         rtl: false,
         msg: {
@@ -239,6 +241,11 @@
                 hideExtensionDropdown();
             }
         }); 
+
+        window.registerCustomExtension = (extensionClass) => {
+            const ext = registerCustomExtension(extensionClass)
+            onAddExtension(ext)
+        }
 
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
