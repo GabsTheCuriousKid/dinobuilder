@@ -2,16 +2,8 @@ import javascriptGenerator from '../../resources/javascriptGenerator';
 import registerBlock from '../../resources/register';
 
 function createExtensionInstance(extensionClass) {
-    if (typeof window !== 'undefined') {
-        const wrappedCode = `
-            ${extensionClass}
-            return Extension;
-        `;
-        const ConvertedClass = new Function(wrappedCode)();
-        return new ConvertedClass();
-    } else {
-        throw new Error("This code must run in the browser.");
-    }
+    eval(extensionClass)
+    return new Extension;
 }
 
 function defineXmlOfExtension(extensionClass) {
