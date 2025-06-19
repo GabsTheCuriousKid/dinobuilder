@@ -224,7 +224,7 @@
         const minimap = new PositionedMinimap(workspace);
         minimap.init();
 
-        document.addEventListener('mousedown', (event) => {
+        document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
 				await new Promise(resolve => setTimeout(resolve, 10))
 			}
