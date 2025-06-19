@@ -205,17 +205,46 @@
 			};
 			updateTheme();
 
-			const urlParams = new URLSearchParams(location.search);
-    		const IsLiveTests = urlParams.has('livetests');
+			document.addEventListener('DOMContentLoaded', () => {
+				const divs = document.querySelectorAll('div[style*="display: contents"]');
 
-			const alertPrompt = document.getElementById('AlertPrompt');
-			if (!!IsLiveTests) {
-				alertPrompt.innerHTML = "This is a dev version of DinoBuilder, this is where features are made and tested."
-				document.title = "DinoBuilder - Dev version"
-			} else {
-				alertPrompt.innerHTML = "DinoBuilder is currently in development, some project files may break due to code changing all the time."
-				document.title = "DinoBuilder - Make extensions with blocks"
-			}
+				let isSiteDown = false;
+
+				for (const div of divs) {
+					const h1 = div.querySelector('h1');
+					const p = div.querySelector('p');
+					const announcer = div.querySelector('#svelte-announcer');
+
+					const isMatch =
+						h1.textContent.trim() === '500' &&
+						p.textContent.trim() === 'Internal Error' &&
+						announcer &&
+						announcer.getAttribute('aria-live') === 'assertive' &&
+						announcer.getAttribute('aria-atomic') === 'true';
+
+					if (isMatch) {
+						console.log('Matching <div> found:', div);
+						isSiteDown = true;
+						break;
+					}
+				}
+
+				const alertPrompt = document.getElementById('AlertPrompt');
+				const urlParams = new URLSearchParams(location.search);
+				const IsLiveTests = urlParams.has('livetests');
+
+				if (!!IsLiveTests) {
+					alertPrompt.innerHTML = "This is a dev version of DinoBuilder, this is where features are made and tested."
+					document.title = "DinoBuilder - Dev version"
+				} else {
+					alertPrompt.innerHTML = "DinoBuilder is currently in development, some project files may break due to code changing all the time."
+					document.title = "DinoBuilder - Make extensions with blocks"
+				}
+				if (!isSiteDown) {
+					alertPrompt.innerHTML = "DinoBuilder is currently dealing with some errors, we're working on fixing them."
+					document.title = "DinoBuilder is down"
+				}
+			})
 		</script>
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
