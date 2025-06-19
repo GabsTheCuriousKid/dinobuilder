@@ -54,7 +54,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor,
     }, (block) => {
-        const code = `async function _stopAllSoundsForTarget() {\n if (target.sprite.soundBank) {\ntarget.sprite.soundBank.stopAllSounds(target);\nif (this.waitingSounds[target.id]) {\nthis.waitingSounds[target.id].clear();\n}\n}\n}\n if (Scratch.vm.runtime.targets === null) return;\nconst allTargets = Scratch.vm.runtime.targets;\nfor (let i = 0; i < allTargets.length; i++) {\n_stopAllSoundsForTarget(allTargets[i]);\n}`;
+        const code = `async function _stopAllSoundsForTarget(target) {\n if (target.sprite.soundBank) {\ntarget.sprite.soundBank.stopAllSounds(target);\n}\n}\n if (Scratch.vm.runtime.targets === null) return;\nconst allTargets = Scratch.vm.runtime.targets;\nfor (let i = 0; i < allTargets.length; i++) {\n_stopAllSoundsForTarget(allTargets[i]);\n}`;
         return `${code}\n`;
     })
 

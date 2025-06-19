@@ -1,6 +1,6 @@
 <!--Title: Hidden Blocks
 Description: View blocks that have been hidden from the main toolbox.-->
-<category name="Hidden Blocks" colour="#0FBD8C">
+<category name="Hidden Blocks" colour="#0FBD8C" extension="true">
     <block type="blocks_createcap" />
     <sep gap="48"></sep>
     <block type="functions_inline">

@@ -31,6 +31,7 @@
     import EventManager from "../resources/events";
 
     import AddXMLtoXML from '../utils/AddXMLtoXML.js';
+    import RemoveXMLfromXML from '../utils/RemoveXMLfromXML.js';
 
     import Blockly from "blockly/core";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
@@ -219,6 +220,8 @@
 
         const minimap = new PositionedMinimap(workspace);
         minimap.init();
+
+        document.addEventListener('mousedown', handleClickOutside);
     });
 
     let IsLiveTests;
@@ -521,6 +524,22 @@
         }
     }
 
+    async function onRemoveExtension(extensionXML, categoryName) {
+        if (!!hasCategory(newToolbox, categoryName)) {
+            let modifiedToolbox = RemoveXMLfromXML(categoryName, newToolbox);
+            newToolbox = modifiedToolbox;
+            for (const extension of addedExtensions) {
+                if (extension.name === categoryName && extension.xml === extensionXML) {
+                    const removeThis = addedExtensions.indexOf(extension);
+                    if (removeThis === -1) return;
+                    addedExtensions.splice(removeThis, 1)
+                }
+            };
+            updateToolbox(newToolbox);
+            hideExtensionDropdown();
+        }
+    }
+
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
@@ -528,6 +547,37 @@
         } catch (error) {
             console.error('Error injecting XML:', error);
         }
+    }
+
+    let dropdownEl;
+    let selectedExtension = null;
+
+    function showExtensionDropdown(event, extensionName) {
+        selectedExtension = extensionName;
+        dropdownEl.style.display = 'block';
+        dropdownEl.style.left = `${event.pageX}px`;
+        dropdownEl.style.top = `${event.pageY}px`;
+    }
+
+    function hideExtensionDropdown() {
+        dropdownEl.style.display = 'none';
+        selectedExtension = null;
+    }
+
+    workspace.getToolbox().getDiv().addEventListener('mousedown', (e) => {
+        const category = e.target.closest('.blocklyTreeLabel');
+        if (!category) return;
+        const name = category.textContent.trim();
+        if (isExtensionCategory(name)) {
+            showExtensionDropdown(e, name);
+        } else {
+            hideExtensionDropdown();
+        }
+    });
+
+    function isExtensionCategory(name) {
+        const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
+        return extensionNames.includes(name)
     }
 </script>
 
@@ -701,6 +751,11 @@
             </div>
             <div class="blocklyWrapper">
                 <BlocklyComponent {config} key={refreshKey} locale={en} bind:workspace />
+                {#if IsLiveTests}
+                    <div class="extensionDropdown" bind:this={dropdownEl} style="display: none; position: absolute;">
+                        <button on:click={() => removeExtension(selectedExtension)}>Remove Extension</button>
+                    </div>
+                {/if}
             </div>
         </div>
         <div class="row-submenus">
@@ -1115,4 +1170,19 @@
 	:global(body.dark) .button-thingy:hover {
 		background: rgba(255, 255, 255, 0.2);
 	}
+
+    .extensionDropdown {
+        background: white;
+        border: 1px solid #ccc;
+        z-index: 9999;
+        padding: 0.5em;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    :global(body.dark) .extensionDropdown {
+        background: #222;
+        color: #fff;
+        border-color: #444;
+    }
 </style>

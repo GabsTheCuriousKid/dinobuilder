@@ -86,7 +86,6 @@
 		top: 100%;
 		left: 0;
 		background: #80f41a;
-		border: 1px solid #ccc;
 		padding: 0.5rem;
 		color: white;
 		z-index: 999999;
