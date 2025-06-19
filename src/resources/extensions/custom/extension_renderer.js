@@ -1,5 +1,5 @@
-import javascriptGenerator from '../../resources/javascriptGenerator';
-import registerBlock from '../../resources/register';
+import javascriptGenerator from '../../javascriptGenerator';
+import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
     if (typeof window !== 'undefined') {
