@@ -1,6 +1,6 @@
 <!--Title: Javascript
 Description: Adds blocks that runs Javascript-->
-<category name="Javascript" colour="#0FBD8C" extension="true">
-    <block type="javascript_eval" extension="true" />
-    <block type="javascript_evalreporter" extension="true" />
+<category name="Javascript" colour="#0FBD8C" data-extension="true">
+    <block type="javascript_eval" data-extension="true" />
+    <block type="javascript_evalreporter" data-extension="true" />
 </category>
