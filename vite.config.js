@@ -3,14 +3,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [
-		sveltekit(),
-		{
-      		name: 'log-resolve-ids',
-      		async resolveId(source, importer) {
-        		console.log(`Resolving: source='${source}', importer='${importer}'`);
-        		return null;
-      		}
-    	}
+		sveltekit()
 	],
 	optimizeDeps: {
 		include: [
