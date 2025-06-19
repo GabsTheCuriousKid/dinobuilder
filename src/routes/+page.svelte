@@ -208,7 +208,7 @@
 
     import pkg from '@blockly/workspace-minimap';
     const { PositionedMinimap } = pkg;
-    onMount(() => {
+    onMount(async () => {
         console.log("ignore the warnings above we dont care about those");
 
         window.onbeforeunload = () => "";
@@ -229,7 +229,7 @@
 		}
         const toolboxEl = document.querySelector('.blocklyToolboxDiv');
         
-        toolboxEl.addEventListener('mousedown', async (e) => {
+        toolboxEl.addEventListener('mousedown', (e) => {
             const category = e.target.closest('.blocklyTreeLabel');
             if (!category) return;
             const name = category.textContent.trim();
