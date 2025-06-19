@@ -243,8 +243,8 @@
         }); 
 
         window.registerCustomExtension = (extensionClass) => {
-            const ext = registerCustomExtension(extensionClass)
-            onAddExtension(ext)
+            const {xml, name} = registerCustomExtension(extensionClass)
+            onAddExtension(xml, name)
         }
 
         document.addEventListener('mousedown', async (event) => {

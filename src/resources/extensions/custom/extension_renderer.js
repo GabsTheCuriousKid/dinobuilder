@@ -50,6 +50,7 @@ function defineXmlOfExtension(extensionClass) {
 function registerCustomExtension(extensionClass) {
     const extension = createExtensionInstance(extensionClass);
 
+    const name = extension.getInfo()["name"];
     const id = extension.getInfo()["id"];
     const blocks = extension.getInfo()["blocks"];
     const colour = extension.getInfo()["colour"];
@@ -104,7 +105,7 @@ function registerCustomExtension(extensionClass) {
             return code;
         })
     }
-    return defineXmlOfExtension(extensionClass)
+    return { xml: defineXmlOfExtension(extensionClass), name: name }
 }
 
 export default registerCustomExtension
