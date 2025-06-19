@@ -224,7 +224,12 @@
         const minimap = new PositionedMinimap(workspace);
         minimap.init();
 
-        workspace.getToolbox().getDiv().addEventListener('mousedown', (e) => {
+        while (!document.querySelector('.blocklyToolboxDiv')) {
+			await new Promise(resolve => setTimeout(resolve, 10))
+		}
+        const toolboxEl = document.querySelector('.blocklyToolboxDiv');
+        
+        toolboxEl.addEventListener('mousedown', (e) => {
             const category = e.target.closest('.blocklyTreeLabel');
             if (!category) return;
             const name = category.textContent.trim();
@@ -233,7 +238,7 @@
             } else {
                 hideExtensionDropdown();
             }
-        });
+        }); 
 
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {

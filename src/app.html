@@ -207,7 +207,7 @@
 
 			document.addEventListener('DOMContentLoaded', async () => {
 				const alertPrompt = document.getElementById('AlertPrompt');
-				
+
 				const urlParams = new URLSearchParams(location.search);
 				const IsLiveTests = urlParams.has('livetests');
 
@@ -224,12 +224,7 @@
 				while (!document.getElementById('svelte-announcer')) {
 					await new Promise(resolve => setTimeout(resolve, 10))
 				}
-				const announcer = document.getElementById('svelte-announcer');
-
-				if (announcer) {
-					console.warn('DinoBuilder is down');
-					isSiteDown = true;
-				}
+				
 				if (!!isSiteDown) {
 					alertPrompt.innerHTML = "DinoBuilder is currently dealing with some errors, we're working on fixing them."
 					document.title = "DinoBuilder is down"
