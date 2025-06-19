@@ -1,9 +1,17 @@
-import javascriptGenerator from '../../../javascriptGenerator';
-import registerBlock from '../../../register';
+import javascriptGenerator from '../../resources/javascriptGenerator';
+import registerBlock from '../../resources/register';
 
 function createExtensionInstance(extensionClass) {
-    // eval(extensionClass)
-    return extensionClass;
+    if (typeof window !== 'undefined') {
+        const wrappedCode = `
+            ${extensionClass}
+            return Extension;
+        `;
+        const ConvertedClass = new Function(wrappedCode)();
+        return new ConvertedClass();
+    } else {
+        throw new Error("This code must run in the browser.");
+    }
 }
 
 function defineXmlOfExtension(extensionClass) {
