@@ -2,8 +2,8 @@ import javascriptGenerator from '../../../javascriptGenerator';
 import registerBlock from '../../../register';
 
 function createExtensionInstance(extensionClass) {
-    eval(extensionClass)
-    return new Extension;
+    // eval(extensionClass)
+    return extensionClass;
 }
 
 function defineXmlOfExtension(extensionClass) {
