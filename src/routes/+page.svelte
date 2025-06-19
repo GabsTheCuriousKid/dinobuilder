@@ -244,7 +244,7 @@
 
         window.registerCustomExtension = (extensionClass) => {
             const {xml, name} = registerCustomExtension(extensionClass)
-            onAddExtension(xml, name)
+            onAddExtension(xml, name, false)
         }
 
         document.addEventListener('mousedown', async (event) => {
@@ -620,7 +620,7 @@
                 onJSExtensionMount()
             }
             if (addextensiondata.detail.customextensionExt === true) {
-                if (!typeof window === undefined) {
+                if (typeof window !== undefined) {
                     window.registerCustomExtension(addextensiondata.detail.extensionCode)
                 }
             }
