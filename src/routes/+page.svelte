@@ -773,7 +773,7 @@
                 <BlocklyComponent {config} key={refreshKey} locale={en} bind:workspace />
                 {#if IsLiveTests}
                     <div class="extensionDropdown" style="display: none; position: absolute;">
-                        <button on:click={() => removeExtension(selectedExtension)}>Remove Extension</button>
+                        <button on:click={() => onRemoveExtension(selectedExtension)}>Remove Extension</button>
                     </div>
                 {/if}
             </div>

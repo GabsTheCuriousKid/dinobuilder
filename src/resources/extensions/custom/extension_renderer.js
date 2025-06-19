@@ -1,5 +1,5 @@
-import javascriptGenerator from '../../javascriptGenerator';
-import registerBlock from '../../register';
+import javascriptGenerator from '../../resources/javascriptGenerator';
+import registerBlock from '../../resources/register';
 
 function createExtensionInstance(extensionClass) {
     const ConvertedClass = new Function(extensionClass)();
