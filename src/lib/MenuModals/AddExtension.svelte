@@ -39,7 +39,7 @@
     }
     function toggleCustom() {
         const extensionCode = prompt("Paste the custom Extension Code");
-        if (extensionCode == '') {
+        if (extensionCode == null) {
             localcustomextensionExt = false
             localCustomExtensionCode = ''
         } else {

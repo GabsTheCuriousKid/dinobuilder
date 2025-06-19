@@ -32,7 +32,7 @@ class Extension {
                 },
                 {
                     "type": "gap", // "Gap" is a gap
-                    "gap": "36" // this determines how big the gap is
+                    "gap": "48" // this determines how big the gap is
                 },
                 {
                     "opcode": "block2",
