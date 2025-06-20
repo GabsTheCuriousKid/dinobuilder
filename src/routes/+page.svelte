@@ -381,7 +381,7 @@
             Prism.languages.javascript
         );
         if (IsLiveTests) {
-            const lines = highlighted.split('\n').map(line => `<span class="line">${line}</span>`).join('\n');
+            const lines = highlighted.split('\n').map(line => `<span class="line" style="font-family: monospace !important">${line}</span>`).join('\n');
             return lines
         }
         return highlighted;

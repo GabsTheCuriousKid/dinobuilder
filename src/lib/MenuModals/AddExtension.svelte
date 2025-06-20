@@ -39,9 +39,11 @@
     }
     function toggleCustom() {
         const extensionCode = prompt("Paste the custom Extension Code");
-        if (extensionCode == null) {
+        console.log("Prompt result:", extensionCode);
+        if (extensionCode == null || extensionCode == '') {
             localcustomextensionExt = false
             localCustomExtensionCode = ''
+            console.log("Cancelled")
         } else {
             localcustomextensionExt = true
             localCustomExtensionCode = extensionCode
