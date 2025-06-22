@@ -40,6 +40,23 @@ function register() {
         const EVAL = javascriptGenerator.valueToCode(block, 'EVAL', javascriptGenerator.ORDER_ATOMIC);
         return [`eval(${EVAL})`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    registerBlock(`${categoryPrefix}fetch`, {
+        message0: 'fetch %1',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "TEXT",
+                "check": "String"
+            }
+        ],
+        output: "String",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
+        return [`fetch(${TEXT})`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;

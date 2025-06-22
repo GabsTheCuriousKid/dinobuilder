@@ -380,6 +380,68 @@ function register() {
         return [`err`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    registerBlock(`${categoryPrefix}try_catch2`, {
+        message0: 'try %1 %2 catch %3 %4',
+        args0: [
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "TRY_BLOCKS"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "CATCH_BLOCKS"
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+        mutator: `${categoryPrefix}try_catch_mutator`,
+        errorVarName_: compileVars.new(),
+        getVars: function() {
+            return [this.errorVarName_];
+        },
+    }, (block) => {
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'TRY_BLOCKS');
+        const BLOCKS2 = javascriptGenerator.statementToCode(block, 'CATCH_BLOCKS');
+
+        let errorArgs = [];
+        for (let i = 0; ; i++) {
+            const inputName = 'ERROR_REPORTER' + i;
+            if (!block.getInput(inputName)) break;
+            const val = javascriptGenerator.valueToCode(block, inputName, javascriptGenerator.ORDER_ATOMIC) || "'error'";
+            errorArgs.push(val);
+        }
+
+        // const errorReportersCode = errorArgs.join(', ');
+
+        const code = `try {\n${BLOCKS}} catch (${block.getVars()[0]}) {\n${BLOCKS2}}\n`;
+
+        return code;
+    });
+
+    registerBlock(`${categoryPrefix}error_reporter`, {
+        message0: 'error',
+        args0: [],
+        output: "String",
+        colour: categoryColor,
+    }, (block) => {
+        let parent = block.getSurroundParent();
+        while (parent && parent.type !== `${categoryPrefix}try_catch2`) {
+            parent = parent.getSurroundParent();
+        }
+
+        const errorVar = (parent && parent.getVars()[0]) || "err";
+
+        return [errorVar, javascriptGenerator.ORDER_ATOMIC];
+    });
+
     const control_if_mutator = {
         elseifCount_: 0,
         elseCount_: 0,
@@ -559,6 +621,50 @@ function register() {
         control_if_mutator,
         null,
         [`${categoryPrefix}if_mutator_elseif`, `${categoryPrefix}if_mutator_else`],
+    );
+
+    const control_try_catch_mutator = {
+        errorReporterCount_: 0,
+
+        mutationToDom: function() {
+            const container = document.createElement('mutation');
+            container.setAttribute('error_reporter_count', this.errorReporterCount_);
+            return container;
+        },
+
+        domToMutation: function(xmlElement) {
+            this.errorReporterCount_ = parseInt(xmlElement.getAttribute('error_reporter_count'), 10) || 0;
+            this.updateErrorReporters_();
+        },
+
+        updateErrorReporters_: function() {
+            let i = 0;
+            while (this.getInput('ERROR_REPORTER' + i)) {
+                this.removeInput('ERROR_REPORTER' + i);
+                i++;
+            }
+
+            for (let j = 0; j <= this.errorReporterCount_; j++) {
+            const inputName = 'ERROR_REPORTER' + j;
+            this.appendValueInput(inputName)
+                .setCheck('String')
+                .appendField('error')
+                .setAlign(Blockly.ALIGN_RIGHT);
+            }
+        },
+
+        addReporter: function() {
+            this.errorReporterCount_++;
+            this.updateErrorReporters_();
+        },
+    };
+
+    Blockly.Extensions.unregister(`${categoryPrefix}try_catch_mutator`);
+    Blockly.Extensions.registerMutator(
+        `${categoryPrefix}try_catch_mutator`,
+        control_try_catch_mutator,
+        null,
+        []
     );
 }
 
