@@ -383,6 +383,8 @@ function register() {
     // This needs init so i don't use registerBlock
     Blockly.Blocks[`${categoryPrefix}try_catch2`] = {
         init: function () {
+            this.errorVarName_ = compileVars.new();
+            
             this.jsonInit({
                 message0: 'try %1 %2 catch %3 %4 %5',
                 args0: [
@@ -411,23 +413,18 @@ function register() {
                 inputsInline: true,
                 colour: categoryColor,
             });
-            this.errorVarName_ = compileVars.new();
-            this.getVars = function () {
-                return [this.errorVarName_];
-            };
+            this.getVars = () => [this.errorVarName_];
 
-            const errorInput = this.getInput('ERROR_ARG');
-            if (errorInput && !errorInput.connection.targetBlock()) {
-                setTimeout(() => {
-                    if (!errorInput.connection.targetBlock()) {
-                        const shadow = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
-                        shadow.setShadow(true);
-                        shadow.initSvg();
-                        shadow.render();
-                        errorInput.connection.connect(shadow.outputConnection);
-                    }
-                }, 0);
-            }
+            setTimeout(() => {
+                const errorInput = this.getInput('ERROR_ARG');
+                if (errorInput && !errorInput.connection.targetBlock()) {
+                    const shadow = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
+                    shadow.setShadow(true);
+                    shadow.initSvg();
+                    shadow.render();
+                    errorInput.connection.connect(shadow.outputConnection);
+                }
+            }, 1);
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
