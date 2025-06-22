@@ -380,6 +380,65 @@ function register() {
         return [`err`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    // This needs init so i don't use registerBlock
+    Blockly.Blocks[`${categoryPrefix}try_catch2`] = {
+        init: function () {
+            this.jsonInit({
+                message0: 'try %1 %2 catch %3 %4 %5',
+                args0: [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_statement",
+                        "name": "TRY_BLOCKS"
+                    },
+                    {
+                        "type": 'input_value',
+                        "name": 'ERROR_ARG',
+                        "check": 'String'
+                    },
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_statement",
+                        "name": "CATCH_BLOCKS"
+                    },
+                ],
+                previousStatement: null,
+                nextStatement: null,
+                inputsInline: true,
+                colour: categoryColor,
+            });
+            this.errorVarName_ = compileVars.new();
+            this.getVars = function () {
+                return [this.errorVarName_];
+            };
+
+            const errorInput = this.getInput('ERROR_ARG');
+            if (errorInput && !errorInput.connection.targetBlock()) {
+                setTimeout(() => {
+                    if (!errorInput.connection.targetBlock()) {
+                        const shadow = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
+                        shadow.setShadow(true);
+                        shadow.initSvg();
+                        shadow.render();
+                        errorInput.connection.connect(shadow.outputConnection);
+                    }
+                }, 0);
+            }
+        }
+    }
+    javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'TRY_BLOCKS');
+        const BLOCKS2 = javascriptGenerator.statementToCode(block, 'CATCH_BLOCKS');
+        const errorVar = block.getVars()[0];
+
+        const code = `try {\n${BLOCKS}} catch (${errorVar}) {\n${BLOCKS2}}\n`;
+        return code;
+    }
+
     registerBlock(`${categoryPrefix}try_catch2`, {
         message0: 'try %1 %2 catch %3 %4 %5',
         args0: [
