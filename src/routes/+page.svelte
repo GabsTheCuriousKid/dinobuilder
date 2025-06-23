@@ -628,6 +628,7 @@
     }
 
     let lines;
+    let lineNumberBlocks = [];
 
     $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
 
@@ -685,7 +686,28 @@
         });
     }
 
+    function buildLineNumberBlocks() {
+        if (!codeDisplay) return;
+
+        const codeLineDivs = codeDisplay.querySelectorAll('div.line');
+
+        lineNumberBlocks = [];
+
+        for (let i = 0; i < codeLineDivs.length; i++) {
+            const el = codeLineDivs[i];
+
+            if (i === 0 || codeLineDivs[i].offsetTop > codeLineDivs[i-1].offsetTop) {
+                // New visual line block => show number
+                lineNumberBlocks.push(i + 1);
+            } else {
+                // Wrapped continuation line => blank
+                lineNumberBlocks.push('');
+            }
+        }
+    }
+
     afterUpdate(() => {
+        buildLineNumberBlocks();
         syncLineHeights();
     });
 </script>
@@ -988,8 +1010,8 @@
                 </div>
                 <div class="codeWrapper">
                     <div class="lineNumbers" key={refreshKey} bind:this={lineNumbers}>
-                        {#each lines as _, i}
-                            <div class="line">{i + 1}</div>
+                        {#each lineNumberBlocks as num}
+                            <div class="line">{num}</div>
                         {/each}
                     </div>
                     <div class="codeDisplay" bind:this={codeDisplay} on:scroll={syncScroll}>
