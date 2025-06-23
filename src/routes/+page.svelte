@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, afterUpdate } from "svelte";
     import { browser } from '$app/environment';
     import { page } from '$app/stores';
 
@@ -669,6 +669,25 @@
     function syncScroll() {
         lineNumbers.scrollTop = codeDisplay.scrollTop;
     }
+
+    let codeLines = [];
+
+    function syncLineHeights() {
+        if (!lineNumbers || !codeDisplay) return;
+        const codeLineDivs = codeDisplay.querySelectorAll('div.line');
+        const lineNumberDivs = lineNumbers.querySelectorAll('div');
+        codeLineDivs.forEach((lineDiv, i) => {
+        const height = lineDiv.offsetHeight;
+        if (lineNumberDivs[i]) {
+            lineNumberDivs[i].style.height = height + 'px';
+            lineNumberDivs[i].style.lineHeight = height + 'px';
+        }
+        });
+    }
+
+    afterUpdate(() => {
+        syncLineHeights();
+    });
 </script>
 
 <CreateBlockModal
