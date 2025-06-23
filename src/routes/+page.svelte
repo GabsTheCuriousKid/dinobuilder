@@ -627,17 +627,6 @@
         }
     }
 
-    let lines;
-    let lineNumberBlocks = [];
-
-    $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
-
-    let previousLineCount = 0;
-    $: if (lines.length !== previousLineCount) {
-        previousLineCount = lines.length;
-        refreshKey++;
-    }
-
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
@@ -662,6 +651,17 @@
     function isExtensionCategory(name) {
         const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
         return extensionNames.includes(name)
+    }
+
+    let lines;
+    let lineNumberBlocks = [];
+
+    $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
+
+    let previousLineCount = 0;
+    $: if (lines.length !== previousLineCount) {
+        previousLineCount = lines.length;
+        refreshKey++;
     }
 
     let codeDisplay;
@@ -693,14 +693,15 @@
 
         lineNumberBlocks = [];
 
-        for (let i = 0; i < codeLineDivs.length; i++) {
-            const el = codeLineDivs[i];
+        let lineIndex = 1;
 
-            if (i === 0 || codeLineDivs[i].offsetTop > codeLineDivs[i-1].offsetTop) {
-                // New visual line block => show number
-                lineNumberBlocks.push(i + 1);
+        for (let i = 0; i < codeLineDivs.length; i++) {
+            const isNewBlock =
+                i === 0 || codeLineDivs[i].offsetTop > codeLineDivs[i - 1].offsetTop;
+
+            if (isNewBlock) {
+                lineNumberBlocks.push(lineIndex++);
             } else {
-                // Wrapped continuation line => blank
                 lineNumberBlocks.push('');
             }
         }
@@ -1010,8 +1011,8 @@
                 </div>
                 <div class="codeWrapper">
                     <div class="lineNumbers" key={refreshKey} bind:this={lineNumbers}>
-                        {#each lineNumberBlocks as num}
-                            <div class="line">{num}</div>
+                        {#each lineNumberBlocks as number}
+                            <div class="line">{number}</div>
                         {/each}
                     </div>
                     <div class="codeDisplay" bind:this={codeDisplay} on:scroll={syncScroll}>
