@@ -629,7 +629,7 @@
     }
 
     let lines;
-    
+
     $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
 
     $: if (IsLiveTests) {
@@ -1205,13 +1205,14 @@
 
     .lineNumbers {
         position: absolute;
+        font-family: monospace !important;
         top: 0;
         left: 0;
-        width: 3em;
+        width: 2.5em;
         padding-left: 0.5em;
         user-select: none;
         color: #888;
-        background: #eee;
+        background: transparent;
         text-align: right;
         font-size: 0.9em;
         line-height: 1.5em;
@@ -1219,7 +1220,6 @@
         overflow: hidden;
     }
     :global(body.dark) .lineNumbers {
-        background-color: #222;
         color: #666;
     }
 
