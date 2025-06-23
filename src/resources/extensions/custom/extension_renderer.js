@@ -14,6 +14,84 @@ function createExtensionInstance(extensionClass) {
     }
 }
 
+function checkForErrors(extensionClass) {
+    const extension = createExtensionInstance(extensionClass);
+
+    const name = extension.getInfo()["name"];
+    const blocks = extension.getInfo()["blocks"];
+    const colour = extension.getInfo()["colour"];
+
+    if (!name) {
+        console.warn("This Extension doesn't have a name. While it's not required, it's still recommended to add them")
+    }
+
+    for (const block of blocks) {
+        switch (block["type"]) {
+            case 'xml':
+                function isValidXML(xml) {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(xml, "text/xml");
+                    return !doc.querySelector("parsererror");
+                }
+                const xml = block["xml"]
+                if (xml || !xml == '') {
+                    if (!isValidXML(xml)) {
+                        console.error("Parse Error: Invalid Xml")
+                    }
+                } else {
+                    console.error("Xml must have a xml attribute")
+                }
+                if (block["opcode"]) {
+                    console.warn("Opcodes are not needed in xml, labels and gaps")
+                }
+                break;
+            case 'gap':
+                if (block["opcode"]) {
+                    console.warn("Opcodes are not needed in xml, labels and gaps")
+                }
+                if (block["gap"] || block["gap"] == '') {
+                    console.warn("Gaps should have a gap attribute")
+                }
+                break;
+            case 'label':
+                if (block["opcode"]) {
+                    console.warn("Opcodes are not needed in xml, labels and gaps")
+                }
+                if (block["text"] || block["text"] == '') {
+                    console.warn("Labels should have a text attribute")
+                }
+                break;
+            case 'boolean':
+            case 'reporter':
+            case 'block':
+                if (!block["opcode"]) {
+                    console.error("Opcodes are required in Blocks, Reporters and Booleans")
+                }
+                if (!block["returns"]) {
+                    console.warn("Blocks, Reporters and Booleans should return something.")
+                }
+                if (block["type"] == 'block') {
+                    if (block["isTerminal"]) {
+                        function isABoolean(value) {
+                            return (typeof value === "boolean")
+                        }
+                        if (!isABoolean(block["isTerminal"])) {
+                            console.error("isTerminal attribute must be a Boolean")
+                        }
+                    }
+                }
+                break;
+            case undefined:
+            case null:
+                console.error("Block Type is required.")
+                break;
+            default:
+                console.error("Unknown Block Type")
+                break;
+        }
+    }
+}
+
 function defineXmlOfExtension(extensionClass) {
     const extension = createExtensionInstance(extensionClass);
 
@@ -34,6 +112,10 @@ function defineXmlOfExtension(extensionClass) {
         if (blockid) {
             const editedid = id + '_' + blockid;
             xmlblocks += `<block type="${editedid}" data-extension="true" />`
+        }
+        if (type == 'xml') {
+            const xml = block["xml"];
+            xmlblocks += `${xml}`
         }
         if (type == 'gap') {
             const gap = block["gap"];
@@ -75,7 +157,7 @@ function registerCustomExtension(extensionClass) {
             }
         }
 
-        if (type == "label" || type == "gap") {
+        if (type == "label" || type == "gap" || type == "xml") {
             continue;
         }
 
@@ -130,6 +212,7 @@ function registerCustomExtension(extensionClass) {
             return code;
         })
     }
+    checkForErrors(extensionClass)
     return { xml: defineXmlOfExtension(extensionClass), name: name }
 }
 

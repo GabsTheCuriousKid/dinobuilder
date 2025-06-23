@@ -242,10 +242,14 @@
             }
         }); 
 
-        window.registerCustomExtension = (extensionClass) => {
+        window.dinoBuilder = window.dinoBuilder || {};
+        window.dinoBuilder.extensions = window.dinoBuilder.extensions || {};
+        window.dinoBuilder.extensions.register = (extensionClass) => {
             const {xml, name} = registerCustomExtension(extensionClass)
             onAddExtension(xml, name, false)
         }
+        window.dinoBuilder.Blockly = window.Blockly || {};
+        window.dinoBuilder.Blockly.getMainWorkspace = () => return workspace;
 
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
@@ -621,7 +625,7 @@
             }
             if (addextensiondata.detail.customextensionExt === true) {
                 if (typeof window !== undefined) {
-                    window.registerCustomExtension(addextensiondata.detail.extensionCode)
+                    window.dinoBuilder.extensions.register(addextensiondata.detail.extensionCode)
                 }
             }
         }}
