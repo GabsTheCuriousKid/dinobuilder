@@ -249,7 +249,7 @@
             onAddExtension(xml, name, false)
         }
         window.dinoBuilder.Blockly = window.Blockly || {};
-        window.dinoBuilder.Blockly.getMainWorkspace = () => return workspace;
+        window.dinoBuilder.Blockly.getMainWorkspace = () => workspace;
 
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {

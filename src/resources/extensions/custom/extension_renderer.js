@@ -25,21 +25,23 @@ function checkForErrors(extensionClass) {
         console.warn("This Extension doesn't have a name. While it's not required, it's still recommended to add them")
     }
 
+    function isABoolean(value) {
+        return (typeof value === "boolean")
+    }
+    function isValidXML(xml) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xml, "text/xml");
+        return !doc.querySelector("parsererror");
+    }
+
     for (const block of blocks) {
         switch (block["type"]) {
             case 'xml':
-                function isValidXML(xml) {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(xml, "text/xml");
-                    return !doc.querySelector("parsererror");
-                }
                 const xml = block["xml"]
-                if (xml || !xml == '') {
-                    if (!isValidXML(xml)) {
-                        console.error("Parse Error: Invalid Xml")
-                    }
-                } else {
-                    console.error("Xml must have a xml attribute")
+                if (typeof xml !== 'string' || xml.trim() === '') {
+                    console.error("XML block must have a non-empty 'xml' attribute.")
+                } else if (!isValidXML(xml)) {
+                    console.error("Parse Error: Invalid XML in 'xml' block.")
                 }
                 if (block["opcode"]) {
                     console.warn("Opcodes are not needed in xml, labels and gaps")
@@ -49,16 +51,16 @@ function checkForErrors(extensionClass) {
                 if (block["opcode"]) {
                     console.warn("Opcodes are not needed in xml, labels and gaps")
                 }
-                if (block["gap"] || block["gap"] == '') {
-                    console.warn("Gaps should have a gap attribute")
+                if (!("gap" in block)) {
+                    console.warn("Gaps should have a 'gap' attribute")
                 }
                 break;
             case 'label':
                 if (block["opcode"]) {
                     console.warn("Opcodes are not needed in xml, labels and gaps")
                 }
-                if (block["text"] || block["text"] == '') {
-                    console.warn("Labels should have a text attribute")
+                if (!("text" in block)) {
+                    console.warn("Labels should have a 'text' attribute")
                 }
                 break;
             case 'boolean':
@@ -72,9 +74,6 @@ function checkForErrors(extensionClass) {
                 }
                 if (block["type"] == 'block') {
                     if (block["isTerminal"]) {
-                        function isABoolean(value) {
-                            return (typeof value === "boolean")
-                        }
                         if (!isABoolean(block["isTerminal"])) {
                             console.error("isTerminal attribute must be a Boolean")
                         }
