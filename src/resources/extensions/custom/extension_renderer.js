@@ -2,34 +2,32 @@ import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
+    if (typeof extensionClass === "object" && extensionClass !== null) {
+        return extensionClass;
+    }
     if (typeof extensionClass === "function") {
         try {
-            const instance = new extensionClass();
-            if (typeof instance.getInfo === "function") {
-                return instance;
-            } else {
-                throw new Error("Provided class does not implement getInfo()");
-            }
-        } catch (err) {
-            console.error("Failed to instantiate the provided class:", err);
+            return new extensionClass();
+        } catch (e) {
+            console.error("Failed to instantiate extension class:", e);
             return null;
         }
     }
     if (typeof extensionClass !== "string") {
-        throw new Error("Must be a string or a class constructor");
+        throw new Error("Must be a string, class constructor, or instance");
     }
     try {
         if (extensionClass.trim().startsWith("(function")) {
-            const modified = extensionClass
-                .replace(/class\s+Extension\b/, "let Extension = class Extension")
-                .replace(/dinoBuilder\.extensions\.register\s*\(\s*new\s+Extension\s*\)/, "")
-                + "; return new Extension();";
-            return new Function("dinoBuilder", modified)(window.dinoBuilder);
-        } else if (
-            extensionClass.includes("class") &&
-            extensionClass.includes("getInfo")
-        ) {
-            return new Function(`${extensionClass}; return new Extension();`)();
+            const wrapped = `
+                let Extension;
+                ${extensionClass.replace(/class\s+Extension\b/, 'Extension = class Extension')};
+                return Extension;
+            `;
+            const ExtractedClass = new Function("dinoBuilder", wrapped)(window.dinoBuilder);
+            return new ExtractedClass();
+        } else if (extensionClass.includes("class") && extensionClass.includes("getInfo")) {
+            const ExtensionClass = new Function(`${extensionClass}; return Extension;`)();
+            return new ExtensionClass();
         } else {
             console.warn("Unrecognized extension format.");
             return null;
