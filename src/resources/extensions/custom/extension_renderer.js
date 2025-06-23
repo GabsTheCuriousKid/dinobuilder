@@ -2,23 +2,34 @@ import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
+    if (typeof extensionClass === "function") {
+        try {
+            const instance = new extensionClass();
+            if (typeof instance.getInfo === "function") {
+                return instance;
+            } else {
+                throw new Error("Provided class does not implement getInfo()");
+            }
+        } catch (err) {
+            console.error("Failed to instantiate the provided class:", err);
+            return null;
+        }
+    }
     if (typeof extensionClass !== "string") {
-        throw new Error("Must be a string");
+        throw new Error("Must be a string or a class constructor");
     }
     try {
         if (extensionClass.trim().startsWith("(function")) {
-            const wrapped = `
-                let Extension;
-                ${extensionClass.replace(/class\\s+Extension\\b/, 'Extension = class Extension')};
-                return new Extension();
-            `;
-            return new Function("dinoBuilder", wrapped)(window.dinoBuilder);
+            const modified = extensionClass
+                .replace(/class\s+Extension\b/, "let Extension = class Extension")
+                .replace(/dinoBuilder\.extensions\.register\s*\(\s*new\s+Extension\s*\)/, "")
+                + "; return new Extension();";
+            return new Function("dinoBuilder", modified)(window.dinoBuilder);
         } else if (
             extensionClass.includes("class") &&
             extensionClass.includes("getInfo")
         ) {
-            const instance = new Function(`${extensionClass}; return new Extension();`)();
-            return instance;
+            return new Function(`${extensionClass}; return new Extension();`)();
         } else {
             console.warn("Unrecognized extension format.");
             return null;
@@ -28,7 +39,6 @@ function createExtensionInstance(extensionClass) {
         return null;
     }
 }
-
 
 function checkForErrors(extensionClass) {
     const extension = createExtensionInstance(extensionClass);
