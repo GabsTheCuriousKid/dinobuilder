@@ -3,25 +3,15 @@ import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
     if (typeof window !== 'undefined') {
-        let registered = false;
-
-        if (typeof extensionClass === "function") {
-            try {
-                extensionClass(dinoBuilder);
-                registered = true;
-            } catch (_) {}
-        }
-
-        if (!registered && typeof extensionClass === "string" && extensionClass.includes("class")) {
-            try {
-                const wrappedCode = `
-                    ${extensionClass}
-                    return Extension;
-                `;
-                const ConvertedClass = new Function(wrappedCode)();
-                return new ConvertedClass();
-                registered = true;
-            } catch (_) {}
+        if (typeof extensionClass !== 'function') {
+            const wrappedCode = `
+                ${extensionClass}
+                return Extension;
+            `;
+            const ConvertedClass = new Function(wrappedCode)();
+            return new ConvertedClass();
+        } else {
+            return new extensionClass();
         }
     } else {
         throw new Error("This code must run in the browser.");
