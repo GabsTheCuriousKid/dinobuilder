@@ -3,7 +3,7 @@ import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
     if (typeof window !== 'undefined') {
-        if (typeof extensionClass !== 'function') {
+        if (typeof extensionClass !== 'function' || typeof extensionClass !== 'object') {
             const wrappedCode = `
                 ${extensionClass}
                 return Extension;
@@ -11,7 +11,7 @@ function createExtensionInstance(extensionClass) {
             const ConvertedClass = new Function(wrappedCode)();
             return new ConvertedClass();
         } else {
-            return new extensionClass();
+            return new Function(extensionClass)();
         }
     } else {
         throw new Error("This code must run in the browser.");
