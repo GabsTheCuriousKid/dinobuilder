@@ -1226,7 +1226,7 @@
         color: #888;
         background: transparent;
         text-align: right;
-        font-size: 12px;
+        font-size: 10px;
         line-height: 1.5em;
         height: 100%;
         overflow: hidden;
