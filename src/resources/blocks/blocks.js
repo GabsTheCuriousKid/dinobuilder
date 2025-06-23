@@ -106,7 +106,10 @@ function register() {
         const code = `blocks.push({
             opcode: \`${ID}\`,
             blockType: Scratch.BlockType.${TYPE}
-            hideFromPalette: ${CONDITION || false},
+            hideFromPalette: ${!CONDITION.contains(`((value) =>
+            typeof value === 'string' && (value === 'true' || value === 'false') ?
+            value === 'true' :
+            Boolean(value))(),`) ? CONDITION : false},
             text: \`${TEXT}\`,${FILTER}
             arguments: { ${INPUTS} },
             disableMonitor: ${DMCONDITION}
@@ -236,7 +239,10 @@ function register() {
         
         const code = `blocks.push({${ID}
             blockType: Scratch.BlockType.${TYPE},
-            hideFromPalette: ${CONDITION || false},
+            hideFromPalette: ${!CONDITION.contains(`((value) =>
+            typeof value === 'string' && (value === 'true' || value === 'false') ?
+            value === 'true' :
+            Boolean(value))(),`) ? CONDITION : false},
             text: \`${TEXT}\`,
         });
         ${FUNC}`;

@@ -220,6 +220,12 @@
         window.dinoBuilder.Blockly.getMainWorkspace = () => workspace;
         window.dinoBuilder.Blockly.getMainWorkspace().undo = () => workspace.undo();
         window.dinoBuilder.Blockly.getMainWorkspace().redo = () => workspace.redo();
+        window.dinoBuilder.Blockly.getMainWorkspace().refreshToolbox = () => {
+            const Blockly = window.dinoBuilder.Blockly;
+            const workspace = Blockly.getMainWorkspace()
+            const toolboxXml = workspace.options.languageTree.cloneNode(true);
+            workspace.updateToolbox(toolboxXml);
+        };
 
         // ArgumentTypes
         window.dinoBuilder.ArgumentType = window.dinoBuilder.ArgumentType || {};
@@ -234,6 +240,22 @@
         window.dinoBuilder.BlockType.GAP = "gap";
         window.dinoBuilder.BlockType.LABEL = "label";
         window.dinoBuilder.BlockType.XML = "xml";
+
+        // Gui
+        window.dinoBuilder.Gui = window.Gui || {};
+        window.dinoBuilder.Gui.isLiveTests = () => IsLiveTests;
+        window.dinoBuilder.Gui.copy = (text) => navigator.clipboard.writeText(text);
+        window.dinoBuilder.Gui.download = (text, fileName, fileExtension, fileType = "text/javascript;charset=UTF-8") => {
+            const filteredFileName = fileName.replace(
+                /[^a-z0-9\-]+/gim,
+                "_"
+            );
+            const blob = new Blob([text], {
+                type: fileType,
+            });
+            FileSaver.saveAs(blob, filteredFileName + fileExtension);
+        };
+        window.dinoBuilder.Gui.generatedCode = () => beautifyGeneratedCode(code);
 
         Object.defineProperty(window.dinoBuilder, "secret_", {
             value: function () {
@@ -416,10 +438,6 @@
             beautified,
             Prism.languages.javascript
         );
-        if (IsLiveTests) {
-            const lines = highlighted.split('\n').map(line => `<span class="line" style="font-family: monospace !important">${line}</span>`).join('\n');
-            return lines
-        }
         return highlighted;
     }
 
@@ -1178,7 +1196,7 @@
         background-color: #111;
     }
 
-    .codeDisplay .line {
+    .codeDisplay span {
         display: block;
         position: relative;
         padding-left: 0.5em;
@@ -1186,7 +1204,7 @@
         line-height: 1.4em;
     }
 
-    .codeDisplay .line::before {
+    .codeDisplay span::before {
         counter-increment: linenumber;
         content: counter(linenumber);
         position: absolute;
@@ -1200,7 +1218,7 @@
         transform: translateY(-50%);
     }
 
-    :global(body.dark) .codeDisplay .line::before {
+    :global(body.dark) .codeDisplay span::before {
         color: #555;
     }
 
