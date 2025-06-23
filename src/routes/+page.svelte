@@ -1235,6 +1235,14 @@
         color: #666;
     }
 
+    .lineNumbers div {
+        height: 1.5em;
+        line-height: 1.5em;
+        text-align: right;
+        padding-right: 0.5em;
+        user-select: none;
+    }
+
     .warning {
         background-color: yellow;
         color: black;
