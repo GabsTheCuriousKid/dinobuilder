@@ -988,8 +988,8 @@
                 </div>
                 <div class="codeWrapper">
                     <div class="lineNumbers" key={refreshKey} bind:this={lineNumbers}>
-                        {#each lines as line}
-                            <div class="line">{line}</div>
+                        {#each lines as _, i}
+                            <div class="line">{i + 1}</div>
                         {/each}
                     </div>
                     <div class="codeDisplay" bind:this={codeDisplay} on:scroll={syncScroll}>
