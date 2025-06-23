@@ -2,26 +2,23 @@ import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
 function createExtensionInstance(extensionClass) {
-    if (typeof extensionClass !== "string") throw new Error("Must be a string");
+    if (typeof extensionClass !== "string") {
+        throw new Error("Must be a string");
+    }
     try {
         if (extensionClass.trim().startsWith("(function")) {
-            let ExtractedClass;
             const wrapped = `
                 let Extension;
-                ${extensionClass
-                    .replace(/class\s+Extension\b/, 'Extension = class Extension')};
-                return Extension;
+                ${extensionClass.replace(/class\\s+Extension\\b/, 'Extension = class Extension')};
+                return new Extension();
             `;
-            ExtractedClass = new Function("dinoBuilder", wrapped)(window.dinoBuilder);
-
-            if (ExtractedClass) {
-                return ExtractedClass();
-            } else {
-                throw new Error("Extension class not found in IIFE");
-            }
-        } else if (extensionClass.includes("class") && extensionClass.includes("getInfo")) {
-            const ExtensionClass = new Function(`${extensionClass}; return Extension;`)();
-            return ExtensionClass;
+            return new Function("dinoBuilder", wrapped)(window.dinoBuilder);
+        } else if (
+            extensionClass.includes("class") &&
+            extensionClass.includes("getInfo")
+        ) {
+            const instance = new Function(`${extensionClass}; return new Extension();`)();
+            return instance;
         } else {
             console.warn("Unrecognized extension format.");
             return null;
