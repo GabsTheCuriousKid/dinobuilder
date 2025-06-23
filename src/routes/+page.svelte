@@ -662,6 +662,13 @@
         const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
         return extensionNames.includes(name)
     }
+
+    let codeDisplay;
+    let lineNumbers;
+
+    function syncScroll() {
+        lineNumbers.scrollTop = codeDisplay.scrollTop;
+    }
 </script>
 
 <CreateBlockModal
@@ -961,12 +968,12 @@
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
-                    <div class="lineNumbers" key={refreshKey}>
+                    <div class="lineNumbers" key={refreshKey} bind:this={lineNumbers}>
                         {#each lines as _, i}
                             <div>{i + 1}</div>
                         {/each}
                     </div>
-                    <div class="codeDisplay">
+                    <div class="codeDisplay" bind:this={codeDisplay} on:scroll={syncScroll}>
                         {@html displayGeneratedCode(lastGeneratedCode)}
                     </div>
                 </div>
@@ -1213,13 +1220,13 @@
         font-family: monospace !important;
         top: 0;
         left: 0;
-        width: 2.5em;
+        width: 2em;
         padding-left: 0.5em;
         user-select: none;
         color: #888;
         background: transparent;
         text-align: right;
-        font-size: 0.8em;
+        font-size: 12px;
         line-height: 1.5em;
         height: 100%;
         overflow: hidden;
