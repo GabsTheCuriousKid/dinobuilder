@@ -205,6 +205,45 @@
         lastGeneratedCode = code;
     }
 
+    function generateDinoBuilderWindow(window) {
+        window.dinoBuilder = window.dinoBuilder || {};
+
+        // Extensions
+        window.dinoBuilder.extensions = window.dinoBuilder.extensions || {};
+        window.dinoBuilder.extensions.register = (extensionClass) => {
+            const {xml, name} = registerCustomExtension(extensionClass)
+            onAddExtension(xml, name, false)
+        }
+
+        // Blockly
+        window.dinoBuilder.Blockly = window.Blockly || {};
+        window.dinoBuilder.Blockly.getMainWorkspace = () => workspace;
+        window.dinoBuilder.Blockly.getMainWorkspace().undo = () => workspace.undo();
+        window.dinoBuilder.Blockly.getMainWorkspace().redo = () => workspace.redo();
+
+        // ArgumentTypes
+        window.dinoBuilder.ArgumentType = window.dinoBuilder.ArgumentType || {};
+        window.dinoBuilder.ArgumentType.EMPTY = "input_value";
+        window.dinoBuilder.ArgumentType.STRING = "field_input";
+
+        // BlockTypes
+        window.dinoBuilder.BlockType = window.dinoBuilder.BlockType || {};
+        window.dinoBuilder.BlockType.BLOCK = "block";
+        window.dinoBuilder.BlockType.REPORTER = "reporter";
+        window.dinoBuilder.BlockType.BOOLEAN = "boolean";
+        window.dinoBuilder.BlockType.GAP = "gap";
+        window.dinoBuilder.BlockType.LABEL = "label";
+        window.dinoBuilder.BlockType.XML = "xml";
+
+        Object.defineProperty(window.dinoBuilder, "secret_", {
+            value: function () {
+                console.log("Credits: Penguinmod")
+                window.dinoBuilder.extensions.register('class Extension {getInfo() {return {"name": "Ur mom","id": "urmom","colour": "#FF0000","blocks": [{"opcode": "block","text": "ur mom","type": "block","returns": (block, javascriptGenerator) => {return \`const urmom = "urmom"; console.log(urmom)\`;}},{"opcode": "reporter","text": "ur mom","type": "reporter","output": "string","returns": (block, javascriptGenerator) => {return [\`"urmom"\`, javascriptGenerator.ORDER_ATOMIC];}},{"opcode": "boolean","text": "ur mom","type": "boolean","returns": (block, javascriptGenerator) => {return [\`Boolean("urmom")\`, javascriptGenerator.ORDER_ATOMIC];}},]}}}');
+            },
+            enumerable: false
+        });
+    }
+
     let dropdownEl;
     let selectedExtension = null;
 
@@ -242,14 +281,7 @@
             }
         }); 
 
-        window.dinoBuilder = window.dinoBuilder || {};
-        window.dinoBuilder.extensions = window.dinoBuilder.extensions || {};
-        window.dinoBuilder.extensions.register = (extensionClass) => {
-            const {xml, name} = registerCustomExtension(extensionClass)
-            onAddExtension(xml, name, false)
-        }
-        window.dinoBuilder.Blockly = window.Blockly || {};
-        window.dinoBuilder.Blockly.getMainWorkspace = () => workspace;
+        generateDinoBuilderWindow(window);
 
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {

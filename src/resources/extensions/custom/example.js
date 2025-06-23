@@ -1,4 +1,4 @@
-class Extension {
+class Extension { // Do NOT rename the class, otherwise it won't work
     getInfo() {
         return {
             "name": "Example", // The Name of the Extension
