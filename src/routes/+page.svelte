@@ -605,7 +605,6 @@
             workspace.removeChangeListener(updateGeneratedCode);
             workspace.addChangeListener(updateGeneratedCode);
 
-            refreshKey = 1;
             updateGeneratedCode()
         } catch (error) {
             console.error("Failed to update toolbox:", error);
@@ -631,6 +630,12 @@
     let lines;
 
     $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
+
+    let previousLineCount = 0;
+    $: if (lines.length !== previousLineCount) {
+        previousLineCount = lines.length;
+        refreshKey++;
+    }
 
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
@@ -833,7 +838,7 @@
                 </div>
             </div>
             <div class="blocklyWrapper">
-                <BlocklyComponent {config} key={refreshKey} locale={en} bind:workspace />
+                <BlocklyComponent {config} locale={en} bind:workspace />
                 {#if IsLiveTests}
                     <div class="extensionDropdown" style="display: none; position: absolute;">
                         <button on:click={() => onRemoveExtension(selectedExtension)}>Remove Extension</button>
@@ -956,12 +961,12 @@
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
-                    <div class="lineNumbers">
+                    <div class="lineNumbers" key={refreshKey}>
                         {#each lines as _, i}
                             <div>{i + 1}</div>
                         {/each}
                     </div>
-                    <div class="codeDisplay" key={refreshKey}>
+                    <div class="codeDisplay">
                         {@html displayGeneratedCode(lastGeneratedCode)}
                     </div>
                 </div>
@@ -1214,7 +1219,7 @@
         color: #888;
         background: transparent;
         text-align: right;
-        font-size: 0.9em;
+        font-size: 0.8em;
         line-height: 1.5em;
         height: 100%;
         overflow: hidden;
