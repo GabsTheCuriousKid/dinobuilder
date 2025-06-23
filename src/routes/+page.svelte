@@ -628,6 +628,10 @@
         }
     }
 
+    let lines;
+    
+    $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
+
     $: if (IsLiveTests) {
         console.log("Is Live Tests?: ", IsLiveTests)
         try {
@@ -952,6 +956,11 @@
                     </StyledButton>
                 </div>
                 <div class="codeWrapper">
+                    <div class="lineNumbers">
+                        {#each lines as _, i}
+                            <div>{i + 1}</div>
+                        {/each}
+                    </div>
                     <div class="codeDisplay" key={refreshKey}>
                         {@html displayGeneratedCode(lastGeneratedCode)}
                     </div>
@@ -1186,8 +1195,6 @@
         padding: 0 0 0 3em; /* leave space for line numbers */
         overflow: auto;
 
-        counter-reset: linenumber;
-
         background: #f9f9f9;
         white-space: pre-wrap;
         font-family: monospace !important;
@@ -1196,30 +1203,24 @@
         background-color: #111;
     }
 
-    .codeDisplay span {
-        display: block;
-        position: relative;
-        padding-left: 0.5em;
-        font-family: monospace !important;
-        line-height: 1.4em;
-    }
-
-    .codeDisplay span::before {
-        counter-increment: linenumber;
-        content: counter(linenumber);
+    .lineNumbers {
         position: absolute;
+        top: 0;
         left: 0;
-        width: 2.5em;
-        text-align: right;
-        color: #aaa;
-        font-weight: normal;
+        width: 3em;
+        padding-left: 0.5em;
         user-select: none;
-        top: 50%;
-        transform: translateY(-50%);
+        color: #888;
+        background: #eee;
+        text-align: right;
+        font-size: 0.9em;
+        line-height: 1.5em;
+        height: 100%;
+        overflow: hidden;
     }
-
-    :global(body.dark) .codeDisplay span::before {
-        color: #555;
+    :global(body.dark) .lineNumbers {
+        background-color: #222;
+        color: #666;
     }
 
     .warning {
