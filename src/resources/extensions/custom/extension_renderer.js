@@ -1,29 +1,22 @@
 import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
-function createExtensionInstance(extensionClass) {
-    if (typeof window === 'undefined') {
-        throw new Error("This code must run in the browser.");
-    }
-
-    if (typeof extensionClass === 'string') {
-        const trimmed = extensionClass.trim();
-
-        if (trimmed.startsWith('(function')) {
-            const ConvertedClass = eval(extensionClass);
-            return new ConvertedClass();
+function createExtensionInstance(extensionCode) {
+    if (typeof extensionCode !== "string") throw new Error("Must be a string");
+    try {
+        if (extensionCode.trim().startsWith("(function")) {
+            const result = new Function("dinoBuilder", extensionCode)(window.dinoBuilder);
+            return result;
+        } else if (extensionCode.includes("class") && extensionCode.includes("getInfo")) {
+            const ExtensionClass = new Function(`${extensionCode}; return Extension;`)();
+            return ExtensionClass;
         } else {
-            const wrappedCode = `
-                ${extensionClass}
-                return Extension;
-            `;
-            const ConvertedClass = new Function(wrappedCode)();
-            return new ConvertedClass();
+            console.warn("Unrecognized extension format.");
+            return null;
         }
-    } else if (typeof extensionClass === 'function') {
-        return new extensionClass();
-    } else {
-        throw new Error("Invalid parameter for extension");
+    } catch (e) {
+        console.error("Extension failed to load:", e);
+        return null;
     }
 }
 
