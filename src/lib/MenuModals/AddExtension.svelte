@@ -2,6 +2,8 @@
     import { page } from '$app/stores';
     import { createEventDispatcher } from "svelte";
 
+    import { get, set, remove } from '../utils/GlobalTempVariables.js';
+
     const dispatch = createEventDispatcher();
 
     function cancel() {
@@ -94,17 +96,15 @@
                 <div style="height:5px" />
                 {localjsextensionExt ? 'Selected' : 'Javascript'}
             </button>
-            {#if IsLiveTests}
-                <button class="block-extension" on:click={toggleCustom}>
-                    <img 
-                        alt="CustomExtensionPNG"
-                        src="images/extensionIcons/NoIcon.png"
-                        height={50}
-                    />
-                    <div style="height:5px" />
-                    {localcustomextensionExt ? 'Selected' : 'Add Custom Extension'}
-                </button>
-            {/if}
+            <button class="block-extension" on:click={toggleCustom}>
+                <img 
+                    alt="CustomExtensionPNG"
+                    src="images/extensionIcons/NoIcon.png"
+                    height={50}
+                />
+                <div style="height:5px" />
+                {localcustomextensionExt ? 'Selected' : 'Add Custom Extension'}
+            </button>
         </div>
         <div class="modal-buttons">
             <button class="button-cancel" on:click={cancel}>Cancel</button>

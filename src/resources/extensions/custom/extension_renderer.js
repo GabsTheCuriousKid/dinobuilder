@@ -1,6 +1,8 @@
 import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
+const blocksVar = [];
+
 function createExtensionInstance(extensionClass) {
     if (typeof extensionClass === "object" && extensionClass !== null) {
         return extensionClass;
@@ -234,9 +236,18 @@ function registerCustomExtension(extensionClass) {
             const code = returns(block, javascriptGenerator)
             return code;
         })
+
+        blocksVar.push({
+            id: id + '_' + blockid,
+            jsonData: jsonData,
+            returns: (block) => {
+                const code = returns(block, javascriptGenerator)
+                return code;
+            }
+        })
     }
     checkForErrors(extensionClass)
-    return { xml: defineXmlOfExtension(extensionClass), name: name }
+    return { xml: defineXmlOfExtension(extensionClass), name: name, blocks: blocksVar }
 }
 
 export default registerCustomExtension

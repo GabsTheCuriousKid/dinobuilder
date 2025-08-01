@@ -32,6 +32,7 @@
 
     import AddXMLtoXML from '../utils/AddXMLtoXML.js';
     import RemoveXMLfromXML from '../utils/RemoveXMLfromXML.js';
+    import { get, set, remove } from '../utils/GlobalTempVariables.js';
 
     import Blockly from "blockly/core";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
@@ -109,6 +110,7 @@
     import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
 
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
+    import registerBlock from '../resources/register';
 
     const en = {
         rtl: false,
@@ -211,8 +213,8 @@
         // Extensions
         window.dinoBuilder.extensions = window.dinoBuilder.extensions || {};
         window.dinoBuilder.extensions.register = (extensionClass) => {
-            const {xml, name} = registerCustomExtension(extensionClass)
-            onAddExtension(xml, name, false)
+            const {xml, name, blocks} = registerCustomExtension(extensionClass)
+            onAddExtension(xml, name, true, true, blocks)
         }
 
         // Blockly
@@ -410,7 +412,14 @@
                 async function addAllExtensions() {
                     const extensions = projectJson.extensions;
                     for (const extension of extensions) {
-                        await onAddExtension(extension.xml, extension.name);
+                        if (extension.customData) {
+                            for (const block of extension.customData) {
+                                registerBlock(block.id, block.jsonData, block.returns)
+                            }
+                            await onAddExtension(extension.xml, extension.name);
+                        } else {
+                            await onAddExtension(extension.xml, extension.name);
+                        }
                     };
                 }
                 addAllExtensions()
@@ -547,15 +556,23 @@
         );
     }
 
-    async function onAddExtension(extensionXML, categoryName, shouldSave) {
+    async function onAddExtension(extensionXML, categoryName, shouldSave, isCustom, customData) {
         if (!hasCategory(newToolbox, categoryName)) {
             let modifiedToolbox = AddXMLtoXML(extensionXML, newToolbox);
             newToolbox = modifiedToolbox;
             if (!!shouldSave) {
-                addedExtensions.push({
-                    name: categoryName,
-                    xml: extensionXML
-                })
+                if (!!isCustom) {
+                    addedExtensions.push({
+                        name: categoryName,
+                        xml: extensionXML,
+                        customData: customData
+                    })
+                } else {
+                    addedExtensions.push({
+                        name: categoryName,
+                        xml: extensionXML
+                    })
+                }
             }
             updateToolbox(newToolbox);
         }
