@@ -165,7 +165,7 @@ function registerCustomExtension(extensionClass) {
         const blockid = block["opcode"];
         const text = block["text"];
         const type = block["type"];
-        const returns = block["returns"];
+        const blockReturns = block["returns"];
         const jsonData = {};
         function defineOutput(output) {
             switch (output) {
@@ -233,7 +233,7 @@ function registerCustomExtension(extensionClass) {
         jsonData["colour"] = colour;
         
         registerBlock(id + '_' + blockid, jsonData, (block) => {
-            const code = returns(block, javascriptGenerator)
+            const code = blockReturns(block, javascriptGenerator)
             return code;
         })
 
@@ -241,7 +241,7 @@ function registerCustomExtension(extensionClass) {
             id: id + '_' + blockid,
             jsonData: jsonData,
             returns: (block, jG) => {
-                const code = returns(block, jG)
+                const code = blockReturns(block, jG)
                 return code;
             }
         })
