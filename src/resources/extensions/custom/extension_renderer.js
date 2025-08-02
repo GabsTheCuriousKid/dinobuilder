@@ -1,7 +1,7 @@
 import javascriptGenerator from '../../javascriptGenerator';
 import registerBlock from '../../register';
 
-const blocksVar = [];
+let blocksVar = [];
 
 function createExtensionInstance(extensionClass) {
     if (typeof extensionClass === "object" && extensionClass !== null) {
