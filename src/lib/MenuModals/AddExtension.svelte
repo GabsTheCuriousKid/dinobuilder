@@ -97,7 +97,7 @@
             >
                 <p id="chooseNote">Choose an Extension you'll like to add</p>
                 <p>Note: After you add one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
-                <textarea id="extensions_textarea" placeholder="paste the custom extension here" style="display: none;"></textarea>
+                <textarea id="extensions_textarea" placeholder="Paste the Custom extension here" style="display: none;"></textarea>
             </div>
             <button class="block-extension" on:click={toggleHidden}>
                 <img 
@@ -257,8 +257,8 @@
         border-color: rgb(114, 114, 114) !important;
     }
     textarea {
-        width: 360px;
-        height: 125px;
+        width: 80%;
+        height: 240px;
         resize: none;
         overflow: auto;
         background-color: white;
