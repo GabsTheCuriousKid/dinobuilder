@@ -415,6 +415,7 @@
                     for (const extension of extensions) {
                         if (extension.customData) {
                             for (const blockData of extension.customData) {
+                                console.log(blockData)
                                 registerBlock(blockData.id, blockData.jsonData, (block) => {
                                     return blockData.returns(block, javascriptGenerator)
                                 })
