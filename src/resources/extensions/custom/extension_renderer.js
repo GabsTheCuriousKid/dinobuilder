@@ -232,16 +232,18 @@ function registerCustomExtension(extensionClass) {
         }
         jsonData["colour"] = colour;
         
-        registerBlock(id + '_' + blockid, jsonData, (block) => {
-            const code = blockReturns(block, javascriptGenerator)
-            return code;
-        })
+        if (!type == 'label' || !type == 'gap') {
+            registerBlock(id + '_' + blockid, jsonData, (block) => {
+                const code = blockReturns(block, javascriptGenerator)
+                return code;
+            })
 
-        blocksVar.push({
-            id: id + '_' + blockid,
-            jsonData: jsonData,
-            returns: (blockVar, jG) => { return blockReturns(blockVar, jG) };
-        })
+            blocksVar.push({
+                id: id + '_' + blockid,
+                jsonData: jsonData,
+                returns: (blockVar, jG) => { return blockReturns(blockVar, jG) };
+            })
+        }
     }
     checkForErrors(extensionClass)
     return { xml: defineXmlOfExtension(extensionClass), name: name, blocks: blocksVar }
