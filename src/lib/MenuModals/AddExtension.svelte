@@ -2,7 +2,7 @@
     import { page } from '$app/stores';
     import { createEventDispatcher } from "svelte";
 
-    import { get, set, remove } from '../utils/GlobalTempVariables.js';
+    import { get, set, remove } from '../../src/utils/GlobalTempVariables.js';
 
     const dispatch = createEventDispatcher();
 
