@@ -7,11 +7,13 @@
     const dispatch = createEventDispatcher();
 
     let toggledCustomGUI = false;
+    let extensionCode;
 
     function cancel() {
         if (!!toggledCustomGUI) {
             toggleCustomGUI(false)
-            toggleCustom(null)
+            extensionCode = null
+            toggleCustom()
         } else {
             dispatch("cancel");
         }
@@ -20,7 +22,8 @@
     function event() {
         toggleCustomGUI(false)
         if (!!toggledCustomGUI) {
-            toggleCustom(document.getElementById("extensions_textarea").value)
+            extensionCode = document.getElementById("extensions_textarea").value
+            toggleCustom()
         }
         dispatch("completed", {
             hiddenblocksExt: localhiddenblocksExt,
@@ -50,7 +53,7 @@
     function toggleJS() {
         localjsextensionExt = !localjsextensionExt
     }
-    function toggleCustom(extensionCode) {
+    function toggleCustom() {
         if (extensionCode == null || extensionCode == '') {
             localcustomextensionExt = false
             localCustomExtensionCode = ''
@@ -123,7 +126,7 @@
                 <div style="height:5px" />
                 {localjsextensionExt ? 'Selected' : 'Javascript'}
             </button>
-            <button class="block-extension" on:click={toggleCustom}>
+            <button class="block-extension" on:click={() => toggleCustomGUI(true)}>
                 <img 
                     alt="CustomExtensionPNG"
                     src="images/extensionIcons/NoIcon.png"
