@@ -6,11 +6,22 @@
 
     const dispatch = createEventDispatcher();
 
+    let toggledCustomGUI = false;
+
     function cancel() {
-        dispatch("cancel");
+        if (!!toggledCustomGUI) {
+            toggleCustomGUI(false)
+            toggleCustom(null)
+        } else {
+            dispatch("cancel");
+        }
     }
 
     function event() {
+        toggleCustomGUI(false)
+        if (!!toggledCustomGUI) {
+            toggleCustom(document.getElementById("extensions_textarea").value)
+        }
         dispatch("completed", {
             hiddenblocksExt: localhiddenblocksExt,
             webextensionExt: localwebextensionExt,
@@ -39,9 +50,7 @@
     function toggleJS() {
         localjsextensionExt = !localjsextensionExt
     }
-    function toggleCustom() {
-        const extensionCode = prompt("Paste the custom Extension Code");
-        console.log("Prompt result:", extensionCode);
+    function toggleCustom(extensionCode) {
         if (extensionCode == null || extensionCode == '') {
             localcustomextensionExt = false
             localCustomExtensionCode = ''
@@ -49,6 +58,23 @@
         } else {
             localcustomextensionExt = true
             localCustomExtensionCode = extensionCode
+        }
+    }
+
+    function toggleCustomGUI(bool) {
+        toggledCustomGUI = bool
+        if (bool) {
+            for (const blockExtension of document.querySelectorAll(".block-extension")) {
+                blockExtension.style.display = "none"
+            }
+            document.getElementById("chooseNote").innerHTML = "Paste the Custom Extension code below"
+            document.getElementById("extensions_textarea").style.display = ""
+        } else {
+            for (const blockExtension of document.querySelectorAll(".block-extension")) {
+                blockExtension.style.display = ""
+            }
+            document.getElementById("chooseNote").innerHTML = "Choose an Extension you'll like to add"
+            document.getElementById("extensions_textarea").style.display = "none"
         }
     }
 
@@ -66,8 +92,9 @@
             <div 
                 style="display:flex;flex-direction:column;align-items:center;justify-content:center;height=100%"
             >
-            <p>Choose an Extension you'll like to add</p>
-            <p>Note: After you select one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
+                <p id="chooseNote">Choose an Extension you'll like to add</p>
+                <p>Note: After you add one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
+                <textarea id="extensions_textarea" placeholder="paste the custom extension here" style="display: none;"></textarea>
             </div>
             <button class="block-extension" on:click={toggleHidden}>
                 <img 
@@ -161,7 +188,7 @@
     }
     .modal {
         width: 60%;
-        height: 50%;
+        height: 70%;
         outline: 4px solid hsla(0, 100%, 100%, 0.25);
         border-radius: 0.5rem;
         background: white;
@@ -225,5 +252,23 @@
     }
     :global(body.dark) .block-extension:active {
         border-color: rgb(114, 114, 114) !important;
+    }
+    textarea {
+        width: 360px;
+        height: 125px;
+        resize: none;
+        overflow: auto;
+        background-color: white;
+        color: #111111;
+    }
+    textarea::placeholder {
+        color: #757575;
+    }
+    :global(body.dark) textarea {
+        background-color: #111111;
+        color: white;
+    }
+    :global(body.dark) textarea::placeholder {
+        color: #444444;
     }
 </style>

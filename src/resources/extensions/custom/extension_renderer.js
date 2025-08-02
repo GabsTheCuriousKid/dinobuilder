@@ -240,8 +240,8 @@ function registerCustomExtension(extensionClass) {
         blocksVar.push({
             id: id + '_' + blockid,
             jsonData: jsonData,
-            returns: (block) => {
-                const code = returns(block, javascriptGenerator)
+            returns: (block, jG) => {
+                const code = returns(block, jG)
                 return code;
             }
         })

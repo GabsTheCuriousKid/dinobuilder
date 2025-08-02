@@ -111,6 +111,7 @@
 
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
     import registerBlock from '../resources/register';
+    import javascriptGenerator from '../resources/javascriptGenerator';
 
     const en = {
         rtl: false,
@@ -413,8 +414,10 @@
                     const extensions = projectJson.extensions;
                     for (const extension of extensions) {
                         if (extension.customData) {
-                            for (const block of extension.customData) {
-                                registerBlock(block.id, block.jsonData, block.returns)
+                            for (const blockData of extension.customData) {
+                                registerBlock(blockData.id, blockData.jsonData, (block) => {
+                                    return blockData.returns(block, javascriptGenerator)
+                                })
                             }
                             await onAddExtension(extension.xml, extension.name);
                         } else {
