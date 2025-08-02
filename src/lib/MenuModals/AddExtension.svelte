@@ -20,10 +20,10 @@
     }
 
     function event() {
-        toggleCustomGUI(false)
         if (!!toggledCustomGUI) {
             extensionCode = document.getElementById("extensions_textarea").value
             toggleCustom()
+            toggleCustomGUI(false)
         }
         dispatch("completed", {
             hiddenblocksExt: localhiddenblocksExt,
