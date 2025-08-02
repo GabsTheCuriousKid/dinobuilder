@@ -240,9 +240,7 @@ function registerCustomExtension(extensionClass) {
         blocksVar.push({
             id: id + '_' + blockid,
             jsonData: jsonData,
-            returns: (block, jG) => {
-                return blockReturns(block, jG);
-            }
+            returns: (blockVar, jG) => block["returns"](blockVar, jG);
         })
     }
     checkForErrors(extensionClass)
