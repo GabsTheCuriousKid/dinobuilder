@@ -232,7 +232,7 @@ function registerCustomExtension(extensionClass) {
         }
         jsonData["colour"] = colour;
         
-        if (!type == 'label' || !type == 'gap') {
+        if (type !== 'label' || type !== 'gap') {
             registerBlock(id + '_' + blockid, jsonData, (block) => {
                 const code = blockReturns(block, javascriptGenerator)
                 return code;
