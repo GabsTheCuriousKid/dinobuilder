@@ -237,14 +237,11 @@ function registerCustomExtension(extensionClass) {
             return code;
         })
 
-        console.log("blockid:", blockid, "typeof returns:", typeof blockReturns);
-
         blocksVar.push({
             id: id + '_' + blockid,
             jsonData: jsonData,
             returns: (block, jG) => {
-                const code = blockReturns(block, jG)
-                return code;
+                return blockReturns(block, jG);
             }
         })
     }
