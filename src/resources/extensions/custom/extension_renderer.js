@@ -253,6 +253,17 @@ function registerCustomExtension(extensionClass) {
         }
     }
     checkForErrors(extensionClass)
+    for (const blockData of blocksVar) {
+        if (blockData.returns == undefined) {
+            console.log("its undefined")
+        }
+        if (blockData.returns == null) {
+            console.log("its null")
+        }
+        if (!blockData.returns) {
+            console.log("it doesn't exist")
+        }
+    }
     return { xml: defineXmlOfExtension(extensionClass), name: name, blocks: blocksVar }
 }
 
