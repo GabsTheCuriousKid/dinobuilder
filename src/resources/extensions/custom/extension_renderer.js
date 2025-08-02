@@ -241,7 +241,7 @@ function registerCustomExtension(extensionClass) {
             blocksVar.push({
                 id: id + '_' + blockid,
                 jsonData: jsonData,
-                returns: (blockVar, jG) => { return blockReturns(blockVar, jG) };
+                returns: (blockVar, jG) => { return blockReturns(blockVar, jG) }
             })
         }
     }
