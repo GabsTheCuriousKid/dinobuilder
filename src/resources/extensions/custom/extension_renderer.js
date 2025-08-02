@@ -165,7 +165,6 @@ function registerCustomExtension(extensionClass) {
         const blockid = block["opcode"];
         const text = block["text"];
         const type = block["type"];
-        const blockReturns = block["returns"];
         const jsonData = {};
         function defineOutput(output) {
             switch (output) {
@@ -233,6 +232,8 @@ function registerCustomExtension(extensionClass) {
         jsonData["colour"] = colour;
         
         if (type !== 'label' || type !== 'gap') {
+            const blockReturns = block["returns"];
+
             registerBlock(id + '_' + blockid, jsonData, (block) => {
                 const code = blockReturns(block, javascriptGenerator)
                 return code;
@@ -241,7 +242,13 @@ function registerCustomExtension(extensionClass) {
             blocksVar.push({
                 id: id + '_' + blockid,
                 jsonData: jsonData,
-                returns: (blockVar, jG) => { return blockReturns(blockVar, jG) }
+                returns: (blockVar, jG) => {
+                    if (typeof blockReturns === "function") {
+                        return blockReturns(blockVar, jG);
+                    }
+                    console.warn("No returns function for block:", blockid);
+                    return "";
+                }
             })
         }
     }
