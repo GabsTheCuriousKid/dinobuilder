@@ -1,6 +1,5 @@
 import Blockly from 'blockly/core';
 import javascriptGenerator from '../javascriptGenerator';
-import convertArgToBlock from '../argBlocks'
 
 export default (blockName, jsonData, compileFunction) => {
     for (const property in jsonData) {
