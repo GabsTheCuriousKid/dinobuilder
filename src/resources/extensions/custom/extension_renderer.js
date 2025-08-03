@@ -244,6 +244,8 @@ function registerCustomExtension(extensionClass) {
                 jsonData: jsonData,
                 returns: blockReturns.toString()
             })
+
+            console.log(blockReturns.toString())
         }
     }
     checkForErrors(extensionClass)
