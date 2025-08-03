@@ -41,7 +41,7 @@
     const Theme = Blockly.Theme.defineTheme("BasicTheme", {
         base: Blockly.Themes.Classic,
         fontStyle: {
-            family: '"Source Code Pro", monospace',
+            family: '"Helvetica Neue", Helvetica, Arial, sans-serif', //'"Source Code Pro", monospace',
             weight: "700",
             size: 12,
         },
@@ -223,12 +223,12 @@
         window.dinoBuilder.Blockly.getMainWorkspace = () => workspace;
         window.dinoBuilder.Blockly.getMainWorkspace().undo = () => workspace.undo();
         window.dinoBuilder.Blockly.getMainWorkspace().redo = () => workspace.redo();
-        window.dinoBuilder.Blockly.getMainWorkspace().refreshToolbox = () => {
+        /*window.dinoBuilder.Blockly.getMainWorkspace().refreshToolbox = () => {
             const Blockly = window.dinoBuilder.Blockly;
             const workspace = Blockly.getMainWorkspace()
             const toolboxXml = workspace.options.languageTree.cloneNode(true);
             workspace.updateToolbox(toolboxXml);
-        };
+        };*/
 
         // ArgumentTypes
         window.dinoBuilder.ArgumentType = window.dinoBuilder.ArgumentType || {};
