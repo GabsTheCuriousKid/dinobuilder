@@ -308,11 +308,3 @@ export default class Renderer extends Blockly.zelos.Renderer {
         return new CustomConstantProvider();
     }
 }
-
-Blockly.registry.register(
-    Blockly.registry.Type.RENDERER,
-    'custom_zelos',
-    CustomRenderer
-);
-
-Blockly.blockRendering.ConstantProvider = CustomConstantProvider;
