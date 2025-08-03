@@ -265,11 +265,11 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
                 return height;
             },
             connectionOffsetY(connectionHeight) {
-                connectionHeight = Number(connectionHeight) || (spikeHeight * 4);
+                const h = Number(connectionHeight);
                 return isFinite(h) ? h / 2 : spikeHeight * 2;
             },
             connectionOffsetX(connectionWidth) {
-                connectionWidth = Number(connectionWidth) || (spikeWidth * 2);
+                const w = Number(connectionWidth);
                 return isFinite(w) ? -w : -(spikeWidth * 2);
             },
             pathDown(height) {
