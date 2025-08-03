@@ -415,9 +415,19 @@
                     for (const extension of extensions) {
                         if (extension.customData) {
                             for (const blockData of extension.customData) {
-                                console.log(blockData)
+                                let returnsFn;
+                                if (typeof blockData.returns === "string") {
+                                    try {
+                                        returnsFn = Function(`(${blockData.returns})`);
+                                    } catch (e) {
+                                        console.error("Failed to restore returns function:", e);
+                                        returnsFn = () => "";
+                                    }
+                                } else {
+                                    returnsFn = () => "";
+                                }
                                 registerBlock(blockData.id, blockData.jsonData, (block) => {
-                                    return blockData.returns(block, javascriptGenerator)
+                                    return returnsFn(block, javascriptGenerator)
                                 })
                             }
                             await onAddExtension(extension.xml, extension.name);

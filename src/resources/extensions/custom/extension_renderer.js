@@ -242,13 +242,7 @@ function registerCustomExtension(extensionClass) {
             blocksVar.push({
                 id: id + '_' + blockid,
                 jsonData: jsonData,
-                returns: (blockVar, jG) => {
-                    if (typeof blockReturns === "function") {
-                        return blockReturns(blockVar, jG);
-                    }
-                    console.warn("No returns function for block:", blockid);
-                    return "";
-                }
+                returns: blockReturns.toString()
             })
         }
     }
