@@ -310,7 +310,7 @@
 
         const params = new URLSearchParams(window.location.search);
         if (params.has('extension')) {
-            window.dinoBuilder.extensions.register(params.get('extension'))
+            window.dinoBuilder.extensions.register(decodeURIComponent(params.get('extension')))
         }
 
         document.addEventListener('mousedown', async (event) => {
