@@ -288,17 +288,17 @@ export default class Renderer extends Blockly.zelos.Renderer {
 
         const type = block.type;
 
-        if (type === 'control_switch') {
+        if (type === 'switch' || type.endsWith('switch')) {
             if (connection === block.getInput('BLOCKS')?.connection) {
                 return this.constants_.makeNotchShapeCustom();
             }
         }
-        if (type === 'control_case') {
+        if (type === 'case' || type.endsWith('case')) {
             if (connection === block.previousConnection || connection === block.nextConnection) {
                 return this.constants_.makeNotchShapeCustom();
             }
         }
-        if (type === 'control_default') {
+        if (type === 'default' || type.endsWith('default')) {
             if (connection === block.previousConnection) {
                 return this.constants_.makeNotchShapeCustom();
             }
