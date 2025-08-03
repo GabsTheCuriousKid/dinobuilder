@@ -239,64 +239,56 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         const spikeWidth = 6;
 
         function makeMainPath(height, up, right) {
-            height = Number(height) || (spikeHeight * 4);
+            height = Number(height);
+            if (!isFinite(height) || height <= 0) {
+                height = spikeHeight * 4;
+            }
+
             const halfHeight = height / 2;
             const direction = right ? 1 : -1;
             const forward = up ? -1 : 1;
 
-            console.log("height: ", height, "halfheight: ", halfHeight, "direction: ", direction, "forward: ", forward)
-            console.log("typeof height: ", typeof height, "typeof halfheight: ", typeof halfHeight, "typeof direction: ", typeof direction, "typeof forward: ", typeof forward)
-
-            return (
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)) +
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
+            return [
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
+                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight),
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
+                Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)),
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
                 Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight)
-            )
+            ].join('');
         }
 
         return {
             type: this.SHAPES.HEXAGONAL,
             isDynamic: true,
-            width(width) {
+            width() {
                 return spikeWidth * 2;
             },
             height(height) {
-                height = Number(height) || (spikeHeight * 4);
+                height = Number(height);
+                if (!isFinite(height) || height <= 0) {
+                    height = spikeHeight * 4;
+                }
                 return height;
             },
             connectionOffsetY(connectionHeight) {
-                console.log('connectionOffsetY input:', connectionHeight);
                 const h = Number(connectionHeight);
-                const result = isFinite(h) ? h / 2 : spikeHeight * 2;
-                console.log('connectionOffsetY output:', result);
-                return result;
+                return isFinite(h) && h > 0 ? h / 2 : spikeHeight * 2;
             },
             connectionOffsetX(connectionWidth) {
-                console.log('connectionOffsetX input:', connectionWidth);
                 const w = Number(connectionWidth);
-                const result = isFinite(w) ? -w : -(spikeWidth * 2);
-                console.log('connectionOffsetX output:', result);
-                return result;
+                return isFinite(w) && w > 0 ? -w : -(spikeWidth * 2);
             },
             pathDown(height) {
-                console.log("pathDown height:", height);
-                const path = makeMainPath(height, false, false);
-                console.log('pathDown returns:', path);
-                return path;
+                return makeMainPath(height, false, false);
             },
             pathUp(height) {
-                console.log("pathUp height:", height);
                 return makeMainPath(height, true, false);
             },
             pathRightDown(height) {
-                console.log("pathRightDown height:", height);
                 return makeMainPath(height, false, true);
             },
             pathRightUp(height) {
-                console.log("pathRightUp height:", height);
                 return makeMainPath(height, true, true);
             },
         };
