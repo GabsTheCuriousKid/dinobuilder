@@ -7,11 +7,11 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
     init() {
         super.init()
 
+        this.NOTCH_SWITCH_PATH = NOTCH_SWITCH_PATH_LEFT
+
         this.makeNotchShapeCustom = () => {
             return new Blockly.blockRendering.PathObject(this.NOTCH_SWITCH_PATH);
         };
-
-        this.NOTCH_SWITCH_PATH = NOTCH_SWITCH_PATH_LEFT
 
         this.SQUARED = this.makeSquared()
         this.ROUNDEL = this.makeRoundel()
@@ -23,32 +23,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         const constants = super.makeConstants_();
         constants.NOTCH_PATH = NOTCH_SWITCH_PATH_LEFT;
         return constants;
-    }
-
-    getConnectionShape_(connection) {
-        const block = connection.getSourceBlock();
-
-        if (!block) return super.getConnectionShape_(connection);
-
-        if (block.type === `control_switch` && connection.type === Blockly.INPUT_VALUE) {
-            if (connection === block.getInput('BLOCKS').connection) {
-                return this.constants_.makeNotchShapeCustom();
-            }
-        }
-
-        if (block.type === `control_case`) {
-            if (connection === block.previousConnection || connection === block.nextConnection) {
-                return this.constants_.makeNotchShapeCustom();
-            }
-        }
-
-        if (block.type === `control_default`) {
-            if (connection === block.previousConnection) {
-                return this.constants_.makeNotchShapeCustom();
-            }
-        }
-
-        return super.getConnectionShape_(connection);
     }
 
     makeSquared() {
@@ -306,5 +280,30 @@ export default class Renderer extends Blockly.zelos.Renderer {
 
     makeConstants_() {
         return new CustomConstantProvider();
+    }
+
+    getConnectionShape_(connection) {
+        const block = connection.getSourceBlock();
+        if (!block) return super.getConnectionShape_(connection);
+
+        const type = block.type;
+
+        if (type === 'control_switch') {
+            if (connection === block.getInput('BLOCKS')?.connection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+        if (type === 'control_case') {
+            if (connection === block.previousConnection || connection === block.nextConnection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+        if (type === 'control_default') {
+            if (connection === block.previousConnection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+
+        return super.getConnectionShape_(connection);
     }
 }
