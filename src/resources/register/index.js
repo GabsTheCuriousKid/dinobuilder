@@ -1,5 +1,6 @@
 import Blockly from 'blockly/core';
 import javascriptGenerator from '../javascriptGenerator';
+import convertArgToBlock from '../argBlocks'
 
 export default (blockName, jsonData, compileFunction) => {
     for (const property in jsonData) {
@@ -13,6 +14,16 @@ export default (blockName, jsonData, compileFunction) => {
             this.jsonInit(jsonData);
         }
     };
+
+    // taken from https://github.com/jwklong/extforge/blob/main/src/resources/register/index.js#L22
+    // idk why i did it this way olo
+    for (let message = 0; jsonData[`message${message}`]; message++) {
+        if (jsonData[`args${message}`]) {
+            const args = jsonData[`args${message}`]
+            for (let idx = 0, arg; arg = args[idx]; idx++)
+                args[idx] = convertArgToBlock(arg, jsonData.colour, blockName, blockObject)
+        }
+    }
 
     // register visual block
     Blockly.Blocks[blockName] = blockObject
