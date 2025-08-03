@@ -244,14 +244,16 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
             const direction = right ? 1 : -1;
             const forward = up ? -1 : 1;
 
-            return (
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)) +
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight)
-            );
+            let path = Blockly.utils.svgPaths.moveBy(0, 0);
+
+            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
+            path += Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight);
+            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
+            path += Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2));
+            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
+            path += Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight);
+
+            return path;
         }
 
         return {
@@ -299,7 +301,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         if (!checks && connection.targetConnection) {
             checks = connection.targetConnection.getCheck();
         }
-        /*
         if (connection.sourceBlock_) {
             const block = connection.sourceBlock_
             if (
@@ -321,7 +322,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
                 return this.SPIKES
             }
         }
-        */
         if (connection.type == Blockly.ConnectionType.INPUT_VALUE || connection.type == Blockly.ConnectionType.OUTPUT_VALUE) {
             if (checks && checks.indexOf('Function') !== -1) {
                 return this.RHOMBUS;
