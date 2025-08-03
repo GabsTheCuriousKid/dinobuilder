@@ -308,12 +308,6 @@
 
         generateDinoBuilderWindow(window);
 
-        const params = new URLSearchParams(window.location.search);
-        if (params.has('extension')) {
-            console.log(beautifyGeneratedCode(decodeURIComponent(params.get('extension').toString())))
-            window.dinoBuilder.extensions.register(beautifyGeneratedCode(decodeURIComponent(params.get('extension').toString())))
-        }
-
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
 				await new Promise(resolve => setTimeout(resolve, 10))
