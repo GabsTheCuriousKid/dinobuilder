@@ -49,7 +49,7 @@
     });
 
     Blockly.VerticalFlyout.prototype.getFlyoutScale = function () {
-        return config.zoom.startScale - 1;
+        return config.zoom.startScale - 0.05;
     };
 
     import En from "blockly/msg/en";
