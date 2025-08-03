@@ -418,7 +418,7 @@
                                 let returnsFn;
                                 if (typeof blockData.returns === "string") {
                                     try {
-                                        returnsFn = Function(`(${blockData.returns})`);
+                                        returnsFn = eval(`(${blockData.returns})`);
                                     } catch (e) {
                                         console.error("Failed to restore returns function:", e);
                                         returnsFn = () => "";
