@@ -247,16 +247,14 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
             console.log("height: ", height, "halfheight: ", halfHeight, "direction: ", direction, "forward: ", forward)
             console.log("typeof height: ", typeof height, "typeof halfheight: ", typeof halfHeight, "typeof direction: ", typeof direction, "typeof forward: ", typeof forward)
 
-            let path = Blockly.utils.svgPaths.moveBy(0, 0);
-
-            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
-            path += Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight);
-            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
-            path += Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2));
-            path += Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight);
-            path += Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight);
-
-            return path;
+            return (
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)) +
+                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight)
+            )
         }
 
         return {
