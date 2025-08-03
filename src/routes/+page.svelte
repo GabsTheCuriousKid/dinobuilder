@@ -42,7 +42,7 @@
         base: Blockly.Themes.Classic,
         fontStyle: {
             family: '"Helvetica Neue", Helvetica, Arial, sans-serif', //'"Source Code Pro", monospace',
-            weight: "700",
+            weight: "500",
             size: 12,
         },
         startHats: true,
