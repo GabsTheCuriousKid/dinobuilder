@@ -245,6 +245,7 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
             const forward = up ? -1 : 1;
 
             console.log("height: ", height, "halfheight: ", halfHeight, "direction: ", direction, "forward: ", forward)
+            console.log("typeof height: ", typeof height, "typeof halfheight: ", typeof halfHeight, "typeof direction: ", typeof direction, "typeof forward: ", typeof forward)
 
             let path = Blockly.utils.svgPaths.moveBy(0, 0);
 
