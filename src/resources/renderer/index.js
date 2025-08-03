@@ -1,13 +1,54 @@
 import Blockly from 'blockly/core'
 
+const NOTCH_SWITCH_PATH_LEFT = `c 2 0 3 1 4 2 l 4 4 c 1 1 2 2 4 2 c 2 0 4 -4 6 -4 c 2 0 4 4 6 4 c 2 0 3 -1 4 -2 l 4 -4 c 1 -1 2 -2 4 -2`;
+const NOTCH_SWITCH_PATH_RIGHT = `c -2 0 -3 1 -4 2 l -4 4 c -1 1 -2 2 -4 2 c -2 0 -4 -4 -6 -4 c -2 0 -4 4 -6 4 c -2 0 -3 -1 -4 -2 l -4 -4 c -1 -1 -2 -2 -4 -2`;
+
 class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
     init() {
         super.init()
+
+        this.makeNotchShapeCustom = () => {
+            return new Blockly.blockRendering.PathObject(this.NOTCH_SWITCH_PATH);
+        };
+
+        this.NOTCH_SWITCH_PATH = NOTCH_SWITCH_PATH_LEFT
+
         this.SQUARED = this.makeSquared()
         this.ROUNDEL = this.makeRoundel()
         this.ROUNDEDINVERTED = this.makeRoundedInverted()
         this.RHOMBUS = this.makeRhombus()
-        this.TWOSPIKES = this.makeTwoSpikes();
+    }
+
+    makeConstants_() {
+        const constants = super.makeConstants_();
+        constants.NOTCH_PATH = NOTCH_SWITCH_PATH_LEFT;
+        return constants;
+    }
+
+    getConnectionShape_(connection) {
+        const block = connection.getSourceBlock();
+
+        if (!block) return super.getConnectionShape_(connection);
+
+        if (block.type === `control_switch` && connection.type === Blockly.INPUT_VALUE) {
+            if (connection === block.getInput('BLOCKS').connection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+
+        if (block.type === `control_case`) {
+            if (connection === block.previousConnection || connection === block.nextConnection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+
+        if (block.type === `control_default`) {
+            if (connection === block.previousConnection) {
+                return this.constants_.makeNotchShapeCustom();
+            }
+        }
+
+        return super.getConnectionShape_(connection);
     }
 
     makeSquared() {
@@ -234,56 +275,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         };
     }
 
-    makeTwoSpikes() {
-        const spikeHeight = 10;
-        const spikeWidth = 6;
-
-        function makeMainPath(height, up, right) {
-            const direction = right ? 1 : -1;
-            const forward = up ? -1 : 1;
-
-            return (
-                Blockly.utils.svgPaths.lineOnAxis('v', forward * (-spikeHeight)) +
-                Blockly.utils.svgPaths.lineOnAxis('h', direction * spikeWidth) +
-                Blockly.utils.svgPaths.lineTo(direction * 0, forward * (spikeHeight / 2)) +
-                Blockly.utils.svgPaths.lineTo(direction * (-spikeWidth), forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineOnAxis('h', direction * spikeWidth) +
-                Blockly.utils.svgPaths.lineTo(direction * 0, forward * (spikeHeight / 2)) +
-                Blockly.utils.svgPaths.lineTo(direction * (-spikeWidth), forward * spikeHeight) +
-                Blockly.utils.svgPaths.lineOnAxis('v', forward * spikeHeight)
-            );
-        }
-
-        return {
-            type: 'two_spikes',
-            isDynamic: true,
-            width(height) {
-                return spikeWidth;
-            },
-            height(height) {
-                return spikeHeight * 2;
-            },
-            connectionOffsetY(connectionHeight) {
-                return connectionHeight / 2;
-            },
-            connectionOffsetX(connectionWidth) {
-                return -connectionWidth;
-            },
-            pathDown(height) {
-                return makeMainPath(height, false, false);
-            },
-            pathUp(height) {
-                return makeMainPath(height, true, false);
-            },
-            pathRightDown(height) {
-                return makeMainPath(height, false, true);
-            },
-            pathRightUp(height) {
-                return makeMainPath(height, true, true);
-            }
-        };
-    }
-
     /**
      * @param {Blockly.RenderedConnection} connection
      */
@@ -304,12 +295,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
             }
         }
 
-        if (connection.type === Blockly.ConnectionType.INPUT_STATEMENT) {
-            if (checks && checks.indexOf('Case') !== -1) {
-                return this.TWOSPIKES;
-            }
-        }
-
         return super.shapeFor(connection)
     }
 }
@@ -323,3 +308,11 @@ export default class Renderer extends Blockly.zelos.Renderer {
         return new CustomConstantProvider();
     }
 }
+
+Blockly.registry.register(
+    Blockly.registry.Type.RENDERER,
+    'custom_zelos',
+    CustomRenderer
+);
+
+Blockly.blockRendering.ConstantProvider = CustomConstantProvider;
