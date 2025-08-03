@@ -127,7 +127,7 @@ function defineXmlOfExtension(extensionClass) {
     const headerCode = `<xml>`;
     const footerCode = `</xml>`;
     const registryCode = {
-        "categoryTop": `<category name="${name}" colour="${colour}" data-extension="true">`,
+        "categoryTop": `<category name="${name}" id="${id}" colour="${colour}" data-extension="true">`,
         "categoryBottom": `</category>`
     }
     let xmlblocks = ``

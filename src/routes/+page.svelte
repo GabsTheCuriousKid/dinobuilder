@@ -308,6 +308,11 @@
 
         generateDinoBuilderWindow(window);
 
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('extension')) {
+            window.dinoBuilder.extensions.register(params.get('extension'))
+        }
+
         document.addEventListener('mousedown', async (event) => {
             while (!document.getElementById('extensionDropdown')) {
 				await new Promise(resolve => setTimeout(resolve, 10))
