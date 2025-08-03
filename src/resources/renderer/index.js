@@ -299,6 +299,7 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         if (!checks && connection.targetConnection) {
             checks = connection.targetConnection.getCheck();
         }
+        /*
         if (connection.sourceBlock_) {
             const block = connection.sourceBlock_
             if (
@@ -320,6 +321,7 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
                 return this.SPIKES
             }
         }
+        */
         if (connection.type == Blockly.ConnectionType.INPUT_VALUE || connection.type == Blockly.ConnectionType.OUTPUT_VALUE) {
             if (checks && checks.indexOf('Function') !== -1) {
                 return this.RHOMBUS;
