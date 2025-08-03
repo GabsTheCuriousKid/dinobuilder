@@ -166,13 +166,13 @@ function register() {
                 "type": "field_dropdown",
                 "name": "EFFECTS",
                 "options": [
-                    [ "color", "COLOR" ],
-                    [ "fisheye", "FISHEYE" ],
-                    [ "whirl", "WHIRL" ],
-                    [ "pixelate", "PIXELATE" ],
-                    [ "mosaic", "MOSAIC" ],
-                    [ "brightness", "BRIGHTNESS" ],
-                    [ "ghost", "GHOST" ],
+                    [ "color", "color" ],
+                    [ "fisheye", "fisheye" ],
+                    [ "whirl", "whirl" ],
+                    [ "pixelate", "pixelate" ],
+                    [ "mosaic", "mosaic" ],
+                    [ "brightness", "brightness" ],
+                    [ "ghost", "ghost" ],
                 ]
             },
             {
@@ -187,7 +187,7 @@ function register() {
     }, (block) => {
         const EFFECTS = block.getFieldValue('EFFECTS')
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC) || "undefined";
-        return [`if (${SPRITE} !== undefined) ${SPRITE}.effects[Scratch.Cast.toString('${EFFECTS}').toLowercase()]`, javascriptGenerator.ORDER_ATOMIC]
+        return [`(${SPRITE} !== undefined) ? ${SPRITE}.effects['${EFFECTS}'] : 0`, javascriptGenerator.ORDER_ATOMIC]
     })
 
     // set effect 2
