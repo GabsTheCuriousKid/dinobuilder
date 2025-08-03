@@ -285,9 +285,8 @@ function register() {
                 "type": "input_dummy"
             },
             {
-                "type": "field_input",
+                "type": "input_value",
                 "name": "DEFAULT",
-                "acceptsBlocks": true,
             }
         ],
         nextStatement: "BlockInput",
