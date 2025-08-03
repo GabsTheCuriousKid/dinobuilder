@@ -235,13 +235,14 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
     }
 
     makeSpikes() {
-        const spikeHeight = 8
-        const spikeWidth = 6
+        const spikeHeight = 8;
+        const spikeWidth = 6;
 
         function makeMainPath(height, up, right) {
-            const halfHeight = height / 2
-            const direction = right ? 1 : -1
-            const forward = up ? -1 : 1
+            height = Number(height) || (spikeHeight * 4);
+            const halfHeight = height / 2;
+            const direction = right ? 1 : -1;
+            const forward = up ? -1 : 1;
 
             return (
                 Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
@@ -250,37 +251,40 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
                 Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)) +
                 Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight) +
                 Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight)
-            )
+            );
         }
 
         return {
             type: this.SHAPES.HEXAGONAL,
             isDynamic: true,
             width(width) {
-                return spikeWidth * 2
+                return spikeWidth * 2;
             },
             height(height) {
-                return height
+                height = Number(height) || (spikeHeight * 4);
+                return height;
             },
             connectionOffsetY(connectionHeight) {
-                return connectionHeight / 2
+                connectionHeight = Number(connectionHeight) || (spikeHeight * 4);
+                return connectionHeight / 2;
             },
             connectionOffsetX(connectionWidth) {
-                return -connectionWidth
+                connectionWidth = Number(connectionWidth) || (spikeWidth * 2);
+                return -connectionWidth;
             },
             pathDown(height) {
-                return makeMainPath(height, false, false)
+                return makeMainPath(height, false, false);
             },
             pathUp(height) {
-                return makeMainPath(height, true, false)
+                return makeMainPath(height, true, false);
             },
             pathRightDown(height) {
-                return makeMainPath(height, false, true)
+                return makeMainPath(height, false, true);
             },
             pathRightUp(height) {
-                return makeMainPath(height, true, true)
+                return makeMainPath(height, true, true);
             },
-        }
+        };
     }
 
     /**
