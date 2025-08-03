@@ -7,7 +7,7 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         this.ROUNDEL = this.makeRoundel()
         this.ROUNDEDINVERTED = this.makeRoundedInverted()
         this.RHOMBUS = this.makeRhombus()
-        this.SPIKES = this.makeSpikes()
+        this.TWOSPIKES = this.makeTwoSpikes();
     }
 
     makeSquared() {
@@ -234,50 +234,40 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         };
     }
 
-    makeSpikes() {
-        const spikeHeight = 8;
+    makeTwoSpikes() {
+        const spikeHeight = 10;
         const spikeWidth = 6;
 
         function makeMainPath(height, up, right) {
-            height = Number(height);
-            if (!isFinite(height) || height <= 0) {
-                height = spikeHeight * 4;
-            }
-
-            const halfHeight = height / 2;
             const direction = right ? 1 : -1;
             const forward = up ? -1 : 1;
 
-            return [
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
-                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight),
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
-                Blockly.utils.svgPaths.lineTo(0, forward * (halfHeight - spikeHeight * 2)),
-                Blockly.utils.svgPaths.lineTo(direction * spikeWidth, forward * spikeHeight),
-                Blockly.utils.svgPaths.lineTo(direction * -spikeWidth, forward * spikeHeight)
-            ].join('');
+            return (
+                Blockly.utils.svgPaths.lineOnAxis('v', forward * (-spikeHeight)) +
+                Blockly.utils.svgPaths.lineOnAxis('h', direction * spikeWidth) +
+                Blockly.utils.svgPaths.lineTo(direction * 0, forward * (spikeHeight / 2)) +
+                Blockly.utils.svgPaths.lineTo(direction * (-spikeWidth), forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineOnAxis('h', direction * spikeWidth) +
+                Blockly.utils.svgPaths.lineTo(direction * 0, forward * (spikeHeight / 2)) +
+                Blockly.utils.svgPaths.lineTo(direction * (-spikeWidth), forward * spikeHeight) +
+                Blockly.utils.svgPaths.lineOnAxis('v', forward * spikeHeight)
+            );
         }
 
         return {
-            type: this.SHAPES.HEXAGONAL,
+            type: 'two_spikes',
             isDynamic: true,
-            width() {
-                return spikeWidth * 2;
+            width(height) {
+                return spikeWidth;
             },
             height(height) {
-                height = Number(height);
-                if (!isFinite(height) || height <= 0) {
-                    height = spikeHeight * 4;
-                }
-                return height;
+                return spikeHeight * 2;
             },
             connectionOffsetY(connectionHeight) {
-                const h = Number(connectionHeight);
-                return isFinite(h) && h > 0 ? h / 2 : spikeHeight * 2;
+                return connectionHeight / 2;
             },
             connectionOffsetX(connectionWidth) {
-                const w = Number(connectionWidth);
-                return isFinite(w) && w > 0 ? -w : -(spikeWidth * 2);
+                return -connectionWidth;
             },
             pathDown(height) {
                 return makeMainPath(height, false, false);
@@ -290,7 +280,7 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
             },
             pathRightUp(height) {
                 return makeMainPath(height, true, true);
-            },
+            }
         };
     }
 
@@ -301,27 +291,6 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
         let checks = connection.getCheck();
         if (!checks && connection.targetConnection) {
             checks = connection.targetConnection.getCheck();
-        }
-        if (connection.sourceBlock_) {
-            const block = connection.sourceBlock_
-            if (
-                (block.inputList.some(
-                    input =>
-                        input.type === Blockly.inputTypes.STATEMENT &&
-                        input.name === 'BLOCKS' &&
-                        input.connection &&
-                        input.connection.getCheck() &&
-                        input.connection.getCheck().includes('Case')
-                )) ||
-                (block.previousConnection &&
-                    block.previousConnection.getCheck() &&
-                    block.previousConnection.getCheck().includes('Case')) ||
-                (block.nextConnection &&
-                    block.nextConnection.getCheck() &&
-                    block.nextConnection.getCheck().includes('Case'))
-            ) {
-                return this.SPIKES
-            }
         }
         if (connection.type == Blockly.ConnectionType.INPUT_VALUE || connection.type == Blockly.ConnectionType.OUTPUT_VALUE) {
             if (checks && checks.indexOf('Function') !== -1) {
@@ -334,6 +303,13 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
                 return this.ROUNDEL;
             }
         }
+
+        if (connection.type === Blockly.ConnectionType.INPUT_STATEMENT) {
+            if (checks && checks.indexOf('Case') !== -1) {
+                return this.TWOSPIKES;
+            }
+        }
+
         return super.shapeFor(connection)
     }
 }
