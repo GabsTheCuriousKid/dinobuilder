@@ -65,7 +65,7 @@ function register() {
                 "check": "JSONArray"
             }
         ],
-        output: "String",
+        output: "JSONArray",
         inputsInline: true,
         colour: categoryColor,
         mutator: `${categoryPrefix}joinarrays_mutator`
@@ -295,7 +295,7 @@ function register() {
 
             //rebuild
             for (let i = 1; i <= this.itemCount_; i++) {
-                this.appendValueInput(`ITEM${i}`)
+                this.appendValueInput(`ITEM${i}`).setCheck("JSONArray");
             }
         },
         reconnectChildBlocks_: function (

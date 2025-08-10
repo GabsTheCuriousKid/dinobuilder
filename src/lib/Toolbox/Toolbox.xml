@@ -540,9 +540,27 @@
         <block type="functions_execute_b" />
     </category>
     <category name="Technical" colour="#666666">
-        <block type="debug_log" />
-        <block type="debug_warn" />
-        <block type="debug_error" />
+        <block type="debug_log">
+            <value name="LOG">
+                <shadow type="text">
+                    <field name="TEXT">a log</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="debug_warn">
+            <value name="LOG">
+                <shadow type="text">
+                    <field name="TEXT">a warning</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="debug_error">
+            <value name="LOG">
+                <shadow type="text">
+                    <field name="TEXT">an error</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="debug_rawblock" />
         <block type="debug_raw" />
