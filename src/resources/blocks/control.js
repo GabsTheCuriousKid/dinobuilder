@@ -430,7 +430,7 @@ function register() {
 
                 const makeErrorReporter = () => {
                     const reporter = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
-                    reporter.setShadow(true);
+                    reporter.setShadow(false);
                     reporter.initSvg();
                     reporter.render();
                     errorInput.connection.connect(reporter.outputConnection);
