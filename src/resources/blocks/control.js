@@ -427,13 +427,26 @@ function register() {
 
             setTimeout(() => {
                 const errorInput = this.getInput('ERROR_ARG');
+
+                const makeErrorReporter = () => {
+                    const reporter = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
+                    reporter.setShadow(true);
+                    reporter.initSvg();
+                    reporter.render();
+                    errorInput.connection.connect(reporter.outputConnection);
+                };
+
                 if (errorInput && !errorInput.connection.targetBlock()) {
-                    const shadow = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
-                    shadow.setShadow(true);
-                    shadow.initSvg();
-                    shadow.render();
-                    errorInput.connection.connect(shadow.outputConnection);
+                    makeErrorReporter();
                 }
+
+                this.workspace.addChangeListener((event) => {
+                    if (event.type === Blockly.Events.BLOCK_DISCONNECT) {
+                        if (errorInput && !errorInput.connection.targetBlock()) {
+                            makeErrorReporter();
+                        }
+                    }
+                });
             }, 1);
         }
     }
