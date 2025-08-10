@@ -434,7 +434,7 @@ function register() {
 
             this._workspaceChangeEvent = async (event) => {
                 if (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) {
-                    while (!this.getInput('ERROR_ARG') && !this.getInput('ERROR_ARG').connection) {
+                    while (this.workspace && this.rendered && !this.isDisposed_ && (!this.getInput('ERROR_ARG') || !this.getInput('ERROR_ARG').connection)) {
                         await new Promise(resolve => setTimeout(resolve, 10))
                     }
                     const errorInput = this.getInput('ERROR_ARG');
@@ -443,7 +443,7 @@ function register() {
                     }
                 }
                 if (event.type === Blockly.Events.BLOCK_MOVE && event.newParentId === this.id && event.inputName === 'ERROR_ARG') {
-                    while (!this.getInput('ERROR_ARG') && !this.getInput('ERROR_ARG').connection) {
+                    while (this.workspace && this.rendered && !this.isDisposed_ && (!this.getInput('ERROR_ARG') || !this.getInput('ERROR_ARG').connection)) {
                         await new Promise(resolve => setTimeout(resolve, 10))
                     }
                     const connectedBlock = this.getInput('ERROR_ARG').connection.targetBlock();
