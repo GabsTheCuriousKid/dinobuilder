@@ -435,7 +435,9 @@ function register() {
             this.workspace.addChangeListener((event) => {
                 if (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) {
                     while (!this.getInput('ERROR_ARG') && Ithis.getInput('ERROR_ARG').connection) {
-                        await new Promise(resolve => setTimeout(resolve, 10))
+                        (async () => {
+                            await new Promise(resolve => setTimeout(resolve, 10))
+                        })()
                     }
                     const errorInput = this.getInput('ERROR_ARG');
                     if (!errorInput.connection.targetBlock()) {
