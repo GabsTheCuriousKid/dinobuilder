@@ -490,11 +490,7 @@
     </category>
     <sep></sep>
     <category name="Blocks" colour="#FF6680">
-        <block type="blocks_create">
-            <value name="CONDITION">
-                <block type="literals_false" />
-            </value>
-        </block>
+        <block type="blocks_create" />
         <!--<block type="blocks_createcap" />-->
         <block type="blocks_createobject" />
         <block type="blocks_gap" />
@@ -561,11 +557,7 @@
         <!--<block type="looks_setpenguinmodeffect" />
         <block type="looks_getpenguinmodeffect" />
         <block type="looks_gettintcolor" />-->
-        <block type="blocks_penguinmodcreate">
-            <value name="CONDITION">
-                <block type="literals_false" />
-            </value>
-        </block>
+        <block type="blocks_penguinmodcreate" />
         <block type="blocks_ispenguinmod" />
     </category>
 </xml>
