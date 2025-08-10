@@ -352,8 +352,17 @@ function register() {
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}throwerror`, {
-        message0: 'throw error %1',
+        message0: 'throw %1 %2',
         args0: [
+            {
+                "type": "field_dropdown",
+                "name": "error",
+                "options": [
+                    [ "error", "Error" ],
+                    [ "type error", "TypeError" ],
+                    [ "reference error", "ReferenceError" ],
+                ]
+            },
             {
                 "type": "input_value",
                 "name": "VALUE",
@@ -365,7 +374,8 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-        const code = `throw new Error(${VALUE});`;
+        const ERROR = block.getFieldValue('error');
+        const code = `throw new ${ERROR}(${VALUE});`;
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}error`, {
@@ -435,60 +445,6 @@ function register() {
         const code = `try {\n${BLOCKS}} catch (${errorVar}) {\n${BLOCKS2}}\n`;
         return code;
     }
-
-    registerBlock(`${categoryPrefix}try_catch2`, {
-        message0: 'try %1 %2 catch %3 %4 %5',
-        args0: [
-            {
-                "type": "input_dummy"
-            },
-            {
-                "type": "input_statement",
-                "name": "TRY_BLOCKS"
-            },
-            {
-                "type": 'input_value',
-                "name": 'ERROR_ARG',
-                "check": 'String'
-            },
-            {
-                "type": "input_dummy"
-            },
-            {
-                "type": "input_statement",
-                "name": "CATCH_BLOCKS"
-            },
-        ],
-        previousStatement: null,
-        nextStatement: null,
-        inputsInline: true,
-        colour: categoryColor,
-        errorVarName_: compileVars.new(),
-        getVars: function() {
-            return [this.errorVarName_];
-        },
-        onchange: function () {
-            const errorInput = this.getInput('ERROR_ARG');
-            if (
-                errorInput &&
-                !errorInput.connection.targetBlock() &&
-                Blockly.common.getMainWorkspace() === this.workspace
-            ) {
-                const shadow = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
-                shadow.setShadow(true);
-                shadow.initSvg();
-                shadow.render();
-                errorInput.connection.connect(shadow.outputConnection);
-            }
-        }
-    }, (block) => {
-        const BLOCKS = javascriptGenerator.statementToCode(block, 'TRY_BLOCKS');
-        const BLOCKS2 = javascriptGenerator.statementToCode(block, 'CATCH_BLOCKS');
-        const errorVar = block.getVars()[0];
-
-        const code = `try {\n${BLOCKS}} catch (${errorVar}) {\n${BLOCKS2}}\n`;
-        return code;
-    });
 
     registerBlock(`${categoryPrefix}error_reporter`, {
         message0: 'error',
