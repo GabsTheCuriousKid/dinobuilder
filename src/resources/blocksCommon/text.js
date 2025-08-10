@@ -1,5 +1,7 @@
 import Blockly from 'blockly/core';
 
+Blockly.Colours.textField = '#fff'
+
 function register() {
     Blockly.Blocks['text'] = {
         /**
