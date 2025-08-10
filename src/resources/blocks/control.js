@@ -402,12 +402,11 @@ function register() {
             
             this.appendStatementInput("TRY_BLOCKS");
 
-            this.appendValueInput("ERROR_ARG")
-                .setCheck("String");
-
             this.appendDummyInput()
                 .appendField('catch')
-                .appendField(new FieldErrorReporter(this.errorVarName_), 'ERROR_ARG');
+
+            this.appendValueInput('ERROR_ARG')
+                .setCheck('String');
 
             this.appendStatementInput("CATCH_BLOCKS");
 
@@ -417,6 +416,30 @@ function register() {
             this.setColour(categoryColor);
 
             this.getVars = () => [this.errorVarName_];
+
+            this.ensureErrorReporter = () => {
+                const errorInput = this.getInput('ERROR_ARG');
+                if (!errorInput.connection.targetBlock()) {
+                    const reporter = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
+                    reporter.initSvg();
+                    reporter.render();
+
+                    errorInput.connection.connect(reporter.outputConnection);
+                }
+            },
+
+            setTimeout(() => {
+                this.ensureErrorReporter();
+            }, 1);
+
+            this.workspace.addChangeListener((event) => {
+                if (
+                    (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) &&
+                    event.oldParentId === this.id
+                ) {
+                    this.ensureErrorReporter();
+                }
+            });
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
