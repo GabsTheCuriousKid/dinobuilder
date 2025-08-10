@@ -408,10 +408,6 @@ function register() {
             this.appendValueInput('ERROR_ARG')
                 .setCheck('String');
 
-            this.getInput('ERROR_ARG').setValidator((blockToConnect) => {
-                return blockToConnect.type === `${categoryPrefix}error_reporter` ? blockToConnect.outputConnection : null;
-            });
-
             this.appendStatementInput("CATCH_BLOCKS");
 
             this.setPreviousStatement(true);
@@ -441,6 +437,12 @@ function register() {
                     const errorInput = this.getInput('ERROR_ARG');
                     if (!errorInput.connection.targetBlock()) {
                         this.ensureErrorReporter();
+                    }
+                }
+                if (event.type === Blockly.Events.BLOCK_MOVE && event.newParentId === this.id && event.inputName === 'ERROR_ARG') {
+                    const connectedBlock = this.getInput('ERROR_ARG').connection.targetBlock();
+                    if (connectedBlock && connectedBlock.type !== `${categoryPrefix}error_reporter`) {
+                        connectedBlock.unplug();
                     }
                 }
             });
