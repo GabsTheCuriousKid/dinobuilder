@@ -408,10 +408,8 @@ function register() {
             this.appendValueInput('ERROR_ARG')
                 .setCheck('String');
 
-            this.getInput('ERROR_ARG').connection.setValidator((blockToConnect) => {
-                return blockToConnect.type === `${categoryPrefix}error_reporter`
-                    ? blockToConnect.outputConnection
-                    : null;
+            this.getInput('ERROR_ARG').setValidator((blockToConnect) => {
+                return blockToConnect.type === `${categoryPrefix}error_reporter` ? blockToConnect.outputConnection : null;
             });
 
             this.appendStatementInput("CATCH_BLOCKS");
@@ -439,11 +437,11 @@ function register() {
             }, 1);
 
             this.workspace.addChangeListener((event) => {
-                if (
-                    (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) &&
-                    event.oldParentId === this.id
-                ) {
-                    this.ensureErrorReporter();
+                if (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) {
+                    const errorInput = this.getInput('ERROR_ARG');
+                    if (!errorInput.connection.targetBlock()) {
+                        this.ensureErrorReporter();
+                    }
                 }
             });
         }
