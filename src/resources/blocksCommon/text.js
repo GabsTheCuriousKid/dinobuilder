@@ -1,6 +1,6 @@
 import Blockly from 'blockly/core';
 
-Blockly.Colours.textField = '#fff'
+const textFieldColor = '#fff'
 
 function register() {
     Blockly.Blocks['text'] = {
@@ -18,9 +18,7 @@ function register() {
                     }
                 ],
                 "output": "String",
-                "colour": Blockly.Colours.textField,
-                "colourSecondary": Blockly.Colours.textField,
-                "colourTertiary": Blockly.Colours.textField
+                "colour": textFieldColor
             });
         }
     };
