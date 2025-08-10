@@ -427,26 +427,13 @@ function register() {
 
             setTimeout(() => {
                 const errorInput = this.getInput('ERROR_ARG');
-
-                const makeErrorReporter = () => {
-                    const reporter = this.workspace.newBlock(`${categoryPrefix}error_reporter`);
-                    reporter.setShadow(false);
-                    reporter.initSvg();
-                    reporter.render();
-                    errorInput.connection.connect(reporter.outputConnection);
-                };
-
                 if (errorInput && !errorInput.connection.targetBlock()) {
-                    makeErrorReporter();
+                    const shadowDom = Blockly.Xml.textToDom(
+                        `<shadow type="${categoryPrefix}error_reporter"></shadow>`
+                    );
+                    errorInput.connection.setShadowDom(shadowDom);
+                    errorInput.connection.respawnShadow_();
                 }
-
-                this.workspace.addChangeListener((event) => {
-                    if (event.type === Blockly.Events.BLOCK_DISCONNECT) {
-                        if (errorInput && !errorInput.connection.targetBlock()) {
-                            makeErrorReporter();
-                        }
-                    }
-                });
             }, 1);
         }
     }
