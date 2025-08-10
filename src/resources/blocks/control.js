@@ -408,6 +408,12 @@ function register() {
             this.appendValueInput('ERROR_ARG')
                 .setCheck('String');
 
+            this.getInput('ERROR_ARG').connection.setValidator((blockToConnect) => {
+                return blockToConnect.type === `${categoryPrefix}error_reporter`
+                    ? blockToConnect.outputConnection
+                    : null;
+            });
+
             this.appendStatementInput("CATCH_BLOCKS");
 
             this.setPreviousStatement(true);
