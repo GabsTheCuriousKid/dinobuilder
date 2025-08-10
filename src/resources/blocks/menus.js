@@ -1,6 +1,7 @@
 import javascriptGenerator from '../javascriptGenerator';
 import registerBlock from '../register';
 import { compileVars } from '../compiler/compileVarSection';
+import Blockly from 'blockly/core';
 
 const categoryPrefix = 'menus_';
 const categoryColor = '#CB48E8';
@@ -55,23 +56,49 @@ function register() {
         args0: [
             {
                 "type": "input_value",
-                "name": "A",
+                "name": "ITEM-1",
                 "check": "JSONArray"
             },
             {
                 "type": "input_value",
-                "name": "B",
+                "name": "ITEM0",
                 "check": "JSONArray"
             }
         ],
-        output: "JSONArray",
+        output: "String",
         inputsInline: true,
-        colour: categoryColor
+        colour: categoryColor,
+        mutator: `${categoryPrefix}joinarrays_mutator`
     }, (block) => {
-        const A = javascriptGenerator.valueToCode(block, 'A', javascriptGenerator.ORDER_ATOMIC);
-        const B = javascriptGenerator.valueToCode(block, 'B', javascriptGenerator.ORDER_ATOMIC);
-        return [`${A}, ${B}`, javascriptGenerator.ORDER_ATOMIC];
+        const X = javascriptGenerator.valueToCode(block, 'ITEM-1', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'ITEM0', javascriptGenerator.ORDER_ATOMIC);
+    
+        let code = `${String(X) || ''}, ${String(Y) || ''}`
+        
+        for (let i = 1; block.getInput(`ITEM${i}`); i++) {
+            const ITEM = javascriptGenerator.valueToCode(block, `ITEM${i}`, javascriptGenerator.ORDER_ATOMIC) || "undefined";
+
+            code += `, ${String(ITEM) || ''}`;
+        }
+    
+        return [code, javascriptGenerator.ORDER_ATOMIC];
     })
+    registerBlock(`${categoryPrefix}joinarrays_mutator_join`, {
+        message0: 'join',
+        args0: [],
+        nextStatement: null,
+        inputsInline: true,
+        enableContextMenu: false,
+        colour: categoryColor,
+    }, (block) => {})
+    registerBlock(`${categoryPrefix}joinarrays_mutator_item`, {
+        message0: 'item',
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor,
+    }, (block) => {})
 
     // create ze menu
     registerBlock(`${categoryPrefix}create`, {
@@ -162,6 +189,131 @@ function register() {
         Extension.prototype["${def}"] = ${VALUES}`
         return `${code}\n`;
     })
+
+    const menus_joinarrays_mutator = {
+        itemCount_: 0,
+    
+        mutationToDom: function () {
+            if (!this.itemCount_ && !this.itemCount_) {
+                return null;
+            }
+    
+            const container = Blockly.utils.xml.createElement('mutation');
+            if (this.itemCount_) {
+              container.setAttribute('item', String(this.itemCount_));
+            }
+            return container;
+        },
+    
+        domToMutation: function (xmlElement) {
+            this.itemCount_ = parseInt(xmlElement.getAttribute('item'));
+            this.rebuildShape_()
+        },
+    
+        decompose: function (workspace) {
+            const containerBlock = workspace.newBlock(`${categoryPrefix}joinarrays_mutator_join`);
+            containerBlock.initSvg();
+            let connection = containerBlock.nextConnection;
+    
+            for (let i = 1; i <= this.itemCount_; i++) {
+                const itemBlock = workspace.newBlock(`${categoryPrefix}joinarrays_mutator_item`);
+                itemBlock.initSvg()
+                connection.connect(itemBlock.previousConnection);
+                connection = itemBlock.nextConnection;
+            }
+    
+            return containerBlock
+        },
+    
+        compose: function (containerBlock) {
+            let clauseBlock = containerBlock.nextConnection.targetBlock();
+    
+            this.itemCount_ = 0;
+    
+            const valueConnections = [null]
+    
+            while (clauseBlock) {
+                if (clauseBlock.isInsertionMarker()) {
+                    clauseBlock = clauseBlock.getNextBlock()
+                    continue;
+                }
+    
+                switch (clauseBlock.type) {
+                    case `${categoryPrefix}joinarrays_mutator_item`:
+                        this.itemCount_++;
+                        valueConnections.push(clauseBlock.valueConnection_);
+                        break;
+                }
+    
+                clauseBlock = clauseBlock.getNextBlock();
+            }
+    
+            this.updateShape_()
+    
+            this.reconnectChildBlocks_(valueConnections)
+        },
+    
+        saveConnections: function (containerBlock) {
+            let clauseBlock = containerBlock.nextConnection.targetBlock();
+            let i = 1;
+            while (clauseBlock) {
+                if (clauseBlock.isInsertionMarker()) {
+                    clauseBlock = clauseBlock.getNextBlock()
+                    continue;
+                }
+    
+                switch (clauseBlock.type) {
+                    case `${categoryPrefix}joinarrays_mutator_item`:
+                        const inputBool = this.getInput(`ITEM${i}`);
+                        clauseBlock.valueConnection_ = inputBool && inputBool.connection.targetConnection;
+                        i++;
+                        break;
+                }
+    
+                clauseBlock = clauseBlock.getNextBlock();
+            }
+        },
+    
+        rebuildShape_: function () {
+            const valueConnections = [null]
+    
+            for (let i = 1; this.getInput(`ITEM${i}`); i++) {
+                valueConnections.push(this.getInput(`ITEM${i}`).connection.targetConnection);
+            }
+    
+            this.updateShape_()
+            this.reconnectChildBlocks_(
+                valueConnections,
+            );
+        },
+    
+        updateShape_: function () {
+            //remove all
+            for (let i = 1; this.getInput(`ITEM${i}`); i++) {
+                this.removeInput(`ITEM${i}`)
+            }
+
+            //rebuild
+            for (let i = 1; i <= this.itemCount_; i++) {
+                this.appendValueInput(`ITEM${i}`)
+            }
+        },
+        reconnectChildBlocks_: function (
+            valueConnections,
+        ) {
+            for (let i = 1; i <= this.itemCount_; i++) {
+                Blockly.Mutator.reconnect(valueConnections[i], this, `ITEM${i}`)
+            }
+        }
+    }
+    
+    Blockly.Extensions.unregister(`${categoryPrefix}joinarrays_mutator`)
+    Blockly.Extensions.registerMutator(
+        `${categoryPrefix}joinarrays_mutator`,
+        menus_joinarrays_mutator,
+        null,
+        [`${categoryPrefix}joinarrays_mutator_item`],
+    );
 }
 
 export default register

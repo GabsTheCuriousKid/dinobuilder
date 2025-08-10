@@ -100,7 +100,6 @@ function register() {
                     {
                         "type": "field_angle",
                         "name": "NUM",
-                        "value": 90
                     }
                 ],
                 "output": "Number",

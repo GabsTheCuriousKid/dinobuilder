@@ -36,7 +36,7 @@
         <sep gap="48"></sep>
         <block type="motion_setdirection">
             <value name="DIR">
-                <shadow type="math_angle">
+                <shadow type="math_number">
                     <field name="NUM">90</field>
                 </shadow>
             </value>
@@ -122,14 +122,14 @@
     </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval">
-            <value name="VALUE">
+            <value name="TIME">
                 <shadow type="math_positive_number">
                     <field name="NUM">2</field>
                 </shadow>
             </value>
         </block>
         <block type="events_timeout">
-            <value name="VALUE">
+            <value name="TIME">
                 <shadow type="math_positive_number">
                     <field name="NUM">2</field>
                 </shadow>
@@ -160,13 +160,24 @@
         <block type="control_if">
             <mutation else="1" />
         </block>
-        <block type="control_ifthenreturn" />
+        <block type="control_ifthenreturn">
+            <value name="X">
+                <shadow type="text">
+                    <field name="TEXT">foo</field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="text">
+                    <field name="TEXT">bar</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="control_switch" />
         <block type="control_case">
             <value name="VALUE">
                 <shadow type="text">
-                    <field name="TEXT">example</field>
+                    <field name="TEXT">foo</field>
                 </shadow>
             </value>
         </block>
@@ -179,7 +190,7 @@
         <block type="control_throwerror">
             <value name="VALUE">
                 <shadow type="text">
-                    <field name="TEXT">ERROR</field>
+                    <field name="TEXT">Hello!</field>
                 </shadow>
             </value>
         </block>
@@ -418,18 +429,7 @@
                 </shadow>
             </value>
         </block>
-        <block type="operators_split">
-            <value name="X">
-                <shadow type="text">
-                    <field name="TEXT"></field>
-                </shadow>
-            </value>
-            <value name="Y">
-                <shadow type="text">
-                    <field name="TEXT"></field>
-                </shadow>
-            </value>
-        </block>
+        <block type="operators_split" />
         <block type="operators_letter">
             <value name="X">
                 <shadow type="math_number">
@@ -443,9 +443,9 @@
             </value>
         </block>
         <block type="operators_length_of">
-            <value name="Y">
+            <value name="X">
                 <shadow type="text">
-                    <field name="TEXT">example</field>
+                    <field name="TEXT">apple</field>
                 </shadow>
             </value>
         </block>
