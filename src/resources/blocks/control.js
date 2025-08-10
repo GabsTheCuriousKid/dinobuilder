@@ -3,6 +3,8 @@ import javascriptGenerator from '../javascriptGenerator';
 import registerBlock from '../register';
 import Blockly from 'blockly/core';
 
+import { FieldErrorReporter } from '../core/field_error_reporter';
+
 const categoryPrefix = 'control_';
 const categoryColor = '#FFAB19';
 
@@ -396,8 +398,7 @@ function register() {
             this.errorVarName_ = compileVars.new();
 
             this.appendDummyInput()
-                .appendField('try')
-                .appendField(new Blockly.FieldLabelSerializable('', 'blocklyReporter'), 'ERROR_DISPLAY');
+                .appendField('try');
             
             this.appendStatementInput("TRY_BLOCKS");
 
@@ -405,7 +406,8 @@ function register() {
                 .setCheck("String");
 
             this.appendDummyInput()
-                .appendField('catch');
+                .appendField('catch')
+                .appendField(new FieldErrorReporter(this.errorVarName_), 'ERROR_ARG');
 
             this.appendStatementInput("CATCH_BLOCKS");
 
