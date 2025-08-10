@@ -454,7 +454,7 @@ function register() {
             }
 
             this.workspace.addChangeListener(this._workspaceChangeEvent);
-        }
+        },
         dispose: function (healStack) {
             if (this._workspaceChangeEvent) {
                 this.workspace.removeChangeListener(this._workspaceChangeEvent);
