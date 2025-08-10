@@ -460,6 +460,10 @@ function register() {
                 this.workspace.removeChangeListener(this._workspaceChangeEvent);
                 this._workspaceChangeEvent = null;
             }
+            const errorInput = this.getInput('ERROR_ARG');
+            if (errorInput && errorInput.connection.targetBlock()) {
+                errorInput.connection.targetBlock().dispose(healStack);
+            }
             Blockly.Block.prototype.dispose.call(this, healStack);
         }
     }
