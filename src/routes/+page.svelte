@@ -64,6 +64,9 @@
     import registerGeneric from "../resources/blocks/generic.js";
     registerGeneric();
 
+    import registerCommon from "../resources/blocksCommon";
+    registerCommon();
+
     import registerCore from "../resources/blocks/core.js";
     import registerEvents from "../resources/blocks/events.js";
     import registerControl from "../resources/blocks/control.js";

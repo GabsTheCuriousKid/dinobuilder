@@ -276,6 +276,8 @@ class CustomConstantProvider extends Blockly.zelos.ConstantProvider {
 export default class Renderer extends Blockly.zelos.Renderer {
     constructor() {
         super();
+
+        this.constants_ = null
     }
 
     makeConstants_() {
@@ -283,6 +285,8 @@ export default class Renderer extends Blockly.zelos.Renderer {
     }
 
     getConnectionShape_(connection) {
+        this.constants_ = this.makeConstants_()
+        
         const block = connection.getSourceBlock();
         if (!block) return super.getConnectionShape_(connection);
 
