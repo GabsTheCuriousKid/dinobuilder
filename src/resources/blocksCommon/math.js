@@ -65,7 +65,7 @@ function register() {
     /**
      * Block for positive number value, with decimal.
     */
-    registerBlock('math_whole_number', {
+    registerBlock('math_positive_number', {
         message0: "%1",
         args0: [
             {
