@@ -15,7 +15,6 @@ function register() {
                     {
                         "type": "field_number",
                         "name": "NUM",
-                        "value": "0"
                     }
                 ],
                 "output": "Number",
@@ -36,7 +35,7 @@ function register() {
                     {
                         "type": "field_number",
                         "name": "NUM",
-                        "precision": 1
+                        "precision": "1"
                     }
                 ],
                 "output": "Number",
@@ -57,8 +56,8 @@ function register() {
                 {
                     "type": "field_number",
                     "name": "NUM",
-                    "min": 0,
-                    "precision": 1
+                    "min": "0",
+                    "precision": "1"
                 }
             ],
             "output": "Number",
@@ -79,7 +78,7 @@ function register() {
                     {
                         "type": "field_number",
                         "name": "NUM",
-                        "min": 0
+                        "min": "0"
                     }
                 ],
                 "output": "Number",

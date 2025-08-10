@@ -434,12 +434,18 @@ function register() {
 
             this.workspace.addChangeListener((event) => {
                 if (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_DELETE) {
+                    while (!this.getInput('ERROR_ARG') && Ithis.getInput('ERROR_ARG').connection) {
+                        await new Promise(resolve => setTimeout(resolve, 10))
+                    }
                     const errorInput = this.getInput('ERROR_ARG');
                     if (!errorInput.connection.targetBlock()) {
                         this.ensureErrorReporter();
                     }
                 }
                 if (event.type === Blockly.Events.BLOCK_MOVE && event.newParentId === this.id && event.inputName === 'ERROR_ARG') {
+                    while (!this.getInput('ERROR_ARG') && Ithis.getInput('ERROR_ARG').connection) {
+                        await new Promise(resolve => setTimeout(resolve, 10))
+                    }
                     const connectedBlock = this.getInput('ERROR_ARG').connection.targetBlock();
                     if (connectedBlock && connectedBlock.type !== `${categoryPrefix}error_reporter`) {
                         connectedBlock.unplug();
