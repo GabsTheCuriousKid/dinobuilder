@@ -1,5 +1,4 @@
-import Blockly from 'blockly/core';
-import 'blockly/core/colours';
+import * as Blockly from 'blockly';
 
 import registerMath from './math'
 import registerText from './text'
