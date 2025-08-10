@@ -24,11 +24,23 @@
                 </shadow>
             </value>
         </block>
-        <block type="motion_getsprite" />
+        <block type="motion_getsprite">
+            <value name="SPRITE">
+                <shadow type="text">
+                    <field name="TEXT">Sprite1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="motion_getxof" />
         <block type="motion_getyof" />
         <sep gap="48"></sep>
-        <block type="motion_setdirection" />
+        <block type="motion_setdirection">
+            <value name="SPRITE">
+                <shadow type="math_angle">
+                    <field name="NUM">90</field>
+                </shadow>
+            </value>
+        </block>
         <block type="motion_getdirof" />
         <!--<block type="motion_setrotatestyle" />-->
         <block type="motion_getrotatestyleof" />
@@ -37,16 +49,52 @@
         <block type="motion_isstage" />
     </category>
     <category name="Effects" colour="#9966FF">
-        <block type="looks_say" />
-        <block type="looks_think" />
+        <block type="looks_say">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">Hello!</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="looks_think">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">Hmm...</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
-        <block type="looks_changeeffectby" />
-        <block type="looks_seteffect" />
+        <block type="looks_changeeffectby">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">25</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="looks_seteffect">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
         <block type="looks_cleareffects" />
         <block type="looks_geteffect" />
         <sep gap="48"></sep>
-        <block type="looks_setlayer" />
-        <block type="looks_golayer" />
+        <block type="looks_setlayer">
+            <value name="VALUE">
+                <shadow type="math_integer">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="looks_golayer">
+            <value name="VALUE">
+                <shadow type="math_integer">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="looks_getlayerof" />
     </category>
     <category name="Sound" colour="#CF63CF">
@@ -56,22 +104,57 @@
         <!--<block type="sound_stopallsounds" />-->
         <block type="sound_getvolumeof" />
         <sep gap="48"></sep>
-        <block type="sound_setprojectvolume" />
-        <block type="sound_changeprojectvolume" />
+        <block type="sound_setprojectvolume">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="sound_changeprojectvolume">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">-10</field>
+                </shadow>
+            </value>
+        </block>
         <block type="sound_getprojectvolume" />
     </category>
     <category name="Events" colour="#FFBF00">
-        <block type="events_interval" />
-        <block type="events_timeout" />
+        <block type="events_interval">
+            <value name="VALUE">
+                <shadow type="math_positive_number">
+                    <field name="NUM">2</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="events_timeout">
+            <value name="VALUE">
+                <shadow type="math_positive_number">
+                    <field name="NUM">2</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="events_always" />
     </category>
     <category name="Control" colour="#FFAB19">
-        <block type="control_wait" />
+        <block type="control_wait">
+            <value name="MS">
+                <shadow type="math_positive_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="control_waituntil" />
         <sep gap="48"></sep>
-        <block type="control_repeat" />
-        <block type="control_forever" />
+        <block type="control_repeat">
+            <value name="TIMES">
+                <shadow type="math_whole_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="control_if" />
         <block type="control_if">
@@ -80,22 +163,52 @@
         <block type="control_ifthenreturn" />
         <sep gap="48"></sep>
         <block type="control_switch" />
-        <block type="control_case" />
+        <block type="control_case">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT">example</field>
+                </shadow>
+            </value>
+        </block>
         <block type="control_default" />
         <block type="control_break" />
         <sep gap="48"></sep>
         <block type="control_while" />
         <sep gap="48"></sep>
         <block type="control_try_catch" />
-        <block type="control_throwerror" />
+        <block type="control_throwerror">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT">ERROR</field>
+                </shadow>
+            </value>
+        </block>
         <!--<block type="control_error" />-->
     </category>
     <category name="Sensing" colour="#5CB1D6">
         <block type="sensing_keypress" />
         <sep gap="48"></sep>
-        <block type="sensing_alert" />
-        <block type="sensing_prompt" />
-        <block type="sensing_confirm" />
+        <block type="sensing_alert">
+            <value name="ALERT">
+                <shadow type="text">
+                    <field name="TEXT">Hello!</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="sensing_prompt">
+            <value name="ALERT">
+                <shadow type="text">
+                    <field name="TEXT">How are you?</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="sensing_confirm">
+            <value name="ALERT">
+                <shadow type="text">
+                    <field name="TEXT">Are you sure?</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="sensing_time" />
         <block type="sensing_currenttime" />
@@ -136,7 +249,6 @@
         <block type="operators_equals" />
         <block type="operators_strictequals" />
         <block type="operators_notequals" />
-        <block type="operators_notstrictequals" />
         <block type="operators_more" />
         <block type="operators_less" />
         <sep gap="48"></sep>
@@ -145,27 +257,198 @@
         <block type="operators_xor" />
         <block type="operators_not" />
         <sep gap="48"></sep>
-        <block type="operators_add" />
-        <block type="operators_minus" />
-        <block type="operators_multiply" />
-        <block type="operators_divide" />
-        <block type="operators_mod" />
-        <block type="operators_power" />
+        <block type="operators_add">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_minus">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_multiply">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_divide">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_mod">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_power">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
-        <block type="operators_log" />
-        <block type="operators_root" />
-        <block type="operators_adv" />
+        <block type="operators_log">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_root">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_adv">
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
-        <block type="operators_randomint" />
-        <block type="operators_random" />
+        <block type="operators_randomint">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_random">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"></field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
-        <block type="operators_clamp" />
+        <block type="operators_clamp">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">50</field>
+                </shadow>
+            </value>
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
         <sep gap="48"></sep>
         <block type="operators_join" />
-        <block type="operators_includes" />
-        <block type="operators_split" />
-        <block type="operators_letter" />
-        <block type="operators_length_of" />
+        <block type="operators_includes">
+            <value name="X">
+                <shadow type="text">
+                    <field name="TEXT">foo</field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="text">
+                    <field name="TEXT">bar</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_split">
+            <value name="X">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_letter">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="text">
+                    <field name="TEXT">example</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operators_length_of">
+            <value name="Y">
+                <shadow type="text">
+                    <field name="TEXT">example</field>
+                </shadow>
+            </value>
+        </block>
     </category>
     <category name="Conversions" colour="#8BC059">
         <block type="conversions_tonumber" />
@@ -207,7 +490,11 @@
     </category>
     <sep></sep>
     <category name="Blocks" colour="#FF6680">
-        <block type="blocks_create" />
+        <block type="blocks_create">
+            <value name="CONDITION">
+                <block type="literals_false" />
+            </value>
+        </block>
         <!--<block type="blocks_createcap" />-->
         <block type="blocks_createobject" />
         <block type="blocks_gap" />
@@ -274,7 +561,11 @@
         <!--<block type="looks_setpenguinmodeffect" />
         <block type="looks_getpenguinmodeffect" />
         <block type="looks_gettintcolor" />-->
-        <block type="blocks_penguinmodcreate" />
+        <block type="blocks_penguinmodcreate">
+            <value name="CONDITION">
+                <block type="literals_false" />
+            </value>
+        </block>
         <block type="blocks_ispenguinmod" />
     </category>
 </xml>

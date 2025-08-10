@@ -72,7 +72,7 @@ function register() {
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
 
-        return [`!(${X || 0} == ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
+        return [`(${X || 0} !== ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}notstrictequals`, {
@@ -654,7 +654,7 @@ function register() {
         const Value = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
         const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
-        return [`Math.min(Math.max(${Value}, ${X}), ${Y})`, javascriptGenerator.ORDER_ATOMIC];
+        return [`Math.min(Math.max(${Value}, ${Y}), ${X})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     // length of

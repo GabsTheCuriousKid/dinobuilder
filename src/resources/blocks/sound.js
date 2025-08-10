@@ -103,7 +103,7 @@ function register() {
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}changeprojectvolume`, {
-        message0: 'change project volume by %1 ',
+        message0: 'change project volume by %1',
         args0: [
             {
                 "type": "input_value",
@@ -128,6 +128,30 @@ function register() {
         colour: categoryColor
     }, (block) => {
         return [`Scratch.vm.runtime.audioEngine.inputNode.gain.value * 100`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    registerBlock(`${categoryPrefix}setvolume`, {
+        message0: 'set volume of %1 to %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "check": "Number",
+                "name": "VALUE"
+            },
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
+        return [`if (${SPRITE} !== undefined) {\n${SPRITE}.volume = Math.min(Math.max(${VALUE}, 100), 0);\nScratch.vm.runtime.requestRedraw();\n}`, javascriptGenerator.ORDER_ATOMIC];
     })
 }
 
