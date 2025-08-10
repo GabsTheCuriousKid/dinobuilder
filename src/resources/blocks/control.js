@@ -444,7 +444,9 @@ function register() {
                 }
                 if (event.type === Blockly.Events.BLOCK_MOVE && event.newParentId === this.id && event.inputName === 'ERROR_ARG') {
                     while (!this.getInput('ERROR_ARG') && Ithis.getInput('ERROR_ARG').connection) {
-                        await new Promise(resolve => setTimeout(resolve, 10))
+                        (async () => {
+                            await new Promise(resolve => setTimeout(resolve, 10))
+                        })()
                     }
                     const connectedBlock = this.getInput('ERROR_ARG').connection.targetBlock();
                     if (connectedBlock && connectedBlock.type !== `${categoryPrefix}error_reporter`) {
