@@ -1,4 +1,6 @@
 import Blockly from 'blockly/core';
+import javascriptGenerator from '../javascriptGenerator';
+import registerBlock from '../register';
 
 const textFieldColor = '#fff'
 
@@ -23,89 +25,77 @@ function register() {
         }
     };
 
-    Blockly.Blocks['math_integer'] = {
-        /**
-         * Block for integer value (no decimal, + or -).
-         * @this Blockly.Block
-         */
-        init: function() {
-            this.jsonInit({
-                "message0": "%1",
-                "args0": [
-                    {
-                        "type": "field_number",
-                        "name": "NUM",
-                        "precision": "1"
-                    }
-                ],
-                "output": "Number",
-                "colour": textFieldColor
-            });
-        }
-    };
+    /**
+     * Block for integer value (no decimal, + or -).
+    */
+    registerBlock('math_integer', {
+        message0: "%1",
+        args0: [
+            {
+                "type": "field_number",
+                "name": "NUM",
+                "precision": "1"
+            }
+        ],
+        output: "Number",
+        colour: textFieldColor
+    }, (block) => {
+        return [block.getFieldValue("NUM"), javascriptGenerator.ORDER_ATOMIC];
+    })
 
-    Blockly.Blocks['math_whole_number'] = {
     /**
      * Block for whole number value, no negatives or decimals.
-     * @this Blockly.Block
      */
-    init: function() {
-        this.jsonInit({
-            "message0": "%1",
-            "args0": [
-                {
-                    "type": "field_number",
-                    "name": "NUM",
-                    "min": "0",
-                    "precision": "1"
-                }
-            ],
-            "output": "Number",
-            "colour": textFieldColor
-        });
-    }
-    };
+    registerBlock('math_whole_number', {
+        message0: "%1",
+        args0: [
+            {
+                "type": "field_number",
+                "name": "NUM",
+                "min": "0",
+                "precision": "1"
+            }
+        ],
+        output: "Number",
+        colour: textFieldColor
+    }, (block) => {
+        return [block.getFieldValue("NUM"), javascriptGenerator.ORDER_ATOMIC];
+    })
 
-    Blockly.Blocks['math_positive_number'] = {
-        /**
-         * Block for positive number value, with decimal.
-         * @this Blockly.Block
-         */
-        init: function() {
-            this.jsonInit({
-                "message0": "%1",
-                "args0": [
-                    {
-                        "type": "field_number",
-                        "name": "NUM",
-                        "min": "0"
-                    }
-                ],
-                "output": "Number",
-                "colour": textFieldColor
-            });
-        }
-    };
+    /**
+     * Block for positive number value, with decimal.
+    */
+    registerBlock('math_whole_number', {
+        message0: "%1",
+        args0: [
+            {
+                "type": "field_number",
+                "name": "NUM",
+                "min": "0"
+            }
+        ],
+        output: "Number",
+        colour: textFieldColor
+    }, (block) => {
+        return [block.getFieldValue("NUM"), javascriptGenerator.ORDER_ATOMIC];
+    })
 
-    Blockly.Blocks['math_angle'] = {
-        /**
-         * Block for angle picker.
-         * @this Blockly.Block
-         */
-        init: function() {
-            this.jsonInit({
-                "message0": "%1",
-                "args0": [
-                    {
-                        "type": "field_angle",
-                        "name": "NUM",
-                    }
-                ],
-                "output": "Number",
-                "colour": textFieldColor
-            });
-        }
-    };
+    /**
+     * Block for angle picker.
+    */
+    registerBlock('math_angle', {
+        message0: "%1",
+        args0: [
+            {
+                "type": "field_angle",
+                "name": "NUM",
+            }
+        ],
+        output: "Number",
+        colour: textFieldColor
+    }, (block) => {
+        return [block.getFieldValue("NUM"), javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 
 export default register;
