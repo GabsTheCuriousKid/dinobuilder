@@ -428,11 +428,9 @@ function register() {
             setTimeout(() => {
                 const errorInput = this.getInput('ERROR_ARG');
                 if (errorInput && !errorInput.connection.targetBlock()) {
-                    const shadowDom = Blockly.Xml.textToDom(
-                        `<shadow type="${categoryPrefix}error_reporter"></shadow>`
-                    );
-                    errorInput.connection.setShadowDom(shadowDom);
-                    errorInput.connection.respawnShadow_();
+                    errorInput.connection.setShadowState({
+                        type: `${categoryPrefix}error_reporter`
+                    });
                 }
             }, 1);
         }
