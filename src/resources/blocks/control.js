@@ -394,45 +394,27 @@ function register() {
     Blockly.Blocks[`${categoryPrefix}try_catch2`] = {
         init: function () {
             this.errorVarName_ = compileVars.new();
-            
-            this.jsonInit({
-                message0: 'try %1 %2 catch %3 %4 %5',
-                args0: [
-                    {
-                        "type": "input_dummy"
-                    },
-                    {
-                        "type": "input_statement",
-                        "name": "TRY_BLOCKS"
-                    },
-                    {
-                        "type": 'input_value',
-                        "name": 'ERROR_ARG',
-                        "check": 'String'
-                    },
-                    {
-                        "type": "input_dummy"
-                    },
-                    {
-                        "type": "input_statement",
-                        "name": "CATCH_BLOCKS"
-                    },
-                ],
-                previousStatement: null,
-                nextStatement: null,
-                inputsInline: true,
-                colour: categoryColor,
-            });
-            this.getVars = () => [this.errorVarName_];
 
-            setTimeout(() => {
-                const errorInput = this.getInput('ERROR_ARG');
-                if (errorInput && !errorInput.connection.targetBlock()) {
-                    errorInput.connection.setShadowState({
-                        type: `${categoryPrefix}error_reporter`
-                    });
-                }
-            }, 1);
+            this.appendDummyInput()
+                .appendField('try')
+                .appendField(new Blockly.FieldLabelSerializable('', 'blocklyReporter'), 'ERROR_DISPLAY');
+            
+            this.appendStatementInput("TRY_BLOCKS");
+
+            this.appendValueInput("ERROR_ARG")
+                .setCheck("String");
+
+            this.appendDummyInput()
+                .appendField('catch');
+
+            this.appendStatementInput("CATCH_BLOCKS");
+
+            this.setPreviousStatement(true);
+            this.setNextStatement(true);
+            this.setInputsInline(true);
+            this.setColour(categoryColor);
+
+            this.getVars = () => [this.errorVarName_];
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
