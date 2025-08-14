@@ -121,7 +121,7 @@
                     height={50}
                 />
                 <div style="height:5px" />
-                {localeffectsExt ? 'Selected' : 'Effect'}
+                {localeffectsExt ? 'Selected' : 'Effects'}
             </button>
             <button class="block-extension" on:click={toggleWeb}>
                 <img 
