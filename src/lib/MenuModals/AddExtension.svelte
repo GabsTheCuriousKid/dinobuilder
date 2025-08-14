@@ -28,6 +28,7 @@
         dispatch("completed", {
             hiddenblocksExt: localhiddenblocksExt,
             webextensionExt: localwebextensionExt,
+            effectsExt: localeffectsExt,
             jsextensionExt: localjsextensionExt,
             customextensionExt: localcustomextensionExt,
             extensionCode: localCustomExtensionCode,
@@ -36,10 +37,12 @@
 
     export let hiddenblocksExt = false;
     export let webextensionExt = false;
+    export let effectsExt = false;
     export let jsextensionExt = false;
     export let customextensionExt = false;
     let localhiddenblocksExt = hiddenblocksExt;
     let localwebextensionExt = webextensionExt;
+    let localeffectsExt = effectsExt;
     let localjsextensionExt = jsextensionExt;
     let localcustomextensionExt = customextensionExt;
     let localCustomExtensionCode = '';
@@ -49,6 +52,9 @@
     }
     function toggleWeb() {
         localwebextensionExt = !localwebextensionExt
+    }
+    function toggleEffects() {
+        localeffectsExt = !localeffectsExt
     }
     function toggleJS() {
         localjsextensionExt = !localjsextensionExt
@@ -107,6 +113,15 @@
                 />
                 <div style="height:5px" />
                 {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
+            </button>
+            <button class="block-extension" on:click={toggleEffects}>
+                <img 
+                    alt="EffectsPNG"
+                    src="images/extensionIcons/looks-expansion.png"
+                    height={50}
+                />
+                <div style="height:5px" />
+                {localeffectsExt ? 'Selected' : 'Effect'}
             </button>
             <button class="block-extension" on:click={toggleWeb}>
                 <img 

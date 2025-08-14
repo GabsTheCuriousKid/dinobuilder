@@ -110,6 +110,7 @@
 
     import hiddenblocksExtension from "../resources/extensions/hiddenblocks/hiddenblocks.xml?raw";
     import webExtensionExtension from "../resources/extensions/webextension/webextension.xml?raw";
+    import effectsExtension from "../resources/extensions/effects/effects.xml?raw";
     import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
 
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
@@ -609,6 +610,13 @@
             console.error('Error injecting XML:', error);
         }
     }
+    async function onEffectsMount() {
+        try {
+            onAddExtension(effectsExtension, "Effects", true);
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
     async function onJSExtensionMount() {
         try {
             onAddExtension(javascriptExtension, "Javascript", true);
@@ -761,6 +769,9 @@
             }
             if (addextensiondata.detail.webextensionExt === true) {
                 onWebExtensionMount()
+            }
+            if (addextensiondata.detail.effectsExt === true) {
+                onEffectsMount()
             }
             if (addextensiondata.detail.jsextensionExt === true) {
                 onJSExtensionMount()
