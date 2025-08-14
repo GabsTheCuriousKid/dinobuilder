@@ -464,7 +464,7 @@ function register() {
             if (errorInput && errorInput.connection.targetBlock()) {
                 errorInput.connection.targetBlock().dispose(healStack);
             }
-            Blockly.Block.prototype.dispose.call(this, healStack);
+            Blockly.BlockSvg.prototype.dispose.call(this, healStack);
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
