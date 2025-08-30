@@ -62,13 +62,7 @@ function register() {
 
     registerBlock(`${categoryPrefix}gettimers`, {
         message0: 'get object of timers',
-        args0: [
-            {
-                "type": "input_value",
-                "name": "ID",
-                "check": "String"
-            }
-        ],
+        args0: [],
         output: "JSONObject",
         inputsInline: true,
         colour: categoryColor
