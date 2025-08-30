@@ -30,7 +30,7 @@
             webextensionExt: localwebextensionExt,
             effectsExt: localeffectsExt,
             jsextensionExt: localjsextensionExt,
-            timersextensionExt: localtimersextensionExt
+            timersextensionExt: localtimersextensionExt,
             customextensionExt: localcustomextensionExt,
             extensionCode: localCustomExtensionCode,
         });
