@@ -464,6 +464,12 @@ function register() {
             if (errorInput && errorInput.connection.targetBlock()) {
                 errorInput.connection.targetBlock().dispose(healStack);
                 //Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
+                if (errorInput.connection?.shadowDom) {
+                    const shadowBlock = errorInput.connection.targetBlock();
+                    if (shadowBlock) {
+                        shadowBlock.dispose(healStack);
+                    }
+                }
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
             /*try {
