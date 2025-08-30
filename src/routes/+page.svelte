@@ -41,7 +41,7 @@
     const Theme = Blockly.Theme.defineTheme("BasicTheme", {
         base: Blockly.Themes.Classic,
         fontStyle: {
-            family: '"Helvetica Neue", Helvetica, Arial, sans-serif', //'"Source Code Pro", monospace',
+            family: '"Source Code Pro", monospace', //'"Helvetica Neue", Helvetica, Arial, sans-serif',
             weight: "500",
             size: 12,
         },
