@@ -406,7 +406,7 @@ function register() {
                 .appendField('catch')
 
             this.appendValueInput('ERROR_ARG')
-                .setCheck('String');
+                .setCheck('errorOnly');
 
             this.appendStatementInput("CATCH_BLOCKS");
 
@@ -486,7 +486,7 @@ function register() {
     registerBlock(`${categoryPrefix}error_reporter`, {
         message0: 'error',
         args0: [],
-        output: "String",
+        output: ["String", "errorOnly"],
         colour: categoryColor,
     }, (block) => {
         let parent = block.getSurroundParent();
