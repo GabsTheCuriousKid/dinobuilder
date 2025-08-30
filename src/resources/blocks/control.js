@@ -463,15 +463,15 @@ function register() {
             const errorInput = this.getInput('ERROR_ARG');
             if (errorInput && errorInput.connection.targetBlock()) {
                 errorInput.connection.targetBlock().dispose(healStack);
-                Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
+                //Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
-            try {
+            /*try {
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
                 this.removeInput('ERROR_ARG', true);
             } catch {
                 // do nothing
-            }
+            }*/
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
