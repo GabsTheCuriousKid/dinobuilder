@@ -471,15 +471,17 @@ function register() {
                     }
                 }
             }
-            Blockly.BlockSvg.prototype.dispose.call(this, healStack);
-            this.workspace.resize();
-            this.workspace.render();
             try {
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
                 this.removeInput('ERROR_ARG', true);
+                this.workspace.resize();
+                this.workspace.render();
             } catch {
                 // do nothing
             }
+            Blockly.BlockSvg.prototype.dispose.call(this, healStack);
+            this.workspace.resize();
+            this.workspace.render();
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {
