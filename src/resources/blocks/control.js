@@ -472,6 +472,7 @@ function register() {
                 }
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
+            this.workspace.render();
             /*try {
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
                 this.removeInput('ERROR_ARG', true);
