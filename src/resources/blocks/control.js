@@ -467,9 +467,8 @@ function register() {
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
             try {
-                Blockly.Block.prototype.dispose.call(this, healStack);
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
-                Blockly.Block.prototype.dispose.call(this, errorInput);
+                this.removeInput('ERROR_ARG', true);
             } catch {
                 // do nothing
             }
