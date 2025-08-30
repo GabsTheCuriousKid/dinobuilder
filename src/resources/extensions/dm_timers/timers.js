@@ -67,8 +67,7 @@ function register() {
         inputsInline: true,
         colour: categoryColor
     }, (block) => {
-        const ID = javascriptGenerator.valueToCode(block, 'ID', javascriptGenerator.ORDER_ATOMIC);
-        const code = `Scratch.Timers.getTimers(${ID})`;
+        const code = `Scratch.Timers.getTimers()`;
         return [`${code}`, javascriptGenerator.ORDER_ATOMIC];
     })
 
