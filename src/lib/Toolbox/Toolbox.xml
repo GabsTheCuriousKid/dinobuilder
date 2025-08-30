@@ -42,7 +42,7 @@
             </value>
         </block>
         <block type="motion_getdirof" />
-        <!--<block type="motion_setrotatestyle" />-->
+        <block type="motion_setrotatestyle" />
         <block type="motion_getrotatestyleof" />
         <sep gap="48"></sep>
         <block type="motion_stage" />
