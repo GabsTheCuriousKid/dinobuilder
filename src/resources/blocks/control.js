@@ -472,9 +472,8 @@ function register() {
                 }
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
-            let workspaceDom = Blockly.Xml.workspaceToDom(this.workspace);
-            this.workspace.clear();
-            Blockly.Xml.domToWorkspace(workspaceDom, this.workspace);
+            this.workspace.resize();
+            this.workspace.render();
             /*try {
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
                 this.removeInput('ERROR_ARG', true);
