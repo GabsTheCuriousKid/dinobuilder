@@ -30,6 +30,7 @@
             webextensionExt: localwebextensionExt,
             effectsExt: localeffectsExt,
             jsextensionExt: localjsextensionExt,
+            timersextensionExt: localtimersextensionExt
             customextensionExt: localcustomextensionExt,
             extensionCode: localCustomExtensionCode,
         });
@@ -39,11 +40,13 @@
     export let webextensionExt = false;
     export let effectsExt = false;
     export let jsextensionExt = false;
+    export let timersextensionExt = false;
     export let customextensionExt = false;
     let localhiddenblocksExt = hiddenblocksExt;
     let localwebextensionExt = webextensionExt;
     let localeffectsExt = effectsExt;
     let localjsextensionExt = jsextensionExt;
+    let localtimersextensionExt = timersextensionExt
     let localcustomextensionExt = customextensionExt;
     let localCustomExtensionCode = '';
 
@@ -58,6 +61,9 @@
     }
     function toggleJS() {
         localjsextensionExt = !localjsextensionExt
+    }
+    function toggleTimers() {
+        localtimersextensionExt = !localtimersextensionExt
     }
     function toggleCustom() {
         if (extensionCode == null || extensionCode == '') {
@@ -122,6 +128,15 @@
                 />
                 <div style="height:5px" />
                 {localeffectsExt ? 'Selected' : 'Effects'}
+            </button>
+            <button class="block-extension" on:click={toggleTimers}>
+                <img 
+                    alt="TimersExtensionPNG"
+                    src="images/extensionIcons/NoIcon.png"
+                    height={50}
+                />
+                <div style="height:5px" />
+                {localtimersextensionExt ? 'Selected' : 'Timers (DinosaurMod Only)'}
             </button>
             <button class="block-extension" on:click={toggleWeb}>
                 <img 

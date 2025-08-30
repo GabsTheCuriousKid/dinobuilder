@@ -110,7 +110,7 @@ function register() {
         colour: categoryColor
     }, (block) => {
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
-        const code = `while (true) {${BLOCKS}}`;
+        const code = `(async () => {\nwhile (true) {${BLOCKS}\nawait new Promise(r => setTimeout(r, 50));}\n})()`;
         return `${code}\n`;
     })
 
@@ -466,6 +466,11 @@ function register() {
                 Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
             }
             Blockly.BlockSvg.prototype.dispose.call(this, healStack);
+            try {
+                Blockly.BlockSvg.prototype.dispose.call(this, errorInput);
+            } catch {
+                // do nothing
+            }
         }
     }
     javascriptGenerator.forBlock[`${categoryPrefix}try_catch2`] = function (block) {

@@ -104,14 +104,17 @@
     // Extension Blocks
     import registerWebExtension from "../resources/extensions/webextension/webextension.js";
     import registerJSExtension from "../resources/extensions/javascript/javascript.js";
+    import registerTimersExtension from "../resources/extensions/dm_timers/timers.js";
 
     registerWebExtension();
     registerJSExtension();
+    registerTimersExtension();
 
     import hiddenblocksExtension from "../resources/extensions/hiddenblocks/hiddenblocks.xml?raw";
     import webExtensionExtension from "../resources/extensions/webextension/webextension.xml?raw";
     import effectsExtension from "../resources/extensions/effects/effects.xml?raw";
     import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
+    import timersExtension from "../resources/extensions/dm_timers/timers.xml?raw";
 
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
     import registerBlock from '../resources/register';
@@ -624,6 +627,13 @@
             console.error('Error injecting XML:', error);
         }
     }
+    async function onTimersExtensionMount() {
+        try {
+            onAddExtension(timersExtension, "Timers", true);
+        } catch (error) {
+            console.error('Error injecting XML:', error);
+        }
+    }
     let refreshKey = 0;
     
     async function updateToolbox(newToolbox) {
@@ -775,6 +785,9 @@
             }
             if (addextensiondata.detail.jsextensionExt === true) {
                 onJSExtensionMount()
+            }
+            if (addextensiondata.detail.timersextensionExt === true) {
+                onTimersExtensionMount()
             }
             if (addextensiondata.detail.customextensionExt === true) {
                 if (typeof window !== undefined) {

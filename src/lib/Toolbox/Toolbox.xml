@@ -106,6 +106,7 @@
                 </shadow>
             </value>
         </block>
+        <block type="control_forever" />
         <sep gap="48"></sep>
         <block type="control_if" />
         <block type="control_if">
