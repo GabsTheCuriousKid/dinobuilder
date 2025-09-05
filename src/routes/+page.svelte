@@ -241,6 +241,7 @@
         window.dinoBuilder.ArgumentType = window.dinoBuilder.ArgumentType || {};
         window.dinoBuilder.ArgumentType.EMPTY = "input_value";
         window.dinoBuilder.ArgumentType.STRING = "field_input";
+        window.dinoBuilder.ArgumentType.NUMBER = "field_number";
 
         // BlockTypes
         window.dinoBuilder.BlockType = window.dinoBuilder.BlockType || {};
