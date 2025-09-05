@@ -134,21 +134,23 @@ function defineXmlOfExtension(extensionClass) {
     for (const block of blocks) {
         const blockid = block["opcode"];
         const type = block["type"];
-        if (blockid) {
-            const editedid = id + '_' + blockid;
-            xmlblocks += `<block type="${editedid}" data-extension="true" />`
-        }
-        if (type == 'xml') {
-            const xml = block["xml"];
-            xmlblocks += `${xml}`
-        }
-        if (type == 'gap') {
-            const gap = block["gap"];
-            xmlblocks += `<sep gap="${gap}" />`
-        }
-        if (type == 'label') {
-            const text = block["text"];
-            xmlblocks += `<label text="${text}" />`
+        if (!block["hideFromPalette"] === true) {
+            if (blockid) {
+                const editedid = id + '_' + blockid;
+                xmlblocks += `<block type="${editedid}" data-extension="true" />`
+            }
+            if (type == 'xml') {
+                const xml = block["xml"];
+                xmlblocks += `${xml}`
+            }
+            if (type == 'gap') {
+                const gap = block["gap"];
+                xmlblocks += `<sep gap="${gap}" />`
+            }
+            if (type == 'label') {
+                const text = block["text"];
+                xmlblocks += `<label text="${text}" />`
+            }
         }
     }
     return (headerCode + registryCode["categoryTop"] + xmlblocks + registryCode["categoryBottom"] + footerCode)
