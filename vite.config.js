@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		nodePolyfills({
-			include: ['url', 'path'],
+			include: ['url', 'path', 'os'],
 			globals: {
 				Buffer: true,
 				global: true,
