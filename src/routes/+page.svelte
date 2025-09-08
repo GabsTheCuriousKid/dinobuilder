@@ -4,7 +4,7 @@
     import { page } from '$app/stores';
     import { base } from '$app/paths';
 
-    import { ESLint } from 'https://cdn.jsdelivr.net/npm/eslint-linter-browserify@9.34.0/linter.min.js';
+    import { Linter } from 'https://cdn.jsdelivr.net/npm/eslint-linter-browserify@9.34.0/linter.min.js';
 
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
@@ -219,15 +219,12 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        const eslint = new ESLint({ useEslintrc: false, baseConfig: { extends: "eslint:recommended" } });
-        const results = await eslint.lintText(code);
-        return results[0].messages;
-
-        if (res.ok) {
-            return await res.json();
-        } else {
-            return null;
-        }
+        const linter = new Linter();
+        return linter.verify(code, {
+            rules: {
+                semi: ["error", "never"]
+            }
+        });
     }
 
     function generateDinoBuilderWindow(window) {
