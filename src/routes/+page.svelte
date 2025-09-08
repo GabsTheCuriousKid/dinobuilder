@@ -4,6 +4,8 @@
     import { page } from '$app/stores';
     import { base } from '$app/paths';
 
+    import { ESLint } from 'https://cdn.jsdelivr.net/npm/eslint-linter-browserify@9.34.0/linter.min.js';
+
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
     import NavigationDivider from "$lib/NavigationBar/Divider.svelte";
@@ -217,11 +219,9 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        const res = await fetch(`${base}/api/lint`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: beautifyGeneratedCode(code)
-        });
+        const eslint = new ESLint({ useEslintrc: false, baseConfig: { extends: "eslint:recommended" } });
+        const results = await eslint.lintText(code);
+        return results[0].messages;
 
         if (res.ok) {
             return await res.json();
