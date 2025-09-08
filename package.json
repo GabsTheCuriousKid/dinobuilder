@@ -14,7 +14,8 @@
 		"eslint": "^9.0.0",
     	"eslint-plugin-svelte": "^2.0.0",
 		"svelte": "^4.0.5",
-		"vite": "^4.4.2"
+		"vite": "^4.4.2",
+		"vite-plugin-node-polyfills": "^0.24.0"
 	},
 	"type": "module",
 	"dependencies": {
