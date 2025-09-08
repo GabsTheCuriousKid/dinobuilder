@@ -11,6 +11,8 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"eslint": "^9.0.0",
+    	"eslint-plugin-svelte": "^2.0.0",
 		"svelte": "^4.0.5",
 		"vite": "^4.4.2"
 	},
@@ -26,5 +28,17 @@
 		"jszip": "^3.10.1",
 		"prismjs": "^1.29.0",
 		"svelte-blockly": "^0.1.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"ecmaVersion": "latest",
+			"sourceType": "module"
+		},
+		"env": {
+			"browser": true,
+			"es2021": true
+		},
+		"plugins": ["svelte"],
+		"extends": ["eslint:recommended"]
 	}
 }
