@@ -4,8 +4,6 @@
     import { page } from '$app/stores';
     import { base } from '$app/paths';
 
-    import { Linter } from 'https://cdn.jsdelivr.net/npm/eslint-linter-browserify@9.34.0/linter.min.js';
-
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
     import NavigationDivider from "$lib/NavigationBar/Divider.svelte";
@@ -219,12 +217,7 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        const linter = new Linter();
-        return linter.verify(code, {
-            rules: {
-                semi: ["error", "never"]
-            }
-        });
+        return code
     }
 
     function generateDinoBuilderWindow(window) {
