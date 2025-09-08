@@ -27,7 +27,6 @@
     import beautify from "js-beautify";
     import Prism from "prismjs";
     import * as FileSaver from "file-saver";
-    import { ESLint } from "eslint";
     import fileDialog from "../resources/fileDialog";
     import EventManager from "../resources/events";
 
@@ -216,6 +215,20 @@
         lastGeneratedCode = code;
     }
 
+    function checkForErrorsInsideCode() {
+        const res = await fetch('/api/lint', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: beautifyGeneratedCode(lastGeneratedCode)
+        });
+
+        if (res.ok) {
+            return await res.json();
+        } else {
+            return null;
+        }
+    }
+
     function generateDinoBuilderWindow(window) {
         window.dinoBuilder = window.dinoBuilder || {};
 
@@ -268,7 +281,6 @@
             FileSaver.saveAs(blob, filteredFileName + fileExtension);
         };
         window.dinoBuilder.Gui.generatedCode = () => beautifyGeneratedCode(code);
-        window.dinoBuilder.Gui.eslint = new ESLint();
 
         Object.defineProperty(window.dinoBuilder, "secret_", {
             value: function () {
