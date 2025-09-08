@@ -116,9 +116,6 @@
     import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
     import timersExtension from "../resources/extensions/dm_timers/timers.xml?raw";
 
-    import { createRequire } from 'module';
-    const require = createRequire(import.meta.url);
-
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
     import registerBlock from '../resources/register';
     import javascriptGenerator from '../resources/javascriptGenerator';
@@ -218,10 +215,18 @@
         lastGeneratedCode = code;
     }
 
-    const eslint = new ESLint({ useEslintrc: false, baseConfig: { extends: "eslint:recommended" } });
-
     async function checkForErrorsInsideCode() {
-        return eslint.lintText(beautifyGeneratedCode(lastGeneratedCode))[0].messages
+        const res = await fetch('/api/lint', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: beautifyGeneratedCode(lastGeneratedCode)
+        });
+
+        if (res.ok) {
+            return await res.json();
+        } else {
+            return null;
+        }
     }
 
     function generateDinoBuilderWindow(window) {
