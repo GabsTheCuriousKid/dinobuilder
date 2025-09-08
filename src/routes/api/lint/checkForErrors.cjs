@@ -6,4 +6,4 @@ async function checkForErrors(code) {
     return results[0].messages;
 }
 
-module.exports = { checkForErrors };
+module.exports = checkForErrors;
