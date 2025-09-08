@@ -719,7 +719,6 @@
     }
 
     let lines;
-    let lineNumberBlocks = [];
 
     $: lines = beautifyGeneratedCode(lastGeneratedCode).split('\n');
 
@@ -729,14 +728,9 @@
         refreshKey++;
     }
 
-    let codeDisplay;
-    let lineNumbers;
-
     function syncScroll() {
         lineNumbers.scrollTop = codeDisplay.scrollTop;
     }
-
-    let codeLines = [];
 
     function syncLineHeights() {
         if (!lineNumbers || !codeDisplay) return;
@@ -751,29 +745,7 @@
         });
     }
 
-    function buildLineNumberBlocks() {
-        if (!codeDisplay) return;
-
-        const codeLineDivs = codeDisplay.querySelectorAll('div.line');
-
-        lineNumberBlocks = [];
-
-        let lineIndex = 1;
-
-        for (let i = 0; i < codeLineDivs.length; i++) {
-            const isNewBlock =
-                i === 0 || codeLineDivs[i].offsetTop > codeLineDivs[i - 1].offsetTop;
-
-            if (isNewBlock) {
-                lineNumberBlocks.push(lineIndex++);
-            } else {
-                lineNumberBlocks.push('');
-            }
-        }
-    }
-
     afterUpdate(() => {
-        buildLineNumberBlocks();
         syncLineHeights();
     });
 </script>
