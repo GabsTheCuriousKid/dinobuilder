@@ -217,7 +217,13 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        return code
+        const linter = new window.eslint.Linter();
+        return linter.verify(code, {
+            rules: {
+                semi: ["error", "never"],
+                'no-unused-vars': ["warn"]
+            }
+        });
     }
 
     function generateDinoBuilderWindow(window) {
