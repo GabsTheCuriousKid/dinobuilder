@@ -216,7 +216,7 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        const res = await fetch('/api/lint', {
+        const res = await fetch('./api/lint', {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: beautifyGeneratedCode(code)
