@@ -281,7 +281,7 @@
             FileSaver.saveAs(blob, filteredFileName + fileExtension);
         };
         window.dinoBuilder.Gui.generatedCode = () => beautifyGeneratedCode(code);
-        window.dinoBuilder.Gui.checkForErrorsInsideCode = (code) =>  => checkForErrorsInsideCode(code);
+        window.dinoBuilder.Gui.checkForErrorsInsideCode = (code) => checkForErrorsInsideCode(code);
 
         Object.defineProperty(window.dinoBuilder, "secret_", {
             value: function () {
