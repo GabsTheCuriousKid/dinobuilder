@@ -220,8 +220,8 @@
         const linter = new window.eslint.Linter();
         return linter.verify(code, {
             rules: {
-                semi: ["error", "never"],
-                'no-unused-vars': ["warn"]
+                semi: "off",
+                'no-unused-vars': "off"
             }
         });
     }
