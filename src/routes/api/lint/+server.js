@@ -9,7 +9,8 @@ async function checkForErrors(code) {
     return results[0].messages;
 }
 
-export async function POST(code) {
+export async function POST({ request }) {
+    const code = await request.text();
     const results = await checkForErrors(code);
     return new Response(JSON.stringify(results), { status: 200 });
 }

@@ -215,11 +215,11 @@
         lastGeneratedCode = code;
     }
 
-    async function checkForErrorsInsideCode() {
+    async function checkForErrorsInsideCode(code) {
         const res = await fetch('/api/lint', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: beautifyGeneratedCode(lastGeneratedCode)
+            headers: { 'Content-Type': 'text/plain' },
+            body: beautifyGeneratedCode(code)
         });
 
         if (res.ok) {
@@ -281,6 +281,7 @@
             FileSaver.saveAs(blob, filteredFileName + fileExtension);
         };
         window.dinoBuilder.Gui.generatedCode = () => beautifyGeneratedCode(code);
+        window.dinoBuilder.Gui.checkForErrorsInsideCode = (code) =>  => checkForErrorsInsideCode(code);
 
         Object.defineProperty(window.dinoBuilder, "secret_", {
             value: function () {
