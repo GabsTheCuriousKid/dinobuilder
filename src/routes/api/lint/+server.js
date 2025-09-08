@@ -1,7 +1,7 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-const { checkForErrors } = require('../../../../utils/lint.cjs');
+const { checkForErrors } = require('../../utils/lint.cjs');
 
 export async function POST({ request }) {
     const { code } = await request.json();
