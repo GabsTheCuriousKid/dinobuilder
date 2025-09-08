@@ -1,10 +1,15 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-const checkForErrors = require('./checkForErrors.cjs');
+const { ESLint } = require('eslint');
 
-export async function POST({ request }) {
-    const { code } = await request.json();
+async function checkForErrors(code) {
+    const eslint = new ESLint({ useEslintrc: false, baseConfig: { extends: "eslint:recommended" } });
+    const results = await eslint.lintText(code);
+    return results[0].messages;
+}
+
+export async function POST(code) {
     const results = await checkForErrors(code);
     return new Response(JSON.stringify(results), { status: 200 });
 }
