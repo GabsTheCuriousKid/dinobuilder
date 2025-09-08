@@ -2,6 +2,7 @@
     import { onMount, afterUpdate } from "svelte";
     import { browser } from '$app/environment';
     import { page } from '$app/stores';
+    import { base } from '$app/paths';
 
     // Components
     import NavigationBar from "$lib/NavigationBar/NavigationBar.svelte";
@@ -216,7 +217,7 @@
     }
 
     async function checkForErrorsInsideCode(code) {
-        const res = await fetch('./api/lint', {
+        const res = await fetch(`${base}/api/lint`, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: beautifyGeneratedCode(code)
