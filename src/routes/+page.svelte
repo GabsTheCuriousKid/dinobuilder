@@ -215,7 +215,7 @@
         lastGeneratedCode = code;
     }
 
-    function checkForErrorsInsideCode() {
+    async function checkForErrorsInsideCode() {
         const res = await fetch('/api/lint', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
