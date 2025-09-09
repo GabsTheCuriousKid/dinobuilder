@@ -728,6 +728,9 @@
         refreshKey++;
     }
 
+    let codeDisplay;
+    let lineNumbers;
+
     function syncScroll() {
         lineNumbers.scrollTop = codeDisplay.scrollTop;
     }
