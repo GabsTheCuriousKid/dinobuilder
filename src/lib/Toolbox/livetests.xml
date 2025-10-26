@@ -9,4 +9,12 @@ Description: View blocks that are currently being worked on.-->
     <block type="control_try_catch2" />
     <label text="Functions"></label>
     <block type="functions_getsprites" />
+    <label text="Targets (New Category)"></label>
+    <block type="targets_forEach">
+        <value name="TARGETS">
+            <block type="targets_targets" />
+        </value>
+    </block>
+    <block type="targets_targets" />
+    <block type="targets_currentTarget" />
 </category>

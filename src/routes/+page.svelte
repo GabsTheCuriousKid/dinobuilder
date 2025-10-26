@@ -83,6 +83,7 @@
     import registerBlocks from "../resources/blocks/blocks.js";
     import registerMenus from "../resources/blocks/menus.js";
     import registerFunctions from "../resources/blocks/functions.js";
+    import registerTargets from "../resources/blocks/targets.js";
     import registerDebug from "../resources/blocks/debug.js";
     
     registerCore();
@@ -100,6 +101,7 @@
     registerBlocks();
     registerMenus();
     registerFunctions();
+    registerTargets();
     registerDebug();
 
     // Extension Blocks

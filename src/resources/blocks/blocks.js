@@ -582,5 +582,15 @@ function register() {
     }, (block) => {
         return [`(Scratch.extensions.isPenguinMod)`, javascriptGenerator.ORDER_ATOMIC];
     })
+
+    registerBlock(`${categoryPrefix}isdinosaurmod`, {
+        message0: 'is dinosaurmod?',
+        args0: [],
+        output: "Boolean",
+        inputsInline: true,
+        colour: '#7DD100',
+    }, (block) => {
+        return [`(Scratch.extensions.isDinosaurMod)`, javascriptGenerator.ORDER_ATOMIC];
+    })
 }
 export default register;

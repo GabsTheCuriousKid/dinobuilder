@@ -360,9 +360,10 @@ function register() {
                 "type": "field_dropdown",
                 "name": "error",
                 "options": [
-                    [ "error", "Error" ],
-                    [ "type error", "TypeError" ],
-                    [ "reference error", "ReferenceError" ],
+                    [ "error", "new Error" ],
+                    [ "type error", "new TypeError" ],
+                    [ "reference error", "new ReferenceError" ],
+                    [ "custom error", "" ],
                 ]
             },
             {
@@ -377,7 +378,7 @@ function register() {
     }, (block) => {
         const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
         const ERROR = block.getFieldValue('error');
-        const code = `throw new ${ERROR}(${VALUE});`;
+        const code = `throw ${ERROR}(${VALUE});`;
         return `${code}\n`;
     })
     registerBlock(`${categoryPrefix}error`, {

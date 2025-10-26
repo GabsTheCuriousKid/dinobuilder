@@ -542,4 +542,7 @@
         </block>
         <block type="blocks_ispenguinmod" />
     </category>
+    <category name="Dinosaurmod" colour="#80F41A">
+        <block type="blocks_isdinosaurmod" />
+    </category>
 </xml>
