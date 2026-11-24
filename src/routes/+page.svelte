@@ -503,8 +503,12 @@
     // code display & handling
     function beautifyGeneratedCode(code) {
         const beautified = beautify.js_beautify(code, {
-            indent_size: 4,
+            indent_size: 2,
             space_in_empty_paren: true,
+            max_preserve_newlines: 2,
+            end_with_newline: false,
+            brace_style: "collapse",
+            unescape_strings: false
         });
         return beautified;
     }
