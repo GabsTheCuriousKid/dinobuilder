@@ -44,7 +44,6 @@
         }
     }
 
-    export extensionData;
     export let customextensionExt = false;
     let localcustomextensionExt = customextensionExt;
     let localCustomExtensionCode = '';
