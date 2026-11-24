@@ -25,7 +25,7 @@
     import liveTestsCategory from "$lib/Toolbox/livetests.xml?raw";
 
     import JSZip from "jszip";
-    import beautify from "js-beautify";
+    import beautify from "js-beautify/js/lib/beautify.js";
     import Prism from "prismjs";
     import * as FileSaver from "file-saver";
     import fileDialog from "../resources/fileDialog";
@@ -501,8 +501,8 @@
     }
 
     // code display & handling
-    async function beautifyGeneratedCode(code) {
-        const beautified = beautify.js(code, {
+    function beautifyGeneratedCode(code) {
+        const beautified = beautify.js_beautify(code, {
             indent_size: 4,
             space_in_empty_paren: true,
         });
