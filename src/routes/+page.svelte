@@ -514,7 +514,8 @@
         displayIssues(issues);
         const highlighted = Prism.highlight(
             beautified,
-            Prism.languages.javascript
+            Prism.languages.javascript,
+            'javascript'
         );
         return highlighted;
     }
