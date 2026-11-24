@@ -502,14 +502,14 @@
 
     // code display & handling
     async function beautifyGeneratedCode(code) {
-        const beautified = await beautify.js(code, {
+        const beautified = beautifyJs(code, {
             indent_size: 4,
             space_in_empty_paren: true,
         });
         return beautified;
     }
     async function displayGeneratedCode(code) {
-        const beautified = await beautifyGeneratedCode(code);
+        const beautified = beautifyGeneratedCode(code);
         const issues = await checkForErrorsInsideCode(beautified);
         displayIssues(issues);
         const highlighted = Prism.highlight(

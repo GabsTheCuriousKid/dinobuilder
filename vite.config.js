@@ -19,6 +19,7 @@ export default defineConfig({
 		include: [
 			'@blockly/continuous-toolbox',
 			'file-saver',
+        	'js-beautify',
 		]
 	},
 	build: {
