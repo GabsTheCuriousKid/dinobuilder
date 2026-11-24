@@ -1072,7 +1072,9 @@
                         {/each}
                     </div>
                     <div class="codeDisplay" bind:this={codeDisplay} on:scroll={syncScroll}>
-                        {@html displayGeneratedCode(lastGeneratedCode)}
+                        {#await displayGeneratedCode(lastGeneratedCode) then html}
+                            {@html html}
+                        {/await}
                     </div>
                 </div>
             </div>
