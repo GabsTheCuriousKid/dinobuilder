@@ -34,6 +34,8 @@
     import AddXMLtoXML from '../utils/AddXMLtoXML.js';
     import RemoveXMLfromXML from '../utils/RemoveXMLfromXML.js';
     import { get, set, remove } from '../utils/GlobalTempVariables.js';
+    
+    import Extensions from '../utils/extensionsList.js';
 
     import Blockly from "blockly/core";
     import * as ContinuousToolboxPlugin from "@blockly/continuous-toolbox";
@@ -112,12 +114,6 @@
     registerWebExtension();
     registerJSExtension();
     registerTimersExtension();
-
-    import hiddenblocksExtension from "../resources/extensions/hiddenblocks/hiddenblocks.xml?raw";
-    import webExtensionExtension from "../resources/extensions/webextension/webextension.xml?raw";
-    import effectsExtension from "../resources/extensions/effects/effects.xml?raw";
-    import javascriptExtension from "../resources/extensions/javascript/javascript.xml?raw";
-    import timersExtension from "../resources/extensions/dm_timers/timers.xml?raw";
 
     import registerCustomExtension from "../resources/extensions/custom/extension_renderer.js";
     import registerBlock from '../resources/register';
@@ -255,6 +251,8 @@
         window.dinoBuilder.ArgumentType.EMPTY = "input_value";
         window.dinoBuilder.ArgumentType.STRING = "field_input";
         window.dinoBuilder.ArgumentType.NUMBER = "field_number";
+        window.dinoBuilder.ArgumentType.COLOR = "field_colour_hsv_sliders";
+        window.dinoBuilder.ArgumentType.ANGLE = "field_angle";
 
         // BlockTypes
         window.dinoBuilder.BlockType = window.dinoBuilder.BlockType || {};
@@ -315,18 +313,20 @@
         while (!document.querySelector('.blocklyToolboxDiv')) {
 			await new Promise(resolve => setTimeout(resolve, 10))
 		}
-        const toolboxEl = document.querySelector('.blocklyToolboxDiv');
-        
-        toolboxEl.addEventListener('mousedown', (e) => {
-            const category = e.target.closest('.blocklyTreeLabel');
-            if (!category) return;
-            const name = category.textContent.trim();
-            if (isExtensionCategory(name)) {
-                showExtensionDropdown(e, name);
+        const toolboxEl = document.querySelector('.blocklyToolboxContents');
+
+        for (const category of toolboxEl.getElementsByClassName("blocklyToolboxCategory")) {
+            if (category.getElementsByClassName("blocklyTreeLabel")) {
+                const name = category.getElementsByClassName("blocklyTreeLabel")[0];
+                if (isExtensionCategory(name)) {
+                    category.addEventListener('mousedown', (e) => {
+                        showExtensionDropdown(e, name);
+                    });
+                }
             } else {
-                hideExtensionDropdown();
+                continue;
             }
-        }); 
+        };
 
         generateDinoBuilderWindow(window);
 
@@ -469,6 +469,37 @@
         });
     }
 
+    let warningsText;
+    let errorsText;
+
+    async function displayIssues(issues) {
+        const errors = [];
+        const warnings = [];
+        for (const issue of issues) {
+            if (issue.severity == 1) warnings.push(issue);
+            if (issue.severity == 2) errors.push(issue);
+        };
+        console.log(errors, warnings) // debug
+        if (warningsText) {
+            if (warnings.length == 0) {
+                warningsText.style.color = "";
+                warningsText.innerText = String(0);
+            } else {
+                warningsText.style.color = "gold";
+                warningsText.innerText = String(warnings.length);
+            }
+        };
+        if (errorsText) {
+            if (errors.length == 0) {
+                errorsText.style.color = "";
+                errorsText.innerText = String(0);
+            } else {
+                errorsText.style.color = "red";
+                errorsText.innerText = String(errors.length);
+            }
+        };
+    }
+
     // code display & handling
     function beautifyGeneratedCode(code) {
         const beautified = beautify.js(code, {
@@ -477,8 +508,10 @@
         });
         return beautified;
     }
-    function displayGeneratedCode(code) {
+    async function displayGeneratedCode(code) {
         const beautified = beautifyGeneratedCode(code);
+        const issues = await checkForErrorsInsideCode(beautified);
+        displayIssues(issues);
         const highlighted = Prism.highlight(
             beautified,
             Prism.languages.javascript
@@ -613,42 +646,6 @@
             updateToolbox(newToolbox);
         }
     }
-
-    async function onHiddenBlocksMount() {
-        try {
-            onAddExtension(hiddenblocksExtension, "Hidden Blocks", true);
-        } catch (error) {
-            console.error('Error injecting XML:', error);
-        }
-    }
-    async function onWebExtensionMount() {
-        try {
-            onAddExtension(webExtensionExtension, "Site Runtime", true);
-        } catch (error) {
-            console.error('Error injecting XML:', error);
-        }
-    }
-    async function onEffectsMount() {
-        try {
-            onAddExtension(effectsExtension, "Effects", true);
-        } catch (error) {
-            console.error('Error injecting XML:', error);
-        }
-    }
-    async function onJSExtensionMount() {
-        try {
-            onAddExtension(javascriptExtension, "Javascript", true);
-        } catch (error) {
-            console.error('Error injecting XML:', error);
-        }
-    }
-    async function onTimersExtensionMount() {
-        try {
-            onAddExtension(timersExtension, "Timers", true);
-        } catch (error) {
-            console.error('Error injecting XML:', error);
-        }
-    }
     let refreshKey = 0;
     
     async function updateToolbox(newToolbox) {
@@ -716,8 +713,11 @@
     }
 
     function isExtensionCategory(name) {
-        const extensionNames = ["Hidden Blocks", "Site Runtime", "Javascript"]
-        return extensionNames.includes(name)
+        const extensionNames = [];
+        for (const extension of Extensions) {
+            extensionNames.push(extension.name);
+        };
+        return extensionNames.includes(name);
     }
 
     let lines;
@@ -764,20 +764,17 @@
     <AddExtensionsModal
         on:completed={async (addextensiondata) => {
             ModalState.addExtensions = false;
-            if (addextensiondata.detail.hiddenblocksExt === true) {
-                onHiddenBlocksMount()
-            }
-            if (addextensiondata.detail.webextensionExt === true) {
-                onWebExtensionMount()
-            }
-            if (addextensiondata.detail.effectsExt === true) {
-                onEffectsMount()
-            }
-            if (addextensiondata.detail.jsextensionExt === true) {
-                onJSExtensionMount()
-            }
-            if (addextensiondata.detail.timersextensionExt === true) {
-                onTimersExtensionMount()
+            const extensionData = addextensiondata.detail.extensionData;
+            if (extensionData) {
+                for (const extension of Extensions) {
+                    if (extensionData[extension.id]["local"] === true) {
+                        try {
+                            onAddExtension(extension.xml, extension.name, true);
+                        } catch (error) {
+                            console.error('Error injecting XML:', error);
+                        }
+                    }
+                }
             }
             if (addextensiondata.detail.customextensionExt === true) {
                 if (typeof window !== undefined) {
@@ -1027,6 +1024,16 @@
             </div>
             <div class="row-subsubmenus">
                 <div class="codeActionsWrapper">
+                    <div style="margin: 5px; display: flex; gap: 5px; align-items: center;">
+                        <div style="margin: 5px; display: flex; gap: 5px; align-items: center;">
+                            <img src="https://dinobuilder.vercel.app/images/warning.png" alt="" width="30" height="30">
+                            <p bind:this={warningsText}>0</p>
+                        </div>
+                        <div style="margin: 5px; display: flex; gap: 5px; align-items: center;">
+                            <img src="https://dinobuilder.vercel.app/images/error.png" alt="" width="30" height="30">
+                            <p bind:this={errorsText}>0</p>
+                        </div>
+                    </div>
                     <p style="margin-right: 12px"><b>Extension Code</b></p>
                     <StyledButton
                         on:click={() => {

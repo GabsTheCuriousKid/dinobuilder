@@ -108,7 +108,7 @@ function register() {
     }
     javascriptGenerator.forBlock[`${categoryPrefix}forEach`] = function (block) {
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
-        const TARGETS = javascriptGenerator.valueToCode(block, 'TARGETS', javascriptGenerator.ORDER_ATOMIC);
+        const TARGETS = javascriptGenerator.valueToCode(block, 'TARGETS', javascriptGenerator.ORDER_ATOMIC) ?? "undefined";
         const targetVar = block.getVars()[0];
 
         const code = `for (const ${targetVar} of ${TARGETS}) { ${BLOCKS} }`;

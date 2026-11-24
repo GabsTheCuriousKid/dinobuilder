@@ -396,8 +396,6 @@ function register() {
     // This needs init so i don't use registerBlock
     Blockly.Blocks[`${categoryPrefix}try_catch2`] = {
         init: function () {
-            this.errorVarName_ = compileVars.new();
-
             this.appendDummyInput()
                 .appendField('try');
             
@@ -416,7 +414,7 @@ function register() {
             this.setInputsInline(true);
             this.setColour(categoryColor);
 
-            this.getVars = () => [this.errorVarName_];
+            this.getVars = () => [compileVars.new()];
 
             this.ensureErrorReporter = () => {
                 const errorInput = this.getInput('ERROR_ARG');

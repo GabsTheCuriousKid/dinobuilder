@@ -3,8 +3,11 @@
     import { createEventDispatcher } from "svelte";
 
     import { get, set, remove } from '../../utils/GlobalTempVariables.js';
+    import extensions from '../../utils/extensionsList.js';
 
     const dispatch = createEventDispatcher();
+
+    let extensionData = {};
 
     let toggledCustomGUI = false;
     let extensionCode;
@@ -26,45 +29,26 @@
             toggleCustomGUI(false)
         }
         dispatch("completed", {
-            hiddenblocksExt: localhiddenblocksExt,
-            webextensionExt: localwebextensionExt,
-            effectsExt: localeffectsExt,
-            jsextensionExt: localjsextensionExt,
-            timersextensionExt: localtimersextensionExt,
+            extensionData,
             customextensionExt: localcustomextensionExt,
             extensionCode: localCustomExtensionCode,
         });
     }
 
-    export let hiddenblocksExt = false;
-    export let webextensionExt = false;
-    export let effectsExt = false;
-    export let jsextensionExt = false;
-    export let timersextensionExt = false;
+    for (const extension of extensions) {
+        extensionData[extension.id] = {};
+        extensionData[extension.id]["initialvalue"] = false;
+        extensionData[extension.id]["local"] = extensionData[extension.id]["initialvalue"];
+        extensionData[extension.id]["toggle"] = () => {
+            extensionData[extension.id]["local"] = !extensionData[extension.id]["local"];
+        }
+    }
+
+    export extensionData;
     export let customextensionExt = false;
-    let localhiddenblocksExt = hiddenblocksExt;
-    let localwebextensionExt = webextensionExt;
-    let localeffectsExt = effectsExt;
-    let localjsextensionExt = jsextensionExt;
-    let localtimersextensionExt = timersextensionExt
     let localcustomextensionExt = customextensionExt;
     let localCustomExtensionCode = '';
 
-    function toggleHidden() {
-        localhiddenblocksExt = !localhiddenblocksExt
-    }
-    function toggleWeb() {
-        localwebextensionExt = !localwebextensionExt
-    }
-    function toggleEffects() {
-        localeffectsExt = !localeffectsExt
-    }
-    function toggleJS() {
-        localjsextensionExt = !localjsextensionExt
-    }
-    function toggleTimers() {
-        localtimersextensionExt = !localtimersextensionExt
-    }
     function toggleCustom() {
         if (extensionCode == null || extensionCode == '') {
             localcustomextensionExt = false
@@ -111,51 +95,17 @@
                 <p>Note: After you add one or more Extensions, you can't remove the Extension/s unless you refresh the page!</p>
                 <textarea id="extensions_textarea" placeholder="Paste the Custom extension here" style="display: none;"></textarea>
             </div>
-            <button class="block-extension" on:click={toggleHidden}>
-                <img 
-                    alt="HiddenBlocksPNG"
-                    src="images/extensionIcons/HiddenBlocksIcon.png"
-                    height={50}
-                />
-                <div style="height:5px" />
-                {localhiddenblocksExt ? 'Selected' : 'Hidden Blocks'}
-            </button>
-            <button class="block-extension" on:click={toggleEffects}>
-                <img 
-                    alt="EffectsPNG"
-                    src="images/extensionIcons/looks-expansion.png"
-                    height={50}
-                />
-                <div style="height:5px" />
-                {localeffectsExt ? 'Selected' : 'Effects'}
-            </button>
-            <button class="block-extension" on:click={toggleTimers}>
-                <img 
-                    alt="TimersExtensionPNG"
-                    src="images/extensionIcons/NoIcon.png"
-                    height={50}
-                />
-                <div style="height:5px" />
-                {localtimersextensionExt ? 'Selected' : 'Timers (DinosaurMod Only)'}
-            </button>
-            <button class="block-extension" on:click={toggleWeb}>
-                <img 
-                    alt="WebExtensionPNG"
-                    src="images/extensionIcons/NoIcon.png"
-                    height={50}
-                />
-                <div style="height:5px" />
-                {localwebextensionExt ? 'Selected' : 'Site Runtime'}
-            </button>
-            <button class="block-extension" on:click={toggleJS}>
-                <img 
-                    alt="JSExtensionPNG"
-                    src="images/extensionIcons/NoIcon.png"
-                    height={50}
-                />
-                <div style="height:5px" />
-                {localjsextensionExt ? 'Selected' : 'Javascript'}
-            </button>
+            {#each extensions as extension, i}
+                <button class="block-extension" on:click={extensionData[extension.id]["toggle"]}>
+                    <img 
+                        alt={extension.img.alt}
+                        src={extension.img.src}
+                        height={50}
+                    />
+                    <div style="height:5px" />
+                    {extensionData[extension.id]["local"] ? 'Selected' : extension.name}
+                </button>
+            {/each}
             <button class="block-extension" on:click={() => toggleCustomGUI(true)}>
                 <img 
                     alt="CustomExtensionPNG"
