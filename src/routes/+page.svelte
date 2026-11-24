@@ -501,15 +501,15 @@
     }
 
     // code display & handling
-    function beautifyGeneratedCode(code) {
-        const beautified = beautify.js(code, {
+    async function beautifyGeneratedCode(code) {
+        const beautified = await beautify.js(code, {
             indent_size: 4,
             space_in_empty_paren: true,
         });
         return beautified;
     }
     async function displayGeneratedCode(code) {
-        const beautified = beautifyGeneratedCode(code);
+        const beautified = await beautifyGeneratedCode(code);
         const issues = await checkForErrorsInsideCode(beautified);
         displayIssues(issues);
         const highlighted = Prism.highlight(
