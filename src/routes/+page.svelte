@@ -502,7 +502,7 @@
 
     // code display & handling
     async function beautifyGeneratedCode(code) {
-        const beautified = beautifyJs(code, {
+        const beautified = beautify.js(code, {
             indent_size: 4,
             space_in_empty_paren: true,
         });
