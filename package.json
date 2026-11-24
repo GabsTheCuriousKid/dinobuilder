@@ -9,12 +9,13 @@
 		"bnp": "npm run build && npm run preview"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^5.0.0",
-		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/adapter-vercel": "^5.4.0",
+		"@sveltejs/kit": "^2.5.0",
+		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"eslint": "^9.0.0",
     	"eslint-plugin-svelte": "^2.0.0",
 		"svelte": "^4.0.5",
-		"vite": "^4.4.2",
+		"vite": "^5.4.0",
 		"vite-plugin-node-polyfills": "^0.24.0"
 	},
 	"type": "module",
