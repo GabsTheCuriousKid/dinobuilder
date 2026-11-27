@@ -37,7 +37,7 @@
                     },
                     {
                         "opcode": "block2",
-                        "text": "example inputs [arg1] [arg2] [arg3]",
+                        "text": "example inputs [arg1] [arg2] [arg3] [arg4]",
                         "type": dinoBuilder.BlockType.BLOCK,
                         "arguments": { // This defines the arguments
                             "arg1": {
@@ -51,6 +51,9 @@
                             "arg3": {
                                 "type": dinoBuilder.ArgumentType.COLOR,
                                 "acceptReporters": true // true means that this is a input where reporter blocks are allowed to be put in there. Therefore, this can have a check attribute.
+                            },
+                            "arg4": {
+                                "type": dinoBuilder.ArgumentType.BOOLEAN, // Booleans are the only inputs who don't have the acceptreporters nor the check attribute.
                             },
                         },
                         "returns": (block, javascriptGenerator) => {
@@ -73,7 +76,7 @@
                         }
                     },
                     {
-                        "opcode": "block4",
+                        "opcode": "block3",
                         "text": "example hidden block",
                         "type": dinoBuilder.BlockType.BLOCK,
                         "hideFromPalette": true, // this determines whether the block will appear in the palette or not

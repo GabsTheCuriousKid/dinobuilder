@@ -185,6 +185,7 @@ function defineXmlOfExtension(extensionClass) {
             }
         }
     }
+    console.log(xmlblocks) // debug
     return (headerCode + registryCode["categoryTop"] + xmlblocks + registryCode["categoryBottom"] + footerCode)
 }
 
@@ -242,7 +243,7 @@ function registerCustomExtension(extensionClass) {
         const argMap = block["arguments"] || {};
         for (const [argName, argDef] of Object.entries(argMap)) {
             const argType = argDef["type"];
-            const blocklyArgType = defineArg(argType, argDef["acceptReporters"] || false)
+            const blocklyArgType = defineArg(argType, !!argDef["acceptReporters"] || false)
             const arg = {
                 type: blocklyArgType,
                 name: argName
