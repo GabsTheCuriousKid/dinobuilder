@@ -59,7 +59,9 @@
                         "returns": (block, javascriptGenerator) => {
                             const arg1 = javascriptGenerator.valueToCode(block, "arg1", javascriptGenerator.ORDER_ATOMIC);
                             const arg2 = block.getFieldValue("arg2");
-                            return `console.log(${arg1}, "${arg2}")`;
+                            const arg3 = block.getInputTargetBlock('arg3').getFieldValue("COLOR");
+                            const arg4 = javascriptGenerator.valueToCode(block, "arg4", javascriptGenerator.ORDER_ATOMIC);
+                            return `console.log(${arg1 ?? "'hello '"}, "${arg2 ?? " there"}", "${arg3 ?? "#ff00ff"}", ${arg4 ?? false})`;
                         }
                     },
                     {
