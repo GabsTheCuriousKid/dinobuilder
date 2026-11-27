@@ -137,7 +137,39 @@ function defineXmlOfExtension(extensionClass) {
         if (!block["hideFromPalette"] === true) {
             if (blockid) {
                 const editedid = id + '_' + blockid;
-                xmlblocks += `<block type="${editedid}" data-extension="true" />`
+                const argMap = block["arguments"] || {};
+                if (argMap.length > 0) {
+                    xmlblocks += `<block type="${editedid}" data-extension="true">`
+                    for (const [argName, argDef] of Object.entries(argMap)) {
+                        if (!argDef["acceptReporters"]) continue;
+                        if (argDef["type"] == "boolean") continue;
+                        function defineArg(arg, defaultValue) {
+                            switch (arg) {
+                                default:
+                                case 'string':
+                                    return ['text', 'TEXT', defaultValue || ""];
+                                case 'number':
+                                    return ['math_number', 'NUM', defaultValue || 0];
+                                case 'color':
+                                    return ['color', 'COLOR', defaultValue || "#FF0000"];
+                                case 'angle':
+                                    return ['math_angle', 'NUM', defaultValue || 90];
+                            }
+                        }
+                        const argType = argDef["type"];
+                        const argDefault = argDef["defaultValue"];
+                        xmlblocks += `<value name="${argName}">`
+                        xmlblocks += `<shadow type="${defineArg(argType, argDefault)[0]}">`
+                        xmlblocks += `<field name="${defineArg(argTyp, argDefault)[1]}">`
+                        xmlblocks += `${defineArg(argTyp, argDefault)[2]}`
+                        xmlblocks += `</field>`
+                        xmlblocks += `</shadow>`
+                        xmlblocks += `</value>`
+                    }
+                    xmlblocks += `</block>`
+                } else {
+                    xmlblocks += `<block type="${editedid}" data-extension="true" />`
+                }
             }
             if (type == 'xml') {
                 const xml = block["xml"];
@@ -182,6 +214,22 @@ function registerCustomExtension(extensionClass) {
                     return 'Boolean'
             }
         }
+        function defineArg(arg, acceptReporters) {
+            switch (arg) {
+                default:
+                case 'boolean':
+                case 'empty':
+                    return 'input_value';
+                case 'string':
+                    return acceptReporters ? 'input_value' : 'field_input';
+                case 'number':
+                    return acceptReporters ? 'input_value' : 'field_number';
+                case 'color':
+                    return acceptReporters ? 'input_value' : 'field_colour_hsv_sliders';
+                case 'angle':
+                    return acceptReporters ? 'input_value' : 'field_angle';
+            }
+        }
 
         if (type == "label" || type == "gap" || type == "xml") {
             continue;
@@ -194,20 +242,28 @@ function registerCustomExtension(extensionClass) {
         const argMap = block["arguments"] || {};
         for (const [argName, argDef] of Object.entries(argMap)) {
             const argType = argDef["type"];
+            const blocklyArgType = defineArg(argType, argDef["acceptReporters"] || false)
             const arg = {
-                type: argType,
+                type: blocklyArgType,
                 name: argName
             };
 
-            if (argType === "input_value" || argType === "input_statement") {
+            if (blocklyArgType === "input_value" || blocklyArgType === "input_statement") {
                 if (argDef["check"]) {
                     arg.check = argDef["check"];
                 }
-            } else if (argType.startsWith("field_")) {
+                if (argType == "boolean") {
+                    arg.check = "Boolean";
+                }
+            } else if (blocklyArgType.startsWith("field_")) {
                 if (argType === "field_input") {
-                    arg.text = "";
+                    arg.text = argDef["defaultValue"] || "";
                 } else if (argType === "field_number") {
-                    arg.value = 0;
+                    arg.value = argDef["defaultValue"] || 0;
+                } else if (argType === "field_colour_hsv_sliders") {
+                    arg.colour = argDef["defaultValue"] || "#FF0000";
+                } else if (argType === "field_angle") {
+                    arg.value = argDef["defaultValue"] || 90;
                 }
             }
 

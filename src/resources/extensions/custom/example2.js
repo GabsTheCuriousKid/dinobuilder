@@ -37,7 +37,7 @@
                     },
                     {
                         "opcode": "block2",
-                        "text": "example inputs [arg1] [arg2]",
+                        "text": "example inputs [arg1] [arg2] [arg3]",
                         "type": dinoBuilder.BlockType.BLOCK,
                         "arguments": { // This defines the arguments
                             "arg1": {
@@ -45,7 +45,12 @@
                                 "check": "String" // This checks which type of reporter blocks are allowed to be put in the input. (e.x.: String allows string reporter blocks)
                             },
                             "arg2": {
-                                "type": dinoBuilder.ArgumentType.STRING // "STRING" is the Field input. Field inputs don't have a check attribute.
+                                "type": dinoBuilder.ArgumentType.STRING,
+                                "acceptReporters": false // false means that this is a Field input. Field inputs don't have a check attribute and don't support putting blocks in them.
+                            },
+                            "arg3": {
+                                "type": dinoBuilder.ArgumentType.COLOR,
+                                "acceptReporters": true // true means that this is a input where reporter blocks are allowed to be put in there. Therefore, this can have a check attribute.
                             },
                         },
                         "returns": (block, javascriptGenerator) => {
@@ -68,7 +73,7 @@
                         }
                     },
                     {
-                        "opcode": "block3",
+                        "opcode": "block4",
                         "text": "example hidden block",
                         "type": dinoBuilder.BlockType.BLOCK,
                         "hideFromPalette": true, // this determines whether the block will appear in the palette or not

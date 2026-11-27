@@ -248,11 +248,18 @@
 
         // ArgumentTypes
         window.dinoBuilder.ArgumentType = window.dinoBuilder.ArgumentType || {};
-        window.dinoBuilder.ArgumentType.EMPTY = "input_value";
-        window.dinoBuilder.ArgumentType.STRING = "field_input";
-        window.dinoBuilder.ArgumentType.NUMBER = "field_number";
-        window.dinoBuilder.ArgumentType.COLOR = "field_colour_hsv_sliders";
-        window.dinoBuilder.ArgumentType.ANGLE = "field_angle";
+        window.dinoBuilder.ArgumentType.EMPTY = "empty";
+        window.dinoBuilder.ArgumentType.STRING = "string";
+        window.dinoBuilder.ArgumentType.NUMBER = "number";
+        window.dinoBuilder.ArgumentType.COLOR = "color";
+        window.dinoBuilder.ArgumentType.ANGLE = "angle";
+        window.dinoBuilder.ArgumentType.BOOLEAN = "boolean";
+
+        // window.dinoBuilder.ArgumentType.EMPTY = "input_value";
+        // window.dinoBuilder.ArgumentType.STRING = "field_input";
+        // window.dinoBuilder.ArgumentType.NUMBER = "field_number";
+        // window.dinoBuilder.ArgumentType.COLOR = "field_colour_hsv_sliders";
+        // window.dinoBuilder.ArgumentType.ANGLE = "field_angle";
 
         // BlockTypes
         window.dinoBuilder.BlockType = window.dinoBuilder.BlockType || {};
