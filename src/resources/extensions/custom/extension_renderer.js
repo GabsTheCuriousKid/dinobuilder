@@ -160,8 +160,8 @@ function defineXmlOfExtension(extensionClass) {
                         const argDefault = argDef["defaultValue"];
                         xmlblocks += `<value name="${argName}">`
                         xmlblocks += `<shadow type="${defineArg(argType, argDefault)[0]}">`
-                        xmlblocks += `<field name="${defineArg(argTyp, argDefault)[1]}">`
-                        xmlblocks += `${defineArg(argTyp, argDefault)[2]}`
+                        xmlblocks += `<field name="${defineArg(argType, argDefault)[1]}">`
+                        xmlblocks += `${defineArg(argType, argDefault)[2]}`
                         xmlblocks += `</field>`
                         xmlblocks += `</shadow>`
                         xmlblocks += `</value>`
