@@ -138,6 +138,7 @@ function defineXmlOfExtension(extensionClass) {
             if (blockid) {
                 const editedid = id + '_' + blockid;
                 const argMap = block["arguments"] || {};
+                console.log(argMap, block["arguments"], block) // debug
                 if (argMap.length > 0) {
                     xmlblocks += `<block type="${editedid}" data-extension="true">`
                     for (const [argName, argDef] of Object.entries(argMap)) {
